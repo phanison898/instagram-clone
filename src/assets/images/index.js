@@ -24,3 +24,17 @@ const GooglePlaystore =
 
 const AppleStore =
   "https://www.instagram.com/static/images/appstore-install-badges/badge_ios_english-en.png/180ae7a0bcf7.png";
+
+export {
+  InstaMobileCase,
+  InstaMobileImage1,
+  InstaMobileFakeImage1,
+  InstaMobileImage2,
+  InstaMobileImage3,
+  InstaMobileImage4,
+  InstaMobileImage5,
+  InstaTextLogo,
+  MicrosoftLink,
+  GooglePlaystore,
+  AppleStore,
+};

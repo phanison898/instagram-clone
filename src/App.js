@@ -5,6 +5,7 @@ import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/login/LoginPage";
 import SignupPage from "./pages/signup/SignupPage";
 import ForgotPasswordPage from "./pages/forgot/ForgotPasswordPage";
+import PageNotFound from "./pages/pageNotFount/PageNotFound";
 
 const App = () => {
   const { theme } = useSelector((state) => state.util);
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/forgot" component={ForgotPasswordPage} />
+          <Route path="*" component={PageNotFound} />
         </Switch>
       </Router>
     </ThemeProvider>
