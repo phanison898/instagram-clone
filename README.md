@@ -36,7 +36,6 @@ In-Progress (Done with landing page)
 - Firebase
   - Google authentication
   - Facebook authentication
-  - Github authentication
   - Email authentication
   - Firestore
   - Storage
