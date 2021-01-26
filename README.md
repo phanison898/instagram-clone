@@ -15,7 +15,14 @@ Instagram web app clone using **`React`** , **`Redux`** , **`React Router`** , *
 
 ### Status
 
-In-Progress
+In-Progress (Done with landing page)
+
+### Preview
+
+<p>
+    <img width="80%" src="https://phanison898.github.io/images/other/instagram-clone.png" />
+</p>
+---
 
 ### Tech using
 
