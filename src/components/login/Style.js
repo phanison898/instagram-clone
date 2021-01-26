@@ -16,11 +16,11 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    margin: "10px 0",
+    marginTop: 15,
     padding: 10,
     paddingBottom: 0,
     border: "1px solid",
-    borderColor: "rgba(0,0,0,0.12)",
+    borderColor: "rgba(0,0,0,0.15)",
     borderRadius: 2,
     backgroundColor: "white",
     "& > *": {
@@ -34,7 +34,7 @@ export default makeStyles((theme) => ({
 
   top__img: {
     objectFit: "contain",
-    width: 175,
+    width: 180,
   },
 
   top__form: {
@@ -47,11 +47,15 @@ export default makeStyles((theme) => ({
       width: "85%",
       height: 38,
       margin: "5px 0",
-      padding: "0 5px",
+      padding: "0 10px",
       outlineWidth: 0,
       border: "1px solid rgba(0,0,0,0.1)",
       borderRadius: 2,
-      backgroundColor: "blue",
+      backgroundColor: "#fafafa",
+      "&::placeholder": {
+        fontSize: 12,
+        color: "grey",
+      },
     },
 
     "& > button": {
@@ -60,10 +64,9 @@ export default makeStyles((theme) => ({
       margin: "5px 0",
       outlineWidth: 0,
       border: 0,
-      borderRadius: 2,
+      borderRadius: 4,
       fontWeight: 600,
       color: "white",
-      backgroundColor: "#0095f6",
       cursor: "pointer",
     },
   },
@@ -74,20 +77,55 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     margin: "10px 0",
-    "& > *": {
-      margin: "5px 0",
+    "& > a": {
+      color: "#00376b",
+      fontSize: 12,
+      textDecoration: "none",
+      marginTop: 10,
     },
     "& > h4": {
-      color: "#385185",
-      marginTop: 15,
-    },
-    "& > h5": {
-      color: "grey",
-      fontWeight: 500,
-    },
-    "& > p": {
       color: "#00376b",
       fontSize: 14,
+      fontWeight: 600,
+      marginBottom: 10,
+    },
+  },
+
+  signup__linebreak: {
+    width: "85%",
+    display: "flex",
+    alignItems: "center",
+    margin: "10px 0",
+    "& > div": {
+      flex: 1,
+      height: 1.25,
+      backgroundColor: "grey",
+      opacity: 0.25,
+    },
+    "& > h4": {
+      fontSize: 11,
+      fontWeight: 600,
+      color: "#8f8f8f",
+      margin: "0 10px",
+    },
+  },
+
+  signup__buttons: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer",
+    margin: "7.5px 0",
+    "& > .MuiSvgIcon-root": {
+      color: "#00376b",
+      fontSize: 19,
+      margin: "0 5px",
+    },
+    "& > img": {
+      objectFit: "contain",
+      height: 15,
+      margin: "0 5px",
     },
   },
 
@@ -100,9 +138,19 @@ export default makeStyles((theme) => ({
     margin: "10px 0",
     padding: 10,
     border: "1px solid",
-    borderColor: "rgba(0,0,0,0.12)",
+    borderColor: "rgba(0,0,0,0.15)",
     borderRadius: 2,
     backgroundColor: "white",
+    "& > p": {
+      color: "black",
+      fontSize: 14,
+    },
+    "& > a": {
+      marginLeft: 5,
+      textDecoration: "none",
+      color: "#0095f6",
+      fontWeight: 400,
+    },
   },
 
   login__bottom: {
@@ -112,6 +160,10 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     marginTop: 10,
+    "& > p": {
+      color: "black",
+      fontSize: 14,
+    },
   },
 
   bottom__links: {

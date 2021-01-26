@@ -1,9 +1,9 @@
-export const LoginAction = userData = async (dispatch) => {
+export const LoginAction = (userData) => async (dispatch) => {
   dispatch({
     type: "LOGIN",
     payload: userData,
   });
-});
+};
 
 export const LogoutAction = () => async (dispatch) => {
   dispatch({

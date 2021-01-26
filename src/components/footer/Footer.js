@@ -6,8 +6,10 @@ const Footer = () => {
   return (
     <div className={classes.footer}>
       <div className={classes.footer__links}>
-        {footerTopLinks.map((link, i) => (
-          <p key={`top-link-${i}`}>{link}</p>
+        {footerTopLinks.map(({ title, link }, i) => (
+          <a href={link} target="_black" key={`top-link-${i}`}>
+            {title}
+          </a>
         ))}
       </div>
       <div className={classes.footer__links}>
@@ -15,6 +17,7 @@ const Footer = () => {
           <p key={`middle-link-${i}`}>{link}</p>
         ))}
       </div>
+
       <div className={classes.footer__links}>
         {footerBottomLinks.map((link, i) => (
           <p key={`bottom-link-${i}`}>{link}</p>
@@ -27,7 +30,7 @@ const Footer = () => {
 export default Footer;
 
 // Array of Instagram footer link texts
-const footerTopLinks = [
+const footerMiddleLinks = [
   "About",
   "Blog",
   "Jobs",
@@ -40,14 +43,12 @@ const footerTopLinks = [
   "Locations",
 ];
 
-const footerMiddleLinks = [
-  "Beauty",
-  "Dance & Performance",
-  "Fitness",
-  "Food & Drink",
-  "Home & Garden",
-  "Music",
-  "Visual Arts",
+const footerTopLinks = [
+  { title: "Github", link: "https://github.com/phanison898" },
+  { title: "Linkedin", link: "https://www.linkedin.com/in/phanison225/" },
+  { title: "Youtube", link: "https://www.youtube.com/channel/UC4FAldAo2Ow_2F447yggcqA" },
+  { title: "Instagram", link: "https://www.instagram.com/phanison225/" },
+  { title: "Twitter", link: "https://twitter.com/phanison225" },
 ];
 
-const footerBottomLinks = ["English ^", "O 2021 Instagram from Facebook"];
+const footerBottomLinks = ["English ▿", "© 2021 Instagram clone by Phanison"];

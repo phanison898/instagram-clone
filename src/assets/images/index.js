@@ -1,9 +1,12 @@
+import GoogleLogo from "../images/google.png";
+import Instagram from "../images/instagram.png";
+import Github from "../images/github.png";
+import Youtube from "../images/youtube.png";
+
 const InstaMobileCase =
   "https://www.instagram.com/static/images/homepage/home-phones.png/43cc71bb1b43.png";
 const InstaMobileImage1 =
   "https://www.instagram.com/static/images/homepage/screenshot3.jpg/f0c687aa6ec2.jpg";
-const InstaMobileFakeImage1 =
-  "https://www.instagram.com/static/images/homepage/screenshot5-2x.jpg/5e04169b9308.jpg";
 const InstaMobileImage2 =
   "https://www.instagram.com/static/images/homepage/screenshot4.jpg/842fe5699220.jpg";
 const InstaMobileImage3 =
@@ -28,7 +31,6 @@ const AppleStore =
 export {
   InstaMobileCase,
   InstaMobileImage1,
-  InstaMobileFakeImage1,
   InstaMobileImage2,
   InstaMobileImage3,
   InstaMobileImage4,
@@ -37,4 +39,8 @@ export {
   MicrosoftLink,
   GooglePlaystore,
   AppleStore,
+  GoogleLogo,
+  Instagram,
+  Github,
+  Youtube,
 };

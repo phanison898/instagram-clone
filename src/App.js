@@ -1,13 +1,19 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/login/LoginPage";
 import SignupPage from "./pages/signup/SignupPage";
 import ForgotPasswordPage from "./pages/forgot/ForgotPasswordPage";
 import PageNotFound from "./pages/pageNotFount/PageNotFound";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import DashBoard from "./components/dashboard/DashBoard";
+import { useEffect } from "react";
+import { auth } from "./firebase";
+import { LoginAction, LogoutAction } from "./store/actions/auth";
 
 const App = () => {
+  const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.util);
 
   const muiTheme = createMuiTheme({
@@ -15,6 +21,16 @@ const App = () => {
       type: theme ? "dark" : "light",
     },
   });
+
+  useEffect(() => {
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        dispatch(LoginAction(authUser));
+      } else {
+        dispatch(LogoutAction());
+      }
+    });
+  }, []);
 
   return (
     <ThemeProvider theme={muiTheme}>
@@ -24,6 +40,7 @@ const App = () => {
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/forgot" component={ForgotPasswordPage} />
+          <ProtectedRoute path="/:username" component={DashBoard} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </Router>

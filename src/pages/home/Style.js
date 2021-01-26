@@ -26,32 +26,6 @@ export default makeStyles((theme) => ({
     },
   },
 
-  mobile: {
-    display: "flex",
-
-    "& > img": {
-      objectFit: "contain",
-      height: "100%",
-    },
-  },
-
-  mobile__slider: {
-    width: "64%",
-    height: "69.5%",
-    position: "absolute",
-    right: 21,
-    bottom: 90,
-    zIndex: 10,
-    borderRadius: 5,
-    "& > img": {
-      position: "absolute",
-      top: 0,
-      objectFit: "contain",
-      height: "100%",
-      transition: "all 0.5s ease",
-    },
-  },
-
   body__right: {
     width: 350,
     display: "flex",
