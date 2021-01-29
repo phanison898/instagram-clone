@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  login: {
+  root: {
     width: 350,
     height: "100%",
     display: "flex",
@@ -10,7 +10,7 @@ export default makeStyles((theme) => ({
     padding: "10px 0",
   },
 
-  login__top: {
+  signup: {
     width: "100%",
     flex: 7,
     display: "flex",
@@ -28,10 +28,6 @@ export default makeStyles((theme) => ({
     },
   },
 
-  color: {
-    backgroundColor: "green",
-  },
-
   top__img: {
     marginTop: 10,
     "& > img": {
@@ -40,7 +36,7 @@ export default makeStyles((theme) => ({
     },
   },
 
-  top__form: {
+  signup__form: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
@@ -72,9 +68,16 @@ export default makeStyles((theme) => ({
       color: "white",
       cursor: "pointer",
     },
+
+    "& > p": {
+      width: "80%",
+      fontSize: 12,
+      color: "grey",
+      margin: "10px 0",
+    },
   },
 
-  top__signup: {
+  login: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
@@ -94,7 +97,7 @@ export default makeStyles((theme) => ({
     },
   },
 
-  signup__linebreak: {
+  login__linebreak: {
     width: "85%",
     display: "flex",
     alignItems: "center",
@@ -113,7 +116,7 @@ export default makeStyles((theme) => ({
     },
   },
 
-  signup__buttons: {
+  login__buttons: {
     width: "100%",
     display: "flex",
     justifyContent: "center",
@@ -132,7 +135,7 @@ export default makeStyles((theme) => ({
     },
   },
 
-  login__middle: {
+  login__container: {
     width: "100%",
     flex: 1,
     display: "flex",
@@ -156,7 +159,7 @@ export default makeStyles((theme) => ({
     },
   },
 
-  login__bottom: {
+  app_store: {
     width: "100%",
     flex: 2,
     display: "flex",
@@ -169,7 +172,7 @@ export default makeStyles((theme) => ({
     },
   },
 
-  bottom__links: {
+  app_store__links: {
     width: "100%",
     display: "flex",
     justifyContent: "center",

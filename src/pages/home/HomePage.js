@@ -1,30 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
-import InstaMobile from "../../components/instaMobile/InstaMobile";
-import Login from "../../components/login/Login";
-import Footer from "../../components/footer/Footer";
+import { Switch, Route } from "react-router-dom";
+import ProtectedRoute from "../../components/protectedRoute/ProtectedRoute";
+import Header from "../../components/header/Header";
+import DashBoard from "../../components/dashboard/DashBoard";
 import Style from "./Style";
 
-const HomePage = () => {
+const HomePage = (props) => {
   const classes = Style();
-  const { displayName } = useSelector((state) => state.user);
+  const { url } = props.match;
 
-  return displayName ? (
-    <Redirect to={`/${displayName}`} />
-  ) : (
+  return (
     <div className={classes.home}>
-      <div className={classes.home__body}>
-        <div className={classes.body__left}>
-          <InstaMobile />
-        </div>
-        <div className={classes.body__right}>
-          <Login />
-        </div>
-      </div>
-      <div className={classes.home__footer}>
-        <Footer />
-      </div>
+      <Switch>
+        <ProtectedRoute path={`${url}`} component={Header} />
+        <ProtectedRoute path={`${url}/profile`} component={() => <h2>Hello</h2>} />
+        <Route path={`${url}/*`} component={() => <h2>404</h2>} />
+      </Switch>
     </div>
   );
 };

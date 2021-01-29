@@ -7,21 +7,39 @@ import { LoginAction } from "../../store/actions/auth";
 import * as images from "../../assets/images";
 import Style from "./Style";
 
-const Login = () => {
+const Signup = () => {
   const history = useHistory();
   const classes = Style();
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const submit = (e) => {
     e.preventDefault();
 
     auth
-      .signInWithEmailAndPassword(email, password)
-      .then((authUser) => dispatch(LoginAction(authUser.user)))
-      .catch((error) => alert(error));
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) =>
+        authUser.user
+          .updateProfile({
+            displayName: fullName,
+          })
+          .then(() =>
+            dispatch(
+              LoginAction({
+                email: authUser.user.email,
+                uid: authUser.user.uid,
+                displayName: authUser.user.displayName,
+                username: username,
+              })
+            )
+          )
+      )
+      .catch((error) => setError(error), alert(error));
   };
 
   const facebookLogin = () => {
@@ -44,18 +62,48 @@ const Login = () => {
       .catch((error) => alert(error));
   };
 
+  const LoginWith = () => {
+    return (
+      <div className={classes.login}>
+        <h4>Sign up to see photos and videos</h4>
+        <h4>from your friends.</h4>
+        <div className={classes.login__buttons}>
+          <FacebookIcon onClick={facebookLogin} />
+          <img src={images.GoogleLogo} onClick={googleLogin} alt="google-sign-in" />
+        </div>
+        <section className={classes.login__linebreak}>
+          <div></div>
+          <h4>OR</h4>
+          <div></div>
+        </section>
+      </div>
+    );
+  };
+
   return (
-    <div className={classes.login}>
-      <div className={classes.login__top}>
+    <div className={classes.root}>
+      <div className={classes.signup}>
         <Link to="/" className={classes.top__img}>
           <img src={images.InstaTextLogo} alt="logo" />
         </Link>
-        <form className={classes.top__form} onSubmit={submit}>
+        <LoginWith />
+
+        <form className={classes.signup__form} onSubmit={submit}>
           <input
             type="email"
-            placeholder="Phone number, username, or email"
+            placeholder="Mobile Number or email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+          <input
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <input
             type="password"
@@ -70,31 +118,20 @@ const Login = () => {
                 email.length > 6 && password > 6 ? "#0095f6" : "rgb(0 149 246 / 30%)",
             }}
           >
-            Log In
+            Sign Up
           </button>
+          <p>By signing up, you agree to our Terms , Data Policy and Cookies Policy .</p>
         </form>
-        <div className={classes.top__signup}>
-          <section className={classes.signup__linebreak}>
-            <div></div>
-            <h4>OR LOGIN WITH</h4>
-            <div></div>
-          </section>
-          <div className={classes.signup__buttons}>
-            <FacebookIcon onClick={facebookLogin} />
-            <img src={images.GoogleLogo} onClick={googleLogin} alt="google-sign-in" />
-          </div>
-          <Link to="/forgot">Forgot password?</Link>
-        </div>
       </div>
 
-      <div className={classes.login__middle}>
-        <p>Don't have an account? </p>
-        <Link to="/signup">Sign up</Link>
+      <div className={classes.login__container}>
+        <p>Have an account? </p>
+        <Link to="/login">Log In</Link>
       </div>
 
-      <div className={classes.login__bottom}>
+      <div className={classes.app_store}>
         <p>Get the app.</p>
-        <div className={classes.bottom__links}>
+        <div className={classes.app_store__links}>
           <img src={images.AppleStore} alt="apple-app-store" />
           <img src={images.GooglePlaystore} alt="google-play-store" />
         </div>
@@ -103,4 +140,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

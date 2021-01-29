@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import HomePage from "./pages/home/HomePage";
+import LandingPage from "./pages/landing/LandingPage";
 import LoginPage from "./pages/login/LoginPage";
 import SignupPage from "./pages/signup/SignupPage";
 import ForgotPasswordPage from "./pages/forgot/ForgotPasswordPage";
+import HomePage from "./pages/home/HomePage";
 import PageNotFound from "./pages/pageNotFount/PageNotFound";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import DashBoard from "./components/dashboard/DashBoard";
@@ -36,11 +37,11 @@ const App = () => {
     <ThemeProvider theme={muiTheme}>
       <Router>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={LandingPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/forgot" component={ForgotPasswordPage} />
-          <ProtectedRoute path="/:username" component={DashBoard} />
+          <ProtectedRoute path="/:username" component={HomePage} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </Router>
