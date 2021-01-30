@@ -5,4 +5,11 @@ export default makeStyles((theme) => ({
     width: "100vw",
     height: "auto",
   },
+
+  body: {
+    width: "100vw",
+    height: "auto",
+    display: "flex",
+    justifyContent: "center",
+  },
 }));

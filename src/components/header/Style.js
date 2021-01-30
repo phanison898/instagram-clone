@@ -11,6 +11,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     backgroundColor: "white",
     borderBottom: "1px solid rgba(219,219,219,1)",
+    zIndex: 10,
   },
   nav: {
     minWidth: 960,

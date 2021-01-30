@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Avatar } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
@@ -15,9 +15,10 @@ import { ReactComponent as Switch } from "../../assets/icons/switch.svg";
 import { auth } from "../../firebase";
 import Style from "./Style";
 
-const Header = (props) => {
+const Header = ({ path }) => {
   const classes = Style();
-  const { url, path } = props.match;
+
+  // const { pathname: path } = useLocation();
 
   const user = useSelector((state) => state.user);
   const photoURL = user?.photoURL;

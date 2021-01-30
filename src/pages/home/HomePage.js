@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import ProtectedRoute from "../../components/protectedRoute/ProtectedRoute";
 import Header from "../../components/header/Header";
+import Feed from "../../components/feed/Feed";
 import DashBoard from "../../components/dashboard/DashBoard";
 import Style from "./Style";
 
@@ -11,11 +12,13 @@ const HomePage = (props) => {
 
   return (
     <div className={classes.home}>
-      <Switch>
-        <ProtectedRoute path={`${url}`} component={Header} />
-        <ProtectedRoute path={`${url}/profile`} component={() => <h2>Hello</h2>} />
-        <Route path={`${url}/*`} component={() => <h2>404</h2>} />
-      </Switch>
+      <Header path={url} />
+      <div className={classes.body}>
+        <Switch>
+          <ProtectedRoute exact path={`${url}`} component={Feed} />
+          <ProtectedRoute path={`${url}/profile`} component={DashBoard} />
+        </Switch>
+      </div>
     </div>
   );
 };
