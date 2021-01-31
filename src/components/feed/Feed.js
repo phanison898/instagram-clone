@@ -1,6 +1,7 @@
 import React from "react";
 import Stories from "../../components/stories/Stories";
 import Posts from "../../components/posts/Posts";
+import Sidebar from "../../components/sidebar/Sidebar";
 import Style from "./Style";
 
 const Feed = () => {
@@ -15,7 +16,9 @@ const Feed = () => {
           <Posts />
         </div>
       </div>
-      <div className={classes.sidebar}></div>
+      <div className={classes.sidebar}>
+        <Sidebar />
+      </div>
     </div>
   );
 };

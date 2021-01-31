@@ -55,24 +55,18 @@ export default makeStyles((theme) => ({
     },
   },
 
-  post__body: {
+  post__media: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
   },
 
-  body__description: {
-    display: "flex",
-    alignItems: "center",
-    padding: 10,
-    paddingTop: 5,
-  },
-
-  body__image: {
+  media__image: {
     width: "100%",
     display: "flex",
     alignItems: "center",
     overflow: "hidden",
+    cursor: "pointer",
     "& > img": {
       width: "100%",
       height: "auto",
@@ -84,72 +78,96 @@ export default makeStyles((theme) => ({
     },
   },
 
-  post__footer: {
+  post__reactions: {
+    position: "relative",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: 10,
+    "& > svg": {
+      marginRight: 10,
+      cursor: "pointer",
+    },
+    "& > svg:nth-child(4)": {
+      position: "absolute",
+      right: 10,
+      marginRight: 0,
+    },
+  },
+
+  post__likes: {
+    width: "100%",
+    display: "flex",
+    padding: "0 10px",
+    fontSize: 14,
+    fontWeight: 600,
+  },
+
+  post__description: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    padding: "5px 10px",
+    "& > p": {
+      "& > span": {
+        fontWeight: 600,
+      },
+    },
+  },
+
+  post__comments: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    padding: 10,
-    paddingBottom: 0,
-  },
-
-  footer__stats: {
-    display: "flex",
-    alignItems: "center",
-    paddingBottom: 10,
-    borderBottom: `1px solid ${theme.palette.type === "dark" ? darkSecondary : "lightgrey"}`,
-    "& > div": {
-      display: "flex",
-      "& > .MuiSvgIcon-root": {
-        fontSize: 16,
-      },
-    },
-    "& > h4": {
-      color: theme.palette.type === "dark" && textDark,
+    padding: "0 10px",
+    "& > p": {
       fontSize: 14,
-      marginLeft: 2,
-      fontWeight: 500,
+      color: "lightgrey",
+    },
+    "& > div": {
+      position: "relative",
+      display: "flex",
+      alignItems: "center",
+      "& > p": {
+        marginLeft: 5,
+      },
+      "& > svg": {
+        position: "absolute",
+        right: 0,
+        width: 15,
+        height: 15,
+      },
     },
   },
 
-  footer__actions: {
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    padding: 4,
+  post__time: {
+    width: "100%",
+    padding: 10,
+    fontSize: 12,
+    color: "lightgrey",
   },
 
-  action__icons: {
-    flex: 1,
+  post__comment__box: {
+    width: "100%",
+    height: 50,
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
-    marginRight: 2,
-    padding: "5px 0",
-    borderRadius: 4,
-    cursor: "pointer",
-    transition: "all 0.3s ease",
-    color: theme.palette.type === "dark" ? "lightgrey" : darkSecondary,
-    "&:hover": {
-      backgroundColor: theme.palette.type === "dark" ? darkSecondary : "lightgrey",
+    padding: "0 10px",
+    borderTop: "1px solid rgba(219,219,219,1)",
+
+    "& > input": {
+      flex: 1,
+      border: 0,
+      outlineWidth: 0,
+      margin: "0 10px",
     },
-    [theme.breakpoints.down("xs")]: {
-      "&:hover": {
-        backgroundColor: "transparent",
-      },
-    },
-    "& > .MuiSvgIcon-root": {
-      color: theme.palette.type === "dark" && textDark,
-      [theme.breakpoints.down("xs")]: {
-        fontSize: 16,
-      },
-    },
-    "& > h4": {
-      color: theme.palette.type === "dark" && textDark,
-      marginLeft: 4,
-      [theme.breakpoints.down("xs")]: {
-        fontSize: 12,
-      },
+
+    "& > button": {
+      border: 0,
+      backgroundColor: "transparent",
+      padding: 2,
     },
   },
 }));

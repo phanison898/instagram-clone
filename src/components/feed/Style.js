@@ -12,12 +12,13 @@ export default makeStyles((theme) => ({
       padding: "0 10px",
     },
     height: "auto",
+    display: "flex",
+    paddingTop: 30,
   },
 
   main: {
     width: 620,
     height: "100%",
-    paddingTop: 20,
   },
 
   stories: {
@@ -29,5 +30,11 @@ export default makeStyles((theme) => ({
   posts: {
     width: "100%",
     height: "auto",
+  },
+
+  sidebar: {
+    position: "relative",
+    flex: 1,
+    height: "100%",
   },
 }));
