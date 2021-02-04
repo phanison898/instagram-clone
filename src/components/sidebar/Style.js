@@ -12,14 +12,20 @@ export default makeStyles((theme) => ({
   userinfo: {
     display: "flex",
     alignItems: "center",
-    padding: 10,
+    marginBottom: 10,
     "& > .MuiAvatar-root": {
       width: 60,
       height: 60,
+      marginLeft: 10,
     },
     "& > section": {
-      marginLeft: 10,
+      marginLeft: 15,
+      "& > h4": {
+        fontSize: 14,
+        fontWeight: 500,
+      },
       "& > p": {
+        fontSize: 13,
         color: "grey",
       },
     },
@@ -29,19 +35,22 @@ export default makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    padding: 10,
   },
 
   follow__heading: {
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
-    padding: "10px 0",
+    alignItems: "center",
+    padding: 10,
+    paddingRight: 0,
     "& > p": {
       color: "grey",
+      fontSize: 15,
     },
-    "& > h4": {
-      fontSize: 14,
+    "& > p:nth-child(2)": {
+      fontSize: 12,
+      color: "black",
     },
   },
 
@@ -54,9 +63,22 @@ export default makeStyles((theme) => ({
   follower: {
     width: "100%",
     display: "flex",
-    padding: "5px 0",
+    alignItems: "center",
+    padding: "8px 0",
+    "& > .MuiAvatar-root": {
+      width: 32,
+      height: 32,
+    },
     "& > div": {
       marginLeft: 10,
+      "& > h4": {
+        fontSize: 14,
+        fontWeight: 500,
+      },
+      "& > p": {
+        fontSize: 12,
+        color: "grey",
+      },
     },
     "& > h4": {
       flex: 1,
@@ -64,7 +86,7 @@ export default makeStyles((theme) => ({
       alignItems: "center",
       justifyContent: "flex-end",
       color: "#0095f6",
-      fontSize: 14,
+      fontSize: 12,
     },
   },
 
@@ -73,27 +95,27 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
+    marginTop: 30,
 
     "& > p": {
       fontSize: 10,
       fontWeight: 200,
       color: "grey",
       cursor: "pointer",
-      marginTop: 20,
+      marginTop: 10,
       padding: "0 10px",
     },
 
     "& > div": {
-      width: "100%",
+      width: "80%",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      marginTop: 20,
       "& > a": {
         textDecoration: "none",
         fontSize: 10,
         fontWeight: 200,
-        margin: "0 10px",
         color: "grey",
         cursor: "pointer",
       },

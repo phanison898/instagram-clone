@@ -2,16 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   feed: {
-    minWidth: 960,
-    [theme.breakpoints.down("md")]: {
-      minWidth: 850,
-    },
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-      minWidth: "auto",
-      padding: "0 10px",
-    },
-    height: "auto",
+    width: "100%",
     display: "flex",
     paddingTop: 30,
   },
@@ -19,6 +10,10 @@ export default makeStyles((theme) => ({
   main: {
     width: 620,
     height: "100%",
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+      flex: 1,
+    },
   },
 
   stories: {
@@ -33,8 +28,11 @@ export default makeStyles((theme) => ({
   },
 
   sidebar: {
-    position: "relative",
     flex: 1,
-    height: "100%",
+    padding: 10,
+    paddingLeft: 30,
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
 }));

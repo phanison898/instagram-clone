@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import { Link, useHistory } from "react-router-dom";
-import { auth, facebookProvider, googleProvider } from "../../firebase";
+import db, { auth, facebookProvider, googleProvider } from "../../firebase";
 import { LoginAction } from "../../store/actions/auth";
 import * as images from "../../assets/images";
 import Style from "./Style";
@@ -14,6 +14,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
 
   const submit = (e) => {
     e.preventDefault();
@@ -24,10 +25,13 @@ const Login = () => {
       .catch((error) => alert(error));
   };
 
+  const storeUserDetails = async (user) => {};
+
   const facebookLogin = () => {
     auth
       .signInWithPopup(facebookProvider)
       .then((result) => {
+        storeUserDetails(result.user);
         dispatch(LoginAction(result.user));
         history.push(`/${result.user.displayName}`);
       })
@@ -38,6 +42,7 @@ const Login = () => {
     auth
       .signInWithPopup(googleProvider)
       .then((result) => {
+        // storeUserDetails(result.user);
         dispatch(LoginAction(result.user));
         history.push(`/${result.user.displayName}`);
       })

@@ -45,7 +45,7 @@ export default makeStyles((theme) => ({
     justifyContent: "center",
     marginLeft: 10,
     "& > h4": {
-      fontSize: 16,
+      fontSize: 15,
       fontWeight: 600,
       marginBottom: 3,
     },
@@ -61,20 +61,16 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
   },
 
-  media__image: {
+  media__container: {
     width: "100%",
     display: "flex",
     alignItems: "center",
     overflow: "hidden",
-    cursor: "pointer",
     "& > img": {
       width: "100%",
       height: "auto",
       objectFit: "contain",
       transition: "all 0.5s ease",
-      "&:hover": {
-        transform: "scale(1.1)",
-      },
     },
   },
 
@@ -100,7 +96,7 @@ export default makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     padding: "0 10px",
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 600,
   },
 
@@ -110,6 +106,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     padding: "5px 10px",
     "& > p": {
+      fontSize: 15,
       "& > span": {
         fontWeight: 600,
       },
@@ -122,9 +119,11 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     padding: "0 10px",
+    fontSize: 15,
     "& > p": {
-      fontSize: 14,
-      color: "lightgrey",
+      fontSize: 13,
+      color: "grey",
+      padding: "5px 0",
     },
     "& > div": {
       position: "relative",
@@ -146,7 +145,7 @@ export default makeStyles((theme) => ({
     width: "100%",
     padding: 10,
     fontSize: 12,
-    color: "lightgrey",
+    color: "grey",
   },
 
   post__comment__box: {
@@ -162,12 +161,18 @@ export default makeStyles((theme) => ({
       border: 0,
       outlineWidth: 0,
       margin: "0 10px",
+      "&::placeholder": {
+        color: "grey",
+      },
     },
 
     "& > button": {
       border: 0,
       backgroundColor: "transparent",
       padding: 2,
+      outlineWidth: 0,
+      fontWeight: 600,
+      color: "rgb(0 149 246 / 30%)",
     },
   },
 }));

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import FlipMove from "react-flip-move";
 import Post from "./post/Post";
@@ -6,12 +7,22 @@ import db from "../../firebase";
 
 const Posts = () => {
   const classes = Style();
+  const { uid } = useSelector((state) => state.user);
 
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState();
 
   useEffect(() => {
+    db.collection("users")
+      .where("uid", "==", uid)
+      .onSnapshot((snap) => {
+        snap.docs.map((doc) => {
+          console.log(doc.data().followers[1]);
+        });
+      });
+    console.log(user);
     db.collection("posts")
-      .orderBy("timestamp", "desc")
+      .where("uid", "==", uid)
       .onSnapshot((snap) => setPosts(snap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))));
   }, []);
 
@@ -19,7 +30,15 @@ const Posts = () => {
     <div className={classes.posts}>
       <FlipMove style={{ width: "100%" }}>
         {Array.from(posts).map((post) => (
-          <Post key={post.id} profile={post.data.profile} username={post.data.username} timestamp={post.data.timestamp} description={post.data.description} fileType={post.data.fileType} fileData={post.data.fileData} />
+          <Post
+            key={post.id}
+            profile={user?.photoURL}
+            username={user?.displayName}
+            timestamp={post.data.timestamp}
+            description={post.data.title}
+            fileType={post.data.mediaType}
+            fileData={post.data.media}
+          />
         ))}
       </FlipMove>
     </div>

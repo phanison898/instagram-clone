@@ -5,6 +5,9 @@ import { Link, useHistory } from "react-router-dom";
 import { auth, facebookProvider, googleProvider } from "../../firebase";
 import { LoginAction } from "../../store/actions/auth";
 import * as images from "../../assets/images";
+import firebase from "firebase";
+import { v4 as uuid } from "uuid";
+import db, { storage } from "../../firebase";
 import Style from "./Style";
 
 const Signup = () => {
@@ -28,7 +31,18 @@ const Signup = () => {
           .updateProfile({
             displayName: fullName,
           })
-          .then(() =>
+          .then(() => {
+            db.collection("users")
+              .add({
+                uid: authUser.user.uid,
+                email: authUser.user.email,
+                displayName: authUser.user.displayName,
+                username: username,
+                photoURL: authUser.user.photoURL,
+                followers: 0,
+                following: 0,
+              })
+              .then(() => {});
             dispatch(
               LoginAction({
                 email: authUser.user.email,
@@ -36,8 +50,8 @@ const Signup = () => {
                 displayName: authUser.user.displayName,
                 username: username,
               })
-            )
-          )
+            );
+          })
       )
       .catch((error) => setError(error), alert(error));
   };

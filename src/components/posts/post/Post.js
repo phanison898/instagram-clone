@@ -8,6 +8,7 @@ import { ReactComponent as Chat } from "../../../assets/icons/chat.svg";
 import { ReactComponent as Saved } from "../../../assets/icons/saved.svg";
 import { ReactComponent as Smile } from "../../../assets/icons/smile.svg";
 import ReactPlayer from "react-player";
+import ReactTimeago from "react-timeago";
 import Style from "./Style";
 
 const Post = forwardRef(
@@ -23,6 +24,7 @@ const Post = forwardRef(
 
     return (
       <Paper ref={ref} className={classes.post}>
+        {/* Post header */}
         <div className={classes.post__header}>
           <Avatar src={profile} />
           <div className={classes.header__info}>
@@ -31,9 +33,10 @@ const Post = forwardRef(
           <MoreHorizOutlinedIcon />
         </div>
 
+        {/* Post media */}
         <div className={classes.post__media}>
           {fileData && (
-            <div className={classes.media__image} onClick={() => setPlay(!play)}>
+            <div className={classes.media__container} onClick={() => setPlay(!play)}>
               {fileType === "image" ? (
                 <img src={fileData} alt="post" />
               ) : (
@@ -43,6 +46,7 @@ const Post = forwardRef(
           )}
         </div>
 
+        {/* Post reactions (icons) */}
         <div className={classes.post__reactions}>
           <Heart />
           <Chat />
@@ -50,16 +54,19 @@ const Post = forwardRef(
           <Saved />
         </div>
 
+        {/* Post likes count */}
         <div className={classes.post__likes}>
           <p>{334555} likes</p>
         </div>
 
+        {/* Post description */}
         <div className={classes.post__description}>
           <p>
             <span>{username}</span> {description}
           </p>
         </div>
 
+        {/* Post comments */}
         <div className={classes.post__comments}>
           <p>View all {555} comments</p>
           <div>
@@ -74,17 +81,28 @@ const Post = forwardRef(
           </div>
         </div>
 
-        <div className={classes.post__time}>4 Hours ago</div>
+        {/* Post uploaded timeago */}
+        <div className={classes.post__time}>
+          <ReactTimeago date={new Date(timestamp?.toDate()).toUTCString()} units="minute" />
+        </div>
 
+        {/* comment form */}
         <form className={classes.post__comment__box} onSubmit={handleSubmit}>
           <Smile />
           <input
-            placeholder="enter a comment"
+            placeholder="Add a comment"
             name="comment"
             value={comment}
+            autoComplete="off"
             onChange={(e) => setComment(e.target.value)}
           />
-          <button type="submit">Post</button>
+          <button
+            type="submit"
+            disabled={comment === ""}
+            style={comment !== "" ? { color: "#0095f6", cursor: "pointer" } : {}}
+          >
+            Post
+          </button>
         </form>
       </Paper>
     );

@@ -12,13 +12,14 @@ import { ReactComponent as Profile } from "../../assets/icons/profile.svg";
 import { ReactComponent as Saved } from "../../assets/icons/saved.svg";
 import { ReactComponent as Settings } from "../../assets/icons/settings.svg";
 import { ReactComponent as Switch } from "../../assets/icons/switch.svg";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 import { auth } from "../../firebase";
 import Style from "./Style";
 
 const Header = ({ path }) => {
   const classes = Style();
-
-  // const { pathname: path } = useLocation();
 
   const user = useSelector((state) => state.user);
   const photoURL = user?.photoURL;
@@ -68,14 +69,14 @@ const Header = ({ path }) => {
           <Link to={`${path}`} className={classes.link}>
             <Home />
           </Link>
-          <div className={classes.link}>
-            <Inbox />
-          </div>
-          <div className={classes.link}>
+          <Link to={`${path}/people`} className={classes.link}>
             <Explor />
-          </div>
+          </Link>
+          <Link to={`${path}/create`} className={classes.link}>
+            <AddCircleIcon />
+          </Link>
           <div className={classes.link}>
-            <Heart />
+            <BrightnessHighIcon />
           </div>
           <div className={classes.link}>
             <Avatar src={photoURL} onClick={toggleDropDown} />

@@ -16,10 +16,11 @@ const Sidebar = () => {
           <p>{displayName}</p>
         </section>
       </div>
+
       <div className={classes.follow}>
         <div className={classes.follow__heading}>
           <p>Suggestions for you</p>
-          <h4>see all</h4>
+          <p>See all</p>
         </div>
         <div className={classes.followers}>
           {usernames.map((username, i) => (
@@ -34,6 +35,7 @@ const Sidebar = () => {
           ))}
         </div>
       </div>
+
       <div className={classes.about}>
         <div>
           {footerTopLinks.map(({ title, link }, i) => (
