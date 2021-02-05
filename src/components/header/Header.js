@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { Link, useLocation, useRouteMatch } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Avatar } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Avatar, Paper } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { InstaTextLogo } from "../../assets/images";
 import { ReactComponent as Home } from "../../assets/icons/home.svg";
-import { ReactComponent as Inbox } from "../../assets/icons/inbox.svg";
 import { ReactComponent as Explor } from "../../assets/icons/explor.svg";
-import { ReactComponent as Heart } from "../../assets/icons/heart.svg";
 import { ReactComponent as Profile } from "../../assets/icons/profile.svg";
 import { ReactComponent as Saved } from "../../assets/icons/saved.svg";
 import { ReactComponent as Settings } from "../../assets/icons/settings.svg";
@@ -15,13 +13,19 @@ import { ReactComponent as Switch } from "../../assets/icons/switch.svg";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
+import { ToggleTheme } from "../../store/actions/util";
 import { auth } from "../../firebase";
 import Style from "./Style";
 
 const Header = ({ path }) => {
   const classes = Style();
 
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user);
+
+  const { theme } = useSelector((state) => state.util);
+
   const photoURL = user?.photoURL;
 
   const [isDrapdownOpen, setIsDrapdownOpen] = useState(false);
@@ -32,7 +36,7 @@ const Header = ({ path }) => {
 
   const Dropdown = () => {
     return (
-      <div className={classes.dropdown}>
+      <Paper className={classes.dropdown}>
         <div className={classes.arrow} />
         <Link to={`${path}/profile`} className={classes.option} onClick={toggleDropDown}>
           <Profile />
@@ -53,38 +57,49 @@ const Header = ({ path }) => {
         <div className={classes.option} onClick={() => auth.signOut()}>
           <p>Logout</p>
         </div>
-      </div>
+      </Paper>
     );
   };
 
   return (
-    <div className={classes.header}>
-      <nav className={classes.nav}>
-        <img className={classes.logo} src={InstaTextLogo} alt="instagram-logo" />
-        <div className={classes.search}>
-          <SearchIcon />
-          <input placeholder="Search" />
+    <Paper className={classes.root}>
+      <nav className={classes.header}>
+        <Link to={`${path}`} className={classes.header__logo}>
+          <img src={InstaTextLogo} alt="instagram-logo" />
+        </Link>
+
+        <div className={classes.header__search}>
+          <section>
+            <SearchIcon />
+          </section>
+          <input placeholder="Search" disabled />
         </div>
-        <div className={classes.links}>
-          <Link to={`${path}`} className={classes.link}>
+
+        <div className={classes.header__nav}>
+          <Link to={`${path}`} className={classes.nav__link}>
             <Home />
           </Link>
-          <Link to={`${path}/people`} className={classes.link}>
+
+          <Link to={`${path}/users`} className={classes.nav__link}>
             <Explor />
           </Link>
-          <Link to={`${path}/create`} className={classes.link}>
+
+          <Link to={`${path}/create`} className={classes.nav__link}>
             <AddCircleIcon />
           </Link>
-          <div className={classes.link}>
-            <BrightnessHighIcon />
+
+          <div className={classes.nav__link} onClick={() => dispatch(ToggleTheme())}>
+            {theme ? <Brightness4Icon /> : <BrightnessHighIcon />}
           </div>
-          <div className={classes.link}>
+
+          <div className={classes.nav__link}>
             <Avatar src={photoURL} onClick={toggleDropDown} />
           </div>
+
           {isDrapdownOpen && <Dropdown />}
         </div>
       </nav>
-    </div>
+    </Paper>
   );
 };
 

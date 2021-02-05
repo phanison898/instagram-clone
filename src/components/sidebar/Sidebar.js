@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Avatar } from "@material-ui/core";
+import User from "../../components/users/user/User";
 import Style from "./Style";
 
 const Sidebar = () => {
@@ -8,8 +10,8 @@ const Sidebar = () => {
   const { photoURL, displayName, email } = useSelector((state) => state.user);
 
   return (
-    <div className={classes.sidebar}>
-      <div className={classes.userinfo}>
+    <div className={classes.root}>
+      <div className={classes.logged__user}>
         <Avatar src={photoURL} />
         <section>
           <h4>{email.split("@")[0]}</h4>
@@ -17,21 +19,14 @@ const Sidebar = () => {
         </section>
       </div>
 
-      <div className={classes.follow}>
-        <div className={classes.follow__heading}>
+      <div className={classes.followUsers}>
+        <div className={classes.followUsers__heading}>
           <p>Suggestions for you</p>
-          <p>See all</p>
+          <Link to={`/${displayName}/users`}>See all</Link>
         </div>
-        <div className={classes.followers}>
-          {usernames.map((username, i) => (
-            <div key={i} className={classes.follower}>
-              <Avatar src={`https://randomuser.me/api/portraits/men/${i + 1}.jpg`} />
-              <div>
-                <h4>{username}</h4>
-                <p>{username}</p>
-              </div>
-              <h4>Follow</h4>
-            </div>
+        <div className={classes.followUsers__users}>
+          {users.map((user, i) => (
+            <User key={`sidebar-user-${i}`} {...user} />
           ))}
         </div>
       </div>
@@ -58,6 +53,32 @@ const footerTopLinks = [
   { title: "Twitter", link: "https://twitter.com/phanison225" },
 ];
 
-const usernames = ["Walter", "Jessy", "Hank", "Skinny"];
+const users = [
+  {
+    profilePic: "https://randomuser.me/api/portraits/men/1.jpg",
+    name: "Walter White",
+    username: "Walter123",
+  },
+  {
+    profilePic: "https://randomuser.me/api/portraits/men/2.jpg",
+    name: "Walter White",
+    username: "Walter123",
+  },
+  {
+    profilePic: "https://randomuser.me/api/portraits/men/3.jpg",
+    name: "Walter White",
+    username: "Walter123",
+  },
+  {
+    profilePic: "https://randomuser.me/api/portraits/men/4.jpg",
+    name: "Walter White",
+    username: "Walter123",
+  },
+  {
+    profilePic: "https://randomuser.me/api/portraits/men/5.jpg",
+    name: "Walter White",
+    username: "Walter123",
+  },
+];
 
 export default Sidebar;

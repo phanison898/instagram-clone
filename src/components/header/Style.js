@@ -1,7 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { secondary } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
-  header: {
+  root: {
     position: "sticky",
     top: 0,
     width: "100%",
@@ -9,47 +10,64 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
-    borderBottom: "1px solid rgba(219,219,219,1)",
+    border: 0,
+    boxShadow: "none",
+    borderRadius: 0,
+    borderBottom: `1px solid ${secondary}`,
     zIndex: 10,
   },
-  nav: {
+
+  header: {
     minWidth: 960,
-    [theme.breakpoints.down("md")]: {
-      minWidth: 850,
-    },
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-      minWidth: "auto",
-      padding: "0 10px",
-    },
     height: "100%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
 
+    [theme.breakpoints.down("md")]: {
+      minWidth: 850,
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      minWidth: "auto",
+      padding: "0 10px",
+    },
+
     "& > *": {
+      flex: 1,
       height: "100%",
       display: "flex",
       alignItems: "center",
     },
   },
-  logo: {
-    objectFit: "contain",
-    height: 40,
+
+  header__logo: {
+    justifyContent: "flex-start",
     [theme.breakpoints.down("xs")]: {
       display: "none",
+    },
+
+    "& > img": {
+      objectFit: "contain",
+      height: 40,
     },
   },
-  search: {
-    height: "50%",
-    border: "1px solid rgba(219,219,219,1)",
+
+  header__search: {
+    flex: 0.6,
+    height: "55%",
+    justifyContent: "center",
+    border: `1px solid ${secondary}`,
     borderRadius: 2,
     backgroundColor: "#fafafa",
+
     [theme.breakpoints.down("xs")]: {
       display: "none",
     },
+
     "& > input": {
+      width: "60%",
       height: "100%",
       border: 0,
       outlineWidth: 0,
@@ -59,29 +77,46 @@ export default makeStyles((theme) => ({
         color: "lightgrey",
       },
     },
-    "& > .MuiSvgIcon-root": {
-      fontSize: 18,
-      color: "lightgrey",
-      margin: "0px 5px",
+
+    "& > section": {
+      width: "40%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
+      "& > .MuiSvgIcon-root": {
+        fontSize: 18,
+        color: "lightgrey",
+      },
     },
   },
-  links: {
+
+  header__nav: {
     position: "relative",
+    justifyContent: "flex-end",
     [theme.breakpoints.down("xs")]: {
       width: "100%",
       justifyContent: "space-between",
     },
   },
-  link: {
+
+  nav__link: {
     height: "100%",
     display: "flex",
     alignItems: "center",
     margin: "0 12px",
     cursor: "pointer",
+    color: "#262626",
+
     "& > svg": {},
+
     "& > .MuiAvatar-root": {
       width: 24,
       height: 24,
+    },
+
+    "& > .MuiSvgIcon-root": {
+      fontSize: 26,
+      color: "#262626",
     },
   },
 
@@ -94,10 +129,10 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    backgroundColor: "white",
     borderRadius: 4,
     boxShadow: "0px 0px 3px rgba(0,0,0,0.25)",
   },
+
   option: {
     width: "100%",
     display: "flex",
@@ -117,6 +152,7 @@ export default makeStyles((theme) => ({
       borderTop: "1px solid rgba(0,0,0,0.25)",
     },
   },
+
   arrow: {
     position: "absolute",
     top: -10,

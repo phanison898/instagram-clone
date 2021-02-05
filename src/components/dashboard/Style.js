@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { primary } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
   dashboard: {
@@ -9,79 +10,133 @@ export default makeStyles((theme) => ({
     alignItems: "center",
   },
 
-  userinfo: {
+  dashboard__header: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    paddingBottom: 10,
+    borderBottom: "1px solid rgba(219,219,219,1)",
+  },
+
+  header__userinfo: {
     width: "100%",
     height: "auto",
     display: "flex",
     alignItems: "center",
-    paddingBottom: 20,
-    borderBottom: "1px solid rgba(219,219,219,1)",
+    padding: "20px 0",
+
+    "& > div": {
+      [theme.breakpoints.up("sm")]: {
+        flex: 1,
+      },
+      display: "flex",
+      flexDirection: "column",
+    },
   },
 
-  profilePic: {
-    display: "flex",
-    justifyContent: "center",
+  userinfo__profilePic: {
+    height: "100%",
     alignItems: "center",
-    margin: "25px 75px",
+    justifyContent: "center",
+
+    [theme.breakpoints.down("xs")]: {
+      flex: 4,
+      justifyContent: "flex-start",
+    },
+
     "& > .MuiAvatar-root": {
       width: 150,
       height: 150,
+
+      [theme.breakpoints.down("xs")]: {
+        width: 100,
+        height: 100,
+      },
     },
   },
 
-  statastics: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    paddingTop: 40,
-    paddingLeft: 30,
-  },
-
-  statastics__top: {
-    display: "flex",
-    alignItems: "center",
-    "& > *": {
-      marginRight: 30,
+  userinfo__details: {
+    [theme.breakpoints.down("xs")]: {
+      flex: 6,
+      marginLeft: 10,
     },
+
     "& > h4": {
       fontSize: 24,
-      fontWeight: 200,
-    },
-    "& > a": {
-      color: "black",
-      textDecoration: "none",
-      padding: 5,
-      border: "1px solid rgba(219,219,219,1)",
-      borderRadius: 5,
-    },
-    "& > svg": {
-      width: 24,
-      height: 24,
     },
   },
 
-  statastics__center: {
+  details__stats: {
     display: "flex",
     alignItems: "center",
     margin: "10px 0",
-    color: "grey",
-    "& > *": {
-      marginRight: 30,
-    },
-    "& > p > span": {
+
+    "& > a": {
+      display: "flex",
+      alignItems: "center",
+      textDecoration: "none",
       color: "black",
-      fontWeight: 500,
+      marginRight: 10,
+
+      [theme.breakpoints.down("xs")]: {
+        flexDirection: "column",
+        justifyContent: "center",
+      },
+
+      "& > p:nth-child(1)": {
+        paddingRight: 5,
+      },
+
+      "& > p:nth-child(2)": {
+        color: "grey",
+        fontSize: 14,
+      },
     },
   },
 
-  statastics__bottom: {
+  details__bio: {
     display: "flex",
     flexDirection: "column",
+
+    "& > p": {
+      fontSize: 14,
+      padding: "2px 0",
+    },
+  },
+
+  header__button: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
-    marginRight: 30,
-    "& > p:nth-child(1)": {
+
+    "& > a": {
+      width: 300,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "5px 0",
+      textDecoration: "none",
+      color: "black",
+      borderRadius: 5,
+      border: "1px solid rgba(219,219,219,1)",
+    },
+
+    "& > button": {
+      width: 300,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "6px 0",
+      textDecoration: "none",
+      color: "white",
+      fontSize: 16,
       fontWeight: 600,
+      borderRadius: 5,
+      border: 0,
+      outlineWidth: 0,
+      backgroundColor: primary,
+      cursor: "pointer",
     },
   },
 

@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { secondary } from "../../assets/Colors";
 
 const Style = makeStyles((theme) => ({
   stories: {
@@ -8,9 +9,14 @@ const Style = makeStyles((theme) => ({
     alignItems: "center",
     overflow: "hidden",
     padding: 5,
-    backgroundColor: "white",
-    border: "1px solid rgba(219,219,219,1)",
+    boxShadow: "none",
+    border: `1px solid ${secondary}`,
     borderRadius: 5,
+
+    [theme.breakpoints.down("xs")]: {
+      borderRadius: 0,
+      border: 0,
+    },
   },
 
   story: {

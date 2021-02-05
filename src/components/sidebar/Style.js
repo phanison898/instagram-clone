@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  sidebar: {
+  root: {
     position: "sticky",
     top: 94,
     width: "100%",
@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
   },
 
-  userinfo: {
+  logged__user: {
     display: "flex",
     alignItems: "center",
     marginBottom: 10,
@@ -31,13 +31,13 @@ export default makeStyles((theme) => ({
     },
   },
 
-  follow: {
+  followUsers: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
   },
 
-  follow__heading: {
+  followUsers__heading: {
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
@@ -52,42 +52,19 @@ export default makeStyles((theme) => ({
       fontSize: 12,
       color: "black",
     },
+
+    "& > a": {
+      textDecoration: "none",
+      color: "black",
+      fontSize: 14,
+      marginRight: 10,
+    },
   },
 
-  followers: {
+  followUsers__users: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-  },
-
-  follower: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    padding: "8px 0",
-    "& > .MuiAvatar-root": {
-      width: 32,
-      height: 32,
-    },
-    "& > div": {
-      marginLeft: 10,
-      "& > h4": {
-        fontSize: 14,
-        fontWeight: 500,
-      },
-      "& > p": {
-        fontSize: 12,
-        color: "grey",
-      },
-    },
-    "& > h4": {
-      flex: 1,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-end",
-      color: "#0095f6",
-      fontSize: 12,
-    },
   },
 
   about: {

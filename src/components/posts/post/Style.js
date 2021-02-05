@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { darkPrimary, darkSecondary, textDark } from "../../../assets/Colors";
+import { darkPrimary, textDark, secondary, primaryLight } from "../../../assets/Colors";
 
 export default makeStyles((theme) => ({
   post: {
@@ -10,10 +10,11 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     marginTop: 10,
     boxShadow: "none",
-    border: "1px solid rgba(219,219,219,1)",
+    border: `1px solid ${secondary}`,
     backgroundColor: theme.palette.type === "dark" && darkPrimary,
     [theme.breakpoints.down("xs")]: {
       borderRadius: 0,
+      border: 0,
     },
   },
 
@@ -154,7 +155,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     padding: "0 10px",
-    borderTop: "1px solid rgba(219,219,219,1)",
+    borderTop: `1px solid ${secondary}`,
 
     "& > input": {
       flex: 1,
@@ -172,7 +173,7 @@ export default makeStyles((theme) => ({
       padding: 2,
       outlineWidth: 0,
       fontWeight: 600,
-      color: "rgb(0 149 246 / 30%)",
+      color: primaryLight,
     },
   },
 }));

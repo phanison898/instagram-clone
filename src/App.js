@@ -8,7 +8,6 @@ import ForgotPasswordPage from "./pages/forgot/ForgotPasswordPage";
 import HomePage from "./pages/home/HomePage";
 import PageNotFound from "./pages/pageNotFount/PageNotFound";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
-import DashBoard from "./components/dashboard/DashBoard";
 import { useEffect } from "react";
 import { auth } from "./firebase";
 import { LoginAction, LogoutAction } from "./store/actions/auth";

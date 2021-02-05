@@ -1,11 +1,12 @@
 import React from "react";
+import { Paper } from "@material-ui/core";
 import Story from "./Story";
 import Style from "./Style";
 
 const Stories = () => {
   const classes = Style();
   return (
-    <div className={classes.stories}>
+    <Paper className={classes.stories}>
       {usernames.map((username, i) => (
         <Story
           key={i}
@@ -13,7 +14,7 @@ const Stories = () => {
           title={username}
         />
       ))}
-    </div>
+    </Paper>
   );
 };
 

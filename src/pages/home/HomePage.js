@@ -1,11 +1,13 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
+import { Paper } from "@material-ui/core";
 import ProtectedRoute from "../../components/protectedRoute/ProtectedRoute";
 import Header from "../../components/header/Header";
 import Feed from "../../components/feed/Feed";
 import DashBoard from "../../components/dashboard/DashBoard";
 import Form from "../../components/form/Form";
 import Edit from "../../components/edit/Edit";
+import Users from "../../components/users/Users";
 import Style from "./Style";
 
 const HomePage = (props) => {
@@ -13,18 +15,20 @@ const HomePage = (props) => {
   const { url } = props.match;
 
   return (
-    <div className={classes.home}>
+    <Paper className={classes.home}>
       <Header path={url} />
       <div className={classes.body}>
         <Switch>
           <ProtectedRoute exact path={`${url}`} component={Feed} />
           <ProtectedRoute path={`${url}/profile`} component={DashBoard} />
           <ProtectedRoute path={`${url}/edit`} component={Edit} />
-          <ProtectedRoute path={`${url}/people`} component={People} />
+          <ProtectedRoute path={`${url}/users`} component={Users} />
+          <ProtectedRoute path={`${url}/following`} component={Users} />
+          <ProtectedRoute path={`${url}/followers`} component={Users} />
           <ProtectedRoute path={`${url}/create`} component={Form} />
         </Switch>
       </div>
-    </div>
+    </Paper>
   );
 };
 

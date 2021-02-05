@@ -17,3 +17,7 @@ export const LinkedInBgColor = "#f3f2ef";
 export const primary = "#0095f6";
 
 export const primaryLight = "rgb(0 149 246 / 30%)";
+
+export const secondary = "#dbdbdb";
+
+export const secondaryLighnt = "";

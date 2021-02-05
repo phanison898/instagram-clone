@@ -10,3 +10,16 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: #fafafa;
 }
+
+html {
+  overflow: scroll;
+  /* removes horizontal scrolling */
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  /* Remove scrollbar space */
+  width: 0px;
+  /* Makes scrollbar invisible */
+  background: transparent;
+}
