@@ -22,11 +22,9 @@ const Header = ({ path }) => {
 
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user);
+  const { photoURL, uid } = useSelector((state) => state.user);
 
   const { theme } = useSelector((state) => state.util);
-
-  const photoURL = user?.photoURL;
 
   const [isDrapdownOpen, setIsDrapdownOpen] = useState(false);
 
@@ -38,7 +36,7 @@ const Header = ({ path }) => {
     return (
       <Paper className={classes.dropdown}>
         <div className={classes.arrow} />
-        <Link to={`${path}/profile`} className={classes.option} onClick={toggleDropDown}>
+        <Link to={`${path}/profile?id=${uid}`} className={classes.option} onClick={toggleDropDown}>
           <Profile />
           <p>Profile</p>
         </Link>

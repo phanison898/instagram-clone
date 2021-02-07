@@ -18,11 +18,14 @@ export default makeStyles((theme) => ({
       height: 60,
       marginLeft: 10,
     },
-    "& > section": {
+    "& > a": {
       marginLeft: 15,
+      textDecoration: "none",
+      color: "black",
+
       "& > h4": {
-        fontSize: 14,
-        fontWeight: 500,
+        fontSize: 16,
+        fontWeight: 600,
       },
       "& > p": {
         fontSize: 13,

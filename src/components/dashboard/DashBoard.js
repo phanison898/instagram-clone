@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, Switch } from "react-router-dom";
 import { Avatar, Hidden } from "@material-ui/core";
@@ -8,11 +8,49 @@ import { ReactComponent as IGTV } from "../../assets/icons/igtv.svg";
 import Style from "./Style";
 
 const DashBoard = (props) => {
-  const { url, path } = props.match;
   const classes = Style();
-  const { displayName, username, photoURL, followers, following, posts } = useSelector(
-    (state) => state.user
-  );
+
+  const [data, setData] = useState({
+    displayName: "",
+    username: "",
+    photoURL: "",
+    posts: "",
+    followers: "",
+    following: "",
+  });
+
+  const { url, path } = props.match;
+
+  const params = new URLSearchParams(props.location.search);
+
+  const queryUID = params.get("id");
+
+  const currentUser = useSelector((state) => state.user);
+
+  const people = useSelector((state) => state.people);
+
+  useEffect(() => {
+    if (queryUID === currentUser.uid) {
+      setData({
+        displayName: currentUser.displayName,
+        username: currentUser.username,
+        photoURL: currentUser.photoURL,
+        posts: currentUser.posts,
+        followers: currentUser.followers,
+        following: currentUser.following,
+      });
+    } else {
+      const [queryUser] = people.filter((user) => user.uid === queryUID);
+      setData({
+        displayName: queryUser.displayName,
+        username: queryUser.username,
+        photoURL: queryUser.photoURL,
+        posts: queryUser.posts,
+        followers: queryUser.followers,
+        following: queryUser.following,
+      });
+    }
+  }, [queryUID]);
 
   const UserMedia = () => {
     return (
@@ -41,34 +79,34 @@ const DashBoard = (props) => {
         <div className={classes.header__userinfo}>
           {/* col-1 */}
           <div className={classes.userinfo__profilePic}>
-            <Avatar src={photoURL} />
+            <Avatar src={data.photoURL} />
           </div>
 
           {/* col-2 */}
           <div className={classes.userinfo__details}>
-            <h4>{displayName}</h4>
+            <h4>{data.displayName}</h4>
 
             <div className={classes.details__stats}>
               <Link to={`${url}`}>
-                <p>{posts}</p>
+                <p>{data.posts}</p>
                 <p>posts</p>
               </Link>
 
-              <Link to={`/${displayName}/followers`}>
-                <p>{followers}</p>
+              <Link to={`/${data.displayName}/followers`}>
+                <p>{data.followers}</p>
                 <p>followers</p>
               </Link>
 
-              <Link to={`/${displayName}/following`}>
-                <p>{following}</p>
+              <Link to={`/${data.displayName}/following`}>
+                <p>{data.following}</p>
                 <p>following</p>
               </Link>
             </div>
 
             <div className={classes.details__bio}>
-              <p key={"username"}>{username}</p>
-              {bio.map((data, i) => (
-                <p key={`bio-data-${i}`}>{data}</p>
+              <p key={"username"}>{data.username}</p>
+              {bio.map((b, i) => (
+                <p key={`bio-data-${i}`}>{b}</p>
               ))}
             </div>
           </div>
@@ -78,8 +116,11 @@ const DashBoard = (props) => {
           </Hidden>
         </div>
         <div className={classes.header__button}>
-          <Link to={`/${displayName}/edit`}>Edit</Link>
-          {/* <button>follow</button> */}
+          {currentUser.uid === queryUID ? (
+            <Link to={`/${data.displayName}/edit`}>Edit</Link>
+          ) : (
+            <button>follow</button>
+          )}
         </div>
       </div>
       <div className={classes.usermedia}></div>

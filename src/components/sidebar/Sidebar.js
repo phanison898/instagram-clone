@@ -7,17 +7,17 @@ import Style from "./Style";
 
 const Sidebar = () => {
   const classes = Style();
-  const { photoURL, displayName, username } = useSelector((state) => state.user);
+  const { photoURL, displayName, username, uid } = useSelector((state) => state.user);
   const people = useSelector((state) => state.people);
 
   return (
     <div className={classes.root}>
       <div className={classes.logged__user}>
         <Avatar src={photoURL} />
-        <section>
+        <Link to={`/${displayName}/profile?id=${uid}`}>
           <h4>{displayName}</h4>
           <p>{username}</p>
-        </section>
+        </Link>
       </div>
 
       <div className={classes.followUsers}>
@@ -26,9 +26,7 @@ const Sidebar = () => {
           <Link to={`/${displayName}/users`}>See all</Link>
         </div>
         <div className={classes.followUsers__users}>
-          {people.map((user, i) => (
-            <User key={`sidebar-user-${i}`} {...user} />
-          ))}
+          {people.map((user, i) => i < 5 && <User key={`sidebar-user-${i}`} {...user} />)}
         </div>
       </div>
 

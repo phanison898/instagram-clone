@@ -1,18 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Avatar, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { primary } from "../../../assets/Colors";
 
-const User = ({ photoURL, displayName, username }) => {
+const User = ({ photoURL, displayName: name, username, uid }) => {
   const classes = Style();
+  const { displayName } = useSelector((state) => state.user);
   return (
     <div className={classes.root}>
       <Avatar src={photoURL} />
-      <section>
-        <h4>{displayName}</h4>
+      <Link to={`/${displayName}/profile?id=${uid}`}>
+        <h4>{name}</h4>
         <p>{username}</p>
+      </Link>
+      <section>
+        <button>Follow</button>
       </section>
-      <button>Follow</button>
     </div>
   );
 };
@@ -33,11 +38,12 @@ const Style = makeStyles((theme) => ({
       height: 42,
     },
 
-    "& > section": {
-      flex: 1,
+    "& > a": {
       display: "flex",
       flexDirection: "column",
       marginLeft: 10,
+      textDecoration: "none",
+      color: "black",
 
       "& > h4": {},
       "& > p": {
@@ -46,15 +52,22 @@ const Style = makeStyles((theme) => ({
       },
     },
 
-    "& > button": {
-      border: 0,
-      borderRadius: 4,
-      outlineWidth: 0,
-      color: "white",
-      fontWeight: 600,
-      padding: "7px 10px",
-      backgroundColor: primary,
-      cursor: "pointer",
+    "& > section": {
+      flex: 1,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
+
+      "& > button": {
+        border: 0,
+        borderRadius: 4,
+        outlineWidth: 0,
+        color: "white",
+        fontWeight: 600,
+        padding: "7px 10px",
+        backgroundColor: primary,
+        cursor: "pointer",
+      },
     },
   },
 }));

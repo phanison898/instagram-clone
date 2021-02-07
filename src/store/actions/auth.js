@@ -58,9 +58,9 @@ export const LoginWithFacebook = () => async (dispatch) => {
         if (!doc.exists) {
           userData = {
             uid: authUser.user.uid,
-            email: authUser.user.email,
+            email: "",
             displayName: authUser.user.displayName,
-            username: authUser.user?.email.split("@")[0],
+            username: "",
             photoURL: authUser.user.photoURL,
             posts: 0,
             followers: 0,
@@ -94,21 +94,28 @@ export const LoginWithGoogle = () => async (dispatch) => {
             uid: authUser.user.uid,
             email: authUser.user.email,
             displayName: authUser.user.displayName,
-            username: authUser.user?.email.split("@")[0],
+            username: authUser.user.email.split("@")[0],
             photoURL: authUser.user.photoURL,
             posts: 0,
             followers: 0,
             following: 0,
           };
-          ref.set(userData);
+          ref
+            .set(userData)
+            .then(() => {
+              dispatch({
+                type: "LOGIN_WITH_GOOGLE",
+                payload: userData,
+              });
+            })
+            .catch((error) => alert(error));
         } else {
           userData = doc.data();
+          dispatch({
+            type: "LOGIN_WITH_GOOGLE",
+            payload: userData,
+          });
         }
-      });
-
-      dispatch({
-        type: "LOGIN_WITH_GOOGLE",
-        payload: userData,
       });
     })
     .catch((error) => alert(error));
