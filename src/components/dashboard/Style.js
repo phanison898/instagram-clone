@@ -98,8 +98,12 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
 
-    "& > p": {
+    "& > p:nth-child(1)": {
       fontSize: 14,
+    },
+
+    "& > p": {
+      fontSize: 12,
       padding: "2px 0",
     },
   },

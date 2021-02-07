@@ -10,7 +10,9 @@ import Style from "./Style";
 const DashBoard = (props) => {
   const { url, path } = props.match;
   const classes = Style();
-  const { displayName, photoURL } = useSelector((state) => state.user);
+  const { displayName, username, photoURL, followers, following, posts } = useSelector(
+    (state) => state.user
+  );
 
   const UserMedia = () => {
     return (
@@ -33,10 +35,6 @@ const DashBoard = (props) => {
     );
   };
 
-  const text = "hello\n hai\n how r u\n what?";
-
-  console.log(text);
-
   return (
     <div className={classes.dashboard}>
       <div className={classes.dashboard__header}>
@@ -52,22 +50,23 @@ const DashBoard = (props) => {
 
             <div className={classes.details__stats}>
               <Link to={`${url}`}>
-                <p>6</p>
+                <p>{posts}</p>
                 <p>posts</p>
               </Link>
 
               <Link to={`/${displayName}/followers`}>
-                <p>130</p>
+                <p>{followers}</p>
                 <p>followers</p>
               </Link>
 
               <Link to={`/${displayName}/following`}>
-                <p>134</p>
+                <p>{following}</p>
                 <p>following</p>
               </Link>
             </div>
 
             <div className={classes.details__bio}>
+              <p key={"username"}>{username}</p>
               {bio.map((data, i) => (
                 <p key={`bio-data-${i}`}>{data}</p>
               ))}

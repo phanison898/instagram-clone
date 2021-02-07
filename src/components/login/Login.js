@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import FacebookIcon from "@material-ui/icons/Facebook";
-import { Link, useHistory } from "react-router-dom";
-import db, { auth, facebookProvider, googleProvider } from "../../firebase";
-import { LoginAction } from "../../store/actions/auth";
+import { Link } from "react-router-dom";
+import { auth } from "../../firebase";
+import { LoginAction, LoginWithFacebook, LoginWithGoogle } from "../../store/actions/auth";
 import * as images from "../../assets/images";
 import Style from "./Style";
 
 const Login = () => {
-  const history = useHistory();
   const classes = Style();
   const dispatch = useDispatch();
 
@@ -16,36 +15,24 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
 
+  const isEntered = () => {
+    if (email !== "") {
+      if (password !== "") {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
+
   const submit = (e) => {
     e.preventDefault();
 
     auth
       .signInWithEmailAndPassword(email, password)
       .then((authUser) => dispatch(LoginAction(authUser.user)))
-      .catch((error) => alert(error));
-  };
-
-  const storeUserDetails = async (user) => {};
-
-  const facebookLogin = () => {
-    auth
-      .signInWithPopup(facebookProvider)
-      .then((result) => {
-        storeUserDetails(result.user);
-        dispatch(LoginAction(result.user));
-        history.push(`/${result.user.displayName}`);
-      })
-      .catch((error) => alert(error));
-  };
-
-  const googleLogin = () => {
-    auth
-      .signInWithPopup(googleProvider)
-      .then((result) => {
-        // storeUserDetails(result.user);
-        dispatch(LoginAction(result.user));
-        history.push(`/${result.user.displayName}`);
-      })
       .catch((error) => alert(error));
   };
 
@@ -70,9 +57,11 @@ const Login = () => {
           />
           <button
             type="submit"
+            disabled={!isEntered()}
             style={{
               backgroundColor:
-                email.length > 6 && password > 6 ? "#0095f6" : "rgb(0 149 246 / 30%)",
+                email.length > 6 && password.length > 0 ? "#0095f6" : "rgb(0 149 246 / 30%)",
+              cursor: isEntered() ? "pointer" : "auto",
             }}
           >
             Log In
@@ -85,8 +74,12 @@ const Login = () => {
             <div></div>
           </section>
           <div className={classes.signup__buttons}>
-            <FacebookIcon onClick={facebookLogin} />
-            <img src={images.GoogleLogo} onClick={googleLogin} alt="google-sign-in" />
+            <FacebookIcon onClick={() => dispatch(LoginWithFacebook())} />
+            <img
+              src={images.GoogleLogo}
+              onClick={() => dispatch(LoginWithGoogle())}
+              alt="google-sign-in"
+            />
           </div>
           <Link to="/forgot">Forgot password?</Link>
         </div>

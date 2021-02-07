@@ -3,13 +3,13 @@ import { Avatar, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { primary } from "../../../assets/Colors";
 
-const User = ({ profilePic, name, username }) => {
+const User = ({ photoURL, displayName, username }) => {
   const classes = Style();
   return (
     <div className={classes.root}>
-      <Avatar src={profilePic} />
+      <Avatar src={photoURL} />
       <section>
-        <h4>{name}</h4>
+        <h4>{displayName}</h4>
         <p>{username}</p>
       </section>
       <button>Follow</button>

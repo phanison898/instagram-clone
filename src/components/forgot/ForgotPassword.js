@@ -11,6 +11,14 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const isEntered = () => {
+    if (email !== "") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const submit = (e) => {
     e.preventDefault();
 
@@ -41,8 +49,10 @@ const ForgotPassword = () => {
         />
         <button
           type="submit"
+          disabled={!isEntered()}
           style={{
             backgroundColor: email.length > 6 ? "#0095f6" : "rgb(0 149 246 / 30%)",
+            cursor: isEntered() ? "pointer" : "auto",
           }}
         >
           Send Login Link

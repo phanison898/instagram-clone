@@ -1,79 +1,39 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import FacebookIcon from "@material-ui/icons/Facebook";
-import { Link, useHistory } from "react-router-dom";
-import { auth, facebookProvider, googleProvider } from "../../firebase";
-import { LoginAction } from "../../store/actions/auth";
+import { Link } from "react-router-dom";
+import { SignupAction, LoginWithGoogle, LoginWithFacebook } from "../../store/actions/auth";
 import * as images from "../../assets/images";
-import firebase from "firebase";
-import { v4 as uuid } from "uuid";
-import db, { storage } from "../../firebase";
 import Style from "./Style";
 
 const Signup = () => {
-  const history = useHistory();
   const classes = Style();
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const isEntered = () => {
+    if (email !== "" && name !== "" && username !== "" && password !== "") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const submit = (e) => {
     e.preventDefault();
-
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((authUser) =>
-        authUser.user
-          .updateProfile({
-            displayName: fullName,
-          })
-          .then(() => {
-            db.collection("users")
-              .add({
-                uid: authUser.user.uid,
-                email: authUser.user.email,
-                displayName: authUser.user.displayName,
-                username: username,
-                photoURL: authUser.user.photoURL,
-                followers: 0,
-                following: 0,
-              })
-              .then(() => {});
-            dispatch(
-              LoginAction({
-                email: authUser.user.email,
-                uid: authUser.user.uid,
-                displayName: authUser.user.displayName,
-                username: username,
-              })
-            );
-          })
-      )
-      .catch((error) => setError(error), alert(error));
-  };
-
-  const facebookLogin = () => {
-    auth
-      .signInWithPopup(facebookProvider)
-      .then((result) => {
-        dispatch(LoginAction(result.user));
-        history.push(`/${result.user.displayName}`);
+    dispatch(
+      SignupAction({
+        email,
+        password,
+        name,
+        username,
       })
-      .catch((error) => alert(error));
-  };
-
-  const googleLogin = () => {
-    auth
-      .signInWithPopup(googleProvider)
-      .then((result) => {
-        dispatch(LoginAction(result.user));
-        history.push(`/${result.user.displayName}`);
-      })
-      .catch((error) => alert(error));
+    );
   };
 
   const LoginWith = () => {
@@ -82,8 +42,12 @@ const Signup = () => {
         <h4>Sign up to see photos and videos</h4>
         <h4>from your friends.</h4>
         <div className={classes.login__buttons}>
-          <FacebookIcon onClick={facebookLogin} />
-          <img src={images.GoogleLogo} onClick={googleLogin} alt="google-sign-in" />
+          <FacebookIcon onClick={() => dispatch(LoginWithFacebook())} />
+          <img
+            src={images.GoogleLogo}
+            onClick={() => dispatch(LoginWithGoogle())}
+            alt="google-sign-in"
+          />
         </div>
         <section className={classes.login__linebreak}>
           <div></div>
@@ -109,11 +73,7 @@ const Signup = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
-            placeholder="Full Name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
+          <input placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
           <input
             placeholder="Username"
             value={username}
@@ -127,9 +87,11 @@ const Signup = () => {
           />
           <button
             type="submit"
+            disabled={!isEntered()}
             style={{
               backgroundColor:
-                email.length > 6 && password > 6 ? "#0095f6" : "rgb(0 149 246 / 30%)",
+                email.length > 6 && password.length > 6 ? "#0095f6" : "rgb(0 149 246 / 30%)",
+              cursor: isEntered() ? "pointer" : "auto",
             }}
           >
             Sign Up

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import { secondary } from "../../assets/Colors";
@@ -9,11 +10,13 @@ const Users = (props) => {
 
   const { url } = props.match;
 
+  const people = useSelector((state) => state.people);
+
   const heading = () => {
     const path = url.split("/")[2];
 
     switch (path) {
-      case "people":
+      case "users":
         return "Suggested";
       case "followers":
         return "Followers";
@@ -28,8 +31,8 @@ const Users = (props) => {
     <div className={classes.root}>
       <p>{heading()}</p>
       <Paper className={classes.users}>
-        {usersData.map((user, i) => (
-          <User key={i} {...user} />
+        {people.map((person, i) => (
+          <User key={`insta-user-${i}`} {...person} />
         ))}
       </Paper>
     </div>
@@ -68,68 +71,3 @@ const Style = makeStyles((theme) => ({
     border: `1px solid ${secondary}`,
   },
 }));
-
-// sample data ...
-
-const usersData = [
-  {
-    profilePic:
-      "https://lh3.googleusercontent.com/a-/AOh14GiX_VsioIBbWt8mkunx_PMbgRJuVsCBQWk_-ewsow=s96-c",
-    name: "phani kumar",
-    username: "phanison898",
-  },
-  {
-    profilePic:
-      "https://lh3.googleusercontent.com/a-/AOh14GiX_VsioIBbWt8mkunx_PMbgRJuVsCBQWk_-ewsow=s96-c",
-    name: "phani kumar",
-    username: "phanison898",
-  },
-  {
-    profilePic:
-      "https://lh3.googleusercontent.com/a-/AOh14GiX_VsioIBbWt8mkunx_PMbgRJuVsCBQWk_-ewsow=s96-c",
-    name: "phani kumar",
-    username: "phanison898",
-  },
-  {
-    profilePic:
-      "https://lh3.googleusercontent.com/a-/AOh14GiX_VsioIBbWt8mkunx_PMbgRJuVsCBQWk_-ewsow=s96-c",
-    name: "phani kumar",
-    username: "phanison898",
-  },
-  {
-    profilePic:
-      "https://lh3.googleusercontent.com/a-/AOh14GiX_VsioIBbWt8mkunx_PMbgRJuVsCBQWk_-ewsow=s96-c",
-    name: "phani kumar",
-    username: "phanison898",
-  },
-  {
-    profilePic:
-      "https://lh3.googleusercontent.com/a-/AOh14GiX_VsioIBbWt8mkunx_PMbgRJuVsCBQWk_-ewsow=s96-c",
-    name: "phani kumar",
-    username: "phanison898",
-  },
-  {
-    profilePic:
-      "https://lh3.googleusercontent.com/a-/AOh14GiX_VsioIBbWt8mkunx_PMbgRJuVsCBQWk_-ewsow=s96-c",
-    name: "phani kumar",
-    username: "phanison898",
-  },
-  {
-    profilePic:
-      "https://lh3.googleusercontent.com/a-/AOh14GiX_VsioIBbWt8mkunx_PMbgRJuVsCBQWk_-ewsow=s96-c",
-    name: "phani kumar",
-    username: "phanison898",
-  },
-  {
-    profilePic:
-      "https://lh3.googleusercontent.com/a-/AOh14GiX_VsioIBbWt8mkunx_PMbgRJuVsCBQWk_-ewsow=s96-c",
-    name: "phani kumar",
-    username: "phanison898",
-  },
-  {
-    profilePic:
-      "https://lh3.googleusercontent.com/a-/AOh14GiX_VsioIBbWt8mkunx_PMbgRJuVsCBQWk_-ewsow=s96-c",
-    name: "phani kumar",
-    username: "phanison898",
-  },
-];

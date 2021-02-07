@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Avatar } from "@material-ui/core";
-import { handleImage } from "../../util/file-handling";
+import { uploadMediaFile } from "../../util/file-handling";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import BlockIcon from "@material-ui/icons/Block";
+import db from "../../firebase";
 import Style from "./Style";
 
 const Edit = () => {
   const classes = Style();
-  const { photoURL, displayName, email } = useSelector((state) => state.user);
+  const { displayName, photoURL, username } = useSelector((state) => state.user);
 
   const [profilePic, setProfilePic] = useState("");
-  const [name, setName] = useState(displayName);
-  const [username, setUsername] = useState(email.split("@")[0]);
+  const [name, setName] = useState("");
+  const [updatedUsername, setUpdatedUsername] = useState("");
   const [bio, setBio] = useState("");
 
   const handleSubmit = (e) => {
@@ -29,23 +29,27 @@ const Edit = () => {
             type="file"
             accept="image/*"
             hidden
-            onChange={(e) => handleImage(e, setProfilePic)}
+            onChange={(e) => uploadMediaFile(e, setProfilePic)}
           />
-          <label for="profile-pic">Change Profile Photo</label>
+          <label htmlFor="profile-pic">Change Profile Photo</label>
           {profilePic && <HighlightOffIcon onClick={() => setProfilePic("")} />}
         </div>
 
         <div className={classes.form__input}>
           <p>Name</p>
-          <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            placeholder="Name"
+            value={name || displayName}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
 
         <div className={classes.form__input}>
           <p>User Name</p>
           <input
             placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={updatedUsername || username}
+            onChange={(e) => setUpdatedUsername(e.target.value)}
           />
         </div>
 

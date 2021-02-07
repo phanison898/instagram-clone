@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
     },
   },
 
-  main: {
+  feed__main: {
     width: 620,
     height: "100%",
 
@@ -24,7 +24,7 @@ export default makeStyles((theme) => ({
     },
   },
 
-  stories: {
+  main__stories: {
     width: "100%",
     height: 100,
     marginBottom: 20,
@@ -34,12 +34,12 @@ export default makeStyles((theme) => ({
     },
   },
 
-  posts: {
+  main__posts: {
     width: "100%",
     height: "auto",
   },
 
-  sidebar: {
+  feed__sidebar: {
     flex: 1,
     padding: 10,
     paddingLeft: 30,

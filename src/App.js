@@ -25,7 +25,7 @@ const App = () => {
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        dispatch(LoginAction(authUser));
+        dispatch(LoginAction(authUser.uid));
       } else {
         dispatch(LogoutAction());
       }
