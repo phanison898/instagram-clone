@@ -103,17 +103,25 @@ const DashBoard = (props) => {
               </Link>
             </div>
 
-            <div className={classes.details__bio}>
-              <p key={"username"}>{data.username}</p>
-              {bio.map((b, i) => (
-                <p key={`bio-data-${i}`}>{b}</p>
-              ))}
-            </div>
+            <Hidden xsDown>
+              <div className={classes.details__bio}>
+                <p key={"username"}>{data.username}</p>
+                {bio.map((b, i) => (
+                  <p key={`bio-data-${i}`}>{b}</p>
+                ))}
+              </div>
+            </Hidden>
           </div>
           {/* col-3 */}
           <Hidden xsDown>
             <div className={classes.userinfo__empty}></div>
           </Hidden>
+        </div>
+        <div className={classes.details__bio__xs}>
+          <p key={"username"}>{data.username}</p>
+          {bio.map((b, i) => (
+            <p key={`bio-data-${i}`}>{b}</p>
+          ))}
         </div>
         <div className={classes.header__button}>
           {currentUser.uid === queryUID ? (

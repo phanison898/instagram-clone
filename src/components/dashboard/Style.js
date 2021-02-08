@@ -25,6 +25,11 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     padding: "20px 0",
 
+    [theme.breakpoints.down("xs")]: {
+      padding: 0,
+      paddingTop: 10,
+    },
+
     "& > div": {
       [theme.breakpoints.up("sm")]: {
         flex: 1,
@@ -40,7 +45,7 @@ export default makeStyles((theme) => ({
     justifyContent: "center",
 
     [theme.breakpoints.down("xs")]: {
-      flex: 4,
+      flex: 3,
       justifyContent: "flex-start",
     },
 
@@ -49,15 +54,15 @@ export default makeStyles((theme) => ({
       height: 150,
 
       [theme.breakpoints.down("xs")]: {
-        width: 100,
-        height: 100,
+        width: 75,
+        height: 75,
       },
     },
   },
 
   userinfo__details: {
     [theme.breakpoints.down("xs")]: {
-      flex: 6,
+      flex: 7,
       marginLeft: 10,
     },
 
@@ -70,6 +75,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     margin: "10px 0",
+    justifyContent: "space-between",
 
     "& > a": {
       display: "flex",
@@ -81,10 +87,21 @@ export default makeStyles((theme) => ({
       [theme.breakpoints.down("xs")]: {
         flexDirection: "column",
         justifyContent: "center",
+
+        "& > p:nth-child(1)": {
+          paddingRight: 5,
+          fontSize: 12,
+        },
+
+        "& > p:nth-child(2)": {
+          color: "grey",
+          fontSize: 10,
+        },
       },
 
       "& > p:nth-child(1)": {
         paddingRight: 5,
+        fontSize: 14,
       },
 
       "& > p:nth-child(2)": {
@@ -97,6 +114,25 @@ export default makeStyles((theme) => ({
   details__bio: {
     display: "flex",
     flexDirection: "column",
+
+    "& > p:nth-child(1)": {
+      fontSize: 14,
+    },
+
+    "& > p": {
+      fontSize: 12,
+      padding: "2px 0",
+    },
+  },
+
+  details__bio__xs: {
+    display: "flex",
+    flexDirection: "column",
+    padding: 10,
+    paddingLeft: 20,
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
 
     "& > p:nth-child(1)": {
       fontSize: 14,
