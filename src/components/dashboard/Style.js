@@ -117,11 +117,14 @@ export default makeStyles((theme) => ({
 
     "& > p:nth-child(1)": {
       fontSize: 14,
+      fontWeight: 600,
+      textTransform: "lowercase",
     },
 
     "& > p": {
       fontSize: 12,
       padding: "2px 0",
+      textTransform: "capitalize",
     },
   },
 
@@ -134,13 +137,16 @@ export default makeStyles((theme) => ({
       display: "none",
     },
 
-    "& > p:nth-child(1)": {
-      fontSize: 14,
-    },
-
     "& > p": {
       fontSize: 12,
       padding: "2px 0",
+      textTransform: "capitalize",
+    },
+
+    "& > p:nth-child(1)": {
+      fontSize: 14,
+      fontWeight: 600,
+      textTransform: "lowercase",
     },
   },
 

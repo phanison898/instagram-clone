@@ -11,21 +11,24 @@ import Style from "./Style";
 const Edit = () => {
   const classes = Style();
   const dispatch = useDispatch();
-  const { displayName, photoURL, username, uid } = useSelector((state) => state.user);
 
-  const [profilePic, setProfilePic] = useState(photoURL);
-  const [name, setName] = useState(displayName);
-  const [updatedUsername, setUpdatedUsername] = useState(username);
-  const [bio, setBio] = useState("");
+  const { fullName, profilePic, username, uid, bio } = useSelector((state) => state.currentUser);
+
+  const [_profilePic, setProfilePic] = useState(profilePic);
+  const [_fullName, setFullName] = useState(fullName);
+  const [_username, setUsername] = useState(username);
+  const [_bio, setBio] = useState(bio);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     db.collection("users")
       .doc(uid)
       .update({
-        photoURL: profilePic,
-        displayName: name,
-        username: updatedUsername,
+        profilePic: _profilePic,
+        fullName: _fullName,
+        username: _username,
+        bio: _bio,
       })
       .then(() => {
         dispatch(LoginAction(uid));
@@ -34,7 +37,12 @@ const Edit = () => {
   };
 
   const isEntered = () => {
-    if (profilePic !== photoURL || name !== displayName || updatedUsername !== username) {
+    if (
+      _profilePic !== profilePic ||
+      _fullName !== fullName ||
+      _username !== username ||
+      _bio !== bio
+    ) {
       return true;
     } else {
       return false;
@@ -45,7 +53,7 @@ const Edit = () => {
     <div className={classes.root}>
       <form className={classes.form} onSubmit={handleSubmit}>
         <div className={classes.form__header}>
-          <Avatar src={profilePic} />
+          <Avatar src={_profilePic} />
           <input
             id="profile-pic"
             type="file"
@@ -54,26 +62,32 @@ const Edit = () => {
             onChange={(e) => uploadMediaFile(e, setProfilePic)}
           />
           <label htmlFor="profile-pic">Change Profile Photo</label>
-          {profilePic !== photoURL && <HighlightOffIcon onClick={() => setProfilePic(photoURL)} />}
+          {_profilePic !== profilePic && (
+            <HighlightOffIcon onClick={() => setProfilePic(profilePic)} />
+          )}
         </div>
 
         <div className={classes.form__input}>
-          <p>Name</p>
-          <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+          <p>Full Name</p>
+          <input
+            placeholder="Full name"
+            value={_fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
         </div>
 
         <div className={classes.form__input}>
           <p>User Name</p>
           <input
             placeholder="Username"
-            value={updatedUsername}
-            onChange={(e) => setUpdatedUsername(e.target.value)}
+            value={_username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
 
         <div className={classes.form__input}>
           <p>Bio</p>
-          <input placeholder="Bio" value={bio} onChange={(e) => setBio(e.target.value)} />
+          <input placeholder="Bio" value={_bio} onChange={(e) => setBio(e.target.value)} />
         </div>
 
         <button

@@ -3,13 +3,13 @@ import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const { displayName } = useSelector((state) => state.user);
+  const { fullName } = useSelector((state) => state.currentUser);
 
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (displayName) {
+        if (fullName) {
           return <Component {...props} />;
         } else {
           return (

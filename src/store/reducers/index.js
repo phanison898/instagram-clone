@@ -1,10 +1,16 @@
 import { combineReducers } from "redux";
-import user from "./user";
+import currentUser from "./currentUser";
 import util from "./util";
-import people from "./people";
+import users from "./users";
+import following from "./following";
+import followers from "./followers";
+import posts from "./posts";
 
 export default combineReducers({
-  user,
+  currentUser,
   util,
-  people,
+  users,
+  posts,
+  following,
+  followers,
 });

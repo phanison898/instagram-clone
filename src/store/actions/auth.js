@@ -1,4 +1,5 @@
 import db, { auth, facebookProvider, googleProvider } from "../../firebase";
+import firebase from "firebase";
 
 export const SignupAction = ({ email, password, name, username }) => async (dispatch) => {
   let userData = {};
@@ -14,12 +15,11 @@ export const SignupAction = ({ email, password, name, username }) => async (disp
           userData = {
             uid: authUser.user.uid,
             email: authUser.user.email,
-            displayName: authUser.user.displayName,
+            fullName: authUser.user.displayName,
             username: username,
-            photoURL: authUser.user.photoURL,
-            posts: 0,
-            followers: 0,
-            following: 0,
+            bio: "",
+            profilePic: authUser.user.photoURL,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           };
           db.collection("users").doc(authUser.user.uid).set(userData);
 
@@ -59,12 +59,11 @@ export const LoginWithFacebook = () => async (dispatch) => {
           userData = {
             uid: authUser.user.uid,
             email: "",
-            displayName: authUser.user.displayName,
+            fullName: authUser.user.displayName,
             username: "",
-            photoURL: authUser.user.photoURL,
-            posts: 0,
-            followers: 0,
-            following: 0,
+            bio: "",
+            profilePic: authUser.user.photoURL,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           };
           ref.set(userData);
         } else {
@@ -93,12 +92,11 @@ export const LoginWithGoogle = () => async (dispatch) => {
           userData = {
             uid: authUser.user.uid,
             email: authUser.user.email,
-            displayName: authUser.user.displayName,
+            fullName: authUser.user.displayName,
             username: authUser.user.email.split("@")[0],
-            photoURL: authUser.user.photoURL,
-            posts: 0,
-            followers: 0,
-            following: 0,
+            bio: "",
+            profilePic: authUser.user.photoURL,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           };
           ref
             .set(userData)

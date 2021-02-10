@@ -1,22 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Avatar, Paper } from "@material-ui/core";
+import { useSelector, useDispatch } from "react-redux";
+import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { primary } from "../../../assets/Colors";
+import { Follow, UnFollow } from "../../../store/actions/following";
 
-const User = ({ photoURL, displayName: name, username, uid }) => {
+const User = ({ uid }) => {
   const classes = Style();
-  const { displayName } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const currentUser = useSelector((state) => state.currentUser);
+  const users = useSelector((state) => state.users);
+  const following = useSelector((state) => state.following);
+
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [data, setData] = useState(users.find((user) => user.uid === uid));
+
+  const toggleFollow = () => {
+    if (isFollowing) {
+      dispatch(UnFollow(currentUser.uid, data.uid));
+      setIsFollowing(false);
+    } else {
+      dispatch(Follow(currentUser.uid, data.uid));
+      setIsFollowing(true);
+    }
+  };
+
+  useEffect(() => {
+    console.log(data.fullName);
+
+    Array.from(following).forEach((follow) => {
+      if (follow === data.uid) {
+        setIsFollowing(true);
+      }
+    });
+  }, [following]);
+
   return (
     <div className={classes.root}>
-      <Avatar src={photoURL} />
-      <Link to={`/${displayName}/profile?id=${uid}`}>
-        <h4>{name}</h4>
-        <p>{username}</p>
+      <Avatar src={data.profilePic} />
+      <Link to={`/${currentUser.fullName}/profile?id=${data.uid}`}>
+        <h4>{data.fullName}</h4>
+        <p>{data.username}</p>
       </Link>
-      <section>
-        <button>Follow</button>
+      <section onClick={toggleFollow}>
+        {isFollowing ? (
+          <button
+            style={{
+              backgroundColor: "transparent",
+              color: "grey",
+              border: "1px solid lightgrey",
+            }}
+          >
+            Following
+          </button>
+        ) : (
+          <button>Follow</button>
+        )}
       </section>
     </div>
   );

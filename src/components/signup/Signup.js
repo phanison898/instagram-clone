@@ -90,7 +90,7 @@ const Signup = () => {
             disabled={!isEntered()}
             style={{
               backgroundColor:
-                email.length > 6 && password.length > 6 ? "#0095f6" : "rgb(0 149 246 / 30%)",
+                email.length > 6 && password.length > 3 ? "#0095f6" : "rgb(0 149 246 / 30%)",
               cursor: isEntered() ? "pointer" : "auto",
             }}
           >

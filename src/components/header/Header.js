@@ -22,7 +22,7 @@ const Header = ({ path }) => {
 
   const dispatch = useDispatch();
 
-  const { photoURL, uid } = useSelector((state) => state.user);
+  const { profilePic, uid } = useSelector((state) => state.currentUser);
 
   const { theme } = useSelector((state) => state.util);
 
@@ -91,7 +91,7 @@ const Header = ({ path }) => {
           </div>
 
           <div className={classes.nav__link}>
-            <Avatar src={photoURL} onClick={toggleDropDown} />
+            <Avatar src={profilePic} onClick={toggleDropDown} />
           </div>
 
           {isDrapdownOpen && <Dropdown />}

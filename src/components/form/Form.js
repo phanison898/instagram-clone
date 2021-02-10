@@ -13,7 +13,7 @@ import Style from "./Style";
 const Form = () => {
   const classes = Style();
 
-  const { uid, photoURL } = useSelector((state) => state.user);
+  const { uid, profilePic } = useSelector((state) => state.currentUser);
 
   const [title, setTitle] = useState("");
   const [media, setMedia] = useState("");
@@ -81,7 +81,7 @@ const Form = () => {
   return (
     <div className={classes.upload}>
       <div className={classes.upload__header}>
-        <Avatar src={photoURL} />
+        <Avatar src={profilePic} />
 
         <h4>{progress ? "Creating ... " : "Create a post"}</h4>
 

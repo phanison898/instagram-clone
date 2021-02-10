@@ -1,10 +1,10 @@
-const people = (state = [], action) => {
+const posts = (state = [], action) => {
   switch (action.type) {
-    case "GET":
+    case "GET_POSTS":
       return action.payload;
     default:
       return state;
   }
 };
 
-export default people;
+export default posts;

@@ -7,7 +7,7 @@ import db from "../../firebase";
 
 const Posts = () => {
   const classes = Style();
-  const { uid } = useSelector((state) => state.user);
+  const { uid } = useSelector((state) => state.currentUser);
 
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState();

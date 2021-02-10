@@ -1,4 +1,6 @@
-const user = (state = {}, action) => {
+// holds all data belongs to logged in user
+
+const currentUser = (state = {}, action) => {
   switch (action.type) {
     case "SIGN_UP":
       return action.payload;
@@ -15,4 +17,4 @@ const user = (state = {}, action) => {
   }
 };
 
-export default user;
+export default currentUser;

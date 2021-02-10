@@ -6,9 +6,9 @@ import Style from "./Style";
 
 const ForgotPasswordPage = () => {
   const classes = Style();
-  const { displayName } = useSelector((state) => state.user);
-  return displayName ? (
-    <Redirect to={`/${displayName}`} />
+  const { fullName } = useSelector((state) => state.currentUser);
+  return fullName ? (
+    <Redirect to={`/${fullName}`} />
   ) : (
     <div className={classes.forgot}>
       <ForgotPassword />

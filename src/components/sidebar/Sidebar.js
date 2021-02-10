@@ -7,15 +7,16 @@ import Style from "./Style";
 
 const Sidebar = () => {
   const classes = Style();
-  const { photoURL, displayName, username, uid } = useSelector((state) => state.user);
-  const people = useSelector((state) => state.people);
+
+  const { profilePic, fullName, username, uid } = useSelector((state) => state.currentUser);
+  const users = useSelector((state) => state.users);
 
   return (
     <div className={classes.root}>
       <div className={classes.logged__user}>
-        <Avatar src={photoURL} />
-        <Link to={`/${displayName}/profile?id=${uid}`}>
-          <h4>{displayName}</h4>
+        <Avatar src={profilePic} />
+        <Link to={`/${fullName}/profile?id=${uid}`}>
+          <h4>{fullName}</h4>
           <p>{username}</p>
         </Link>
       </div>
@@ -23,10 +24,10 @@ const Sidebar = () => {
       <div className={classes.followUsers}>
         <div className={classes.followUsers__heading}>
           <p>Suggestions for you</p>
-          <Link to={`/${displayName}/users`}>See all</Link>
+          <Link to={`/${fullName}/users`}>See all</Link>
         </div>
         <div className={classes.followUsers__users}>
-          {people.map((user, i) => i < 5 && <User key={`sidebar-user-${i}`} {...user} />)}
+          {users.map((user, i) => i < 5 && <User key={`sidebar-user-${i}`} uid={user.uid} />)}
         </div>
       </div>
 
@@ -50,34 +51,6 @@ const footerTopLinks = [
   { title: "Youtube", link: "https://www.youtube.com/channel/UC4FAldAo2Ow_2F447yggcqA" },
   { title: "Instagram", link: "https://www.instagram.com/phanison225/" },
   { title: "Twitter", link: "https://twitter.com/phanison225" },
-];
-
-const users = [
-  {
-    profilePic: "https://randomuser.me/api/portraits/men/1.jpg",
-    name: "Walter White",
-    username: "Walter123",
-  },
-  {
-    profilePic: "https://randomuser.me/api/portraits/men/2.jpg",
-    name: "Walter White",
-    username: "Walter123",
-  },
-  {
-    profilePic: "https://randomuser.me/api/portraits/men/3.jpg",
-    name: "Walter White",
-    username: "Walter123",
-  },
-  {
-    profilePic: "https://randomuser.me/api/portraits/men/4.jpg",
-    name: "Walter White",
-    username: "Walter123",
-  },
-  {
-    profilePic: "https://randomuser.me/api/portraits/men/5.jpg",
-    name: "Walter White",
-    username: "Walter123",
-  },
 ];
 
 export default Sidebar;

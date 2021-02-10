@@ -53,3 +53,17 @@ export const uploadMediaFile = async (e, setMedia, setMediaType) => {
   // clear the file input event value
   e.target.value = "";
 };
+
+// let _users = users;
+// let indexes = [];
+// for (let i = 0; i < users.length; i++) {
+//   for (let j = 0; j < following.length; j++) {
+//     if (users[i].uid === following[j]) {
+//       // console.log("user uid : " + users[i].uid + " || following_uid : " + following[j]);
+//       indexes.push(i);
+//       break;
+//     }
+//   }
+// }
+
+// for (let i = indexes.length - 1; i >= 0; i--) _users.splice(indexes[i], 1);

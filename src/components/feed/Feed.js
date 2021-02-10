@@ -3,21 +3,19 @@ import { useSelector, useDispatch } from "react-redux";
 import Stories from "../../components/stories/Stories";
 import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
-import db from "../../firebase";
-import { getAllUsers } from "../../store/actions/people";
+import { GetAllUsers } from "../../store/actions/users";
+import { GetFollowing } from "../../store/actions/following";
 import Style from "./Style";
 
 const Feed = () => {
   const classes = Style();
   const dispatch = useDispatch();
-
-  const { uid } = useSelector((state) => state.user);
+  const { uid } = useSelector((state) => state.currentUser);
 
   useEffect(() => {
-    db.collection("users")
-      .where("uid", "!=", uid)
-      .onSnapshot((snap) => dispatch(getAllUsers(snap.docs.map((doc) => doc.data()))));
-  }, []);
+    dispatch(GetAllUsers(uid));
+    dispatch(GetFollowing(uid));
+  }, [dispatch]);
 
   return (
     <div className={classes.feed}>

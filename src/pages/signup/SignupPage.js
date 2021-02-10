@@ -6,10 +6,10 @@ import Style from "./Style";
 
 const SignupPage = () => {
   const classes = Style();
-  const { displayName } = useSelector((state) => state.user);
+  const { fullName } = useSelector((state) => state.currentUser);
 
-  return displayName ? (
-    <Redirect to={`/${displayName}`} />
+  return fullName ? (
+    <Redirect to={`/${fullName}`} />
   ) : (
     <div className={classes.signup}>
       <Signup />

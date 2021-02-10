@@ -32,6 +32,4 @@ const HomePage = (props) => {
   );
 };
 
-const People = () => <h1>People</h1>;
-
 export default HomePage;
