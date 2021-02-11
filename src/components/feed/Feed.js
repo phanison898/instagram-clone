@@ -1,20 +1,18 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Stories from "../../components/stories/Stories";
 import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { GetAllUsers } from "../../store/actions/users";
-import { GetFollowing } from "../../store/actions/following";
+import { GetUserData } from "../../store/actions/users";
+import { auth } from "../../firebase";
 import Style from "./Style";
 
 const Feed = () => {
   const classes = Style();
   const dispatch = useDispatch();
-  const { uid } = useSelector((state) => state.currentUser);
 
   useEffect(() => {
-    dispatch(GetAllUsers(uid));
-    dispatch(GetFollowing(uid));
+    dispatch(GetUserData(auth.currentUser.uid));
   }, [dispatch]);
 
   return (
@@ -25,9 +23,7 @@ const Feed = () => {
         </div>
         <div className={classes.main__posts}>{/* <Posts /> */}</div>
       </div>
-      <div className={classes.feed__sidebar}>
-        <Sidebar />
-      </div>
+      <div className={classes.feed__sidebar}>{/* <Sidebar /> */}</div>
     </div>
   );
 };

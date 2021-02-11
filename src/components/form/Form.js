@@ -7,36 +7,47 @@ import { primary as main, primaryLight as light } from "../../assets/Colors";
 import firebase from "firebase";
 import { v4 as uuid } from "uuid";
 import db, { storage } from "../../firebase";
-import { uploadMediaFile } from "../../util/file-handling";
+import { useHistory, Redirect } from "react-router-dom";
+import { UploadMediaFile } from "../../util/file-handling";
 import Style from "./Style";
 
 const Form = () => {
   const classes = Style();
+  const history = useHistory();
 
-  const { uid, profilePic } = useSelector((state) => state.currentUser);
+  const { uid, profilePic, fullName } = useSelector((state) => state.currentUser);
 
-  const [title, setTitle] = useState("");
-  const [media, setMedia] = useState("");
-  const [mediaType, setMediaType] = useState("");
+  const [description, setDescription] = useState("");
+  const [media, setMedia] = useState({
+    type: "",
+    data: "",
+  });
   const [progress, setProgress] = useState("");
 
-  const uploadToFirebaseDB = (mediaURL) => {
-    db.collection("posts")
+  const uploadToFirestore = (mediaURL) => {
+    db.collection("users")
+      .doc(uid)
+      .collection("posts")
       .add({
-        uid: uid,
-        title: title,
-        media: mediaURL,
-        mediaType: mediaType,
+        uid,
+        description,
+        media: {
+          type: media.type,
+          url: mediaURL,
+        },
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
-      .then(() => resetState());
+      .then(() => {
+        resetState();
+        <Redirect to={`/${fullName}/profile?id=${uid}`} />;
+      });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const id = uuid();
 
-    const uploadTask = storage.ref(`posts/${id}`).putString(media, "data_url");
+    const uploadTask = storage.ref(`users/${uid}/posts/${id}`).putString(media.data, "data_url");
 
     uploadTask.on(
       "state_changed",
@@ -51,28 +62,26 @@ const Form = () => {
 
       () => {
         storage
-          .ref("posts")
+          .ref(`users/${uid}/posts`)
           .child(id)
           .getDownloadURL()
-          .then((url) => uploadToFirebaseDB(url));
+          .then((url) => uploadToFirestore(url));
       }
     );
   };
 
   const resetState = () => {
-    setTitle("");
-    setMedia("");
-    setMediaType("");
+    setDescription("");
+    setMedia({
+      type: "",
+      data: "",
+    });
     setProgress("");
   };
 
   const isEntered = () => {
-    if (media !== "") {
-      if (title !== "") {
-        return true;
-      } else {
-        return false;
-      }
+    if (media.data !== "" && description !== "") {
+      return true;
     } else {
       return false;
     }
@@ -101,18 +110,18 @@ const Form = () => {
       </div>
 
       <div className={classes.upload__box}>
-        {media === "" ? (
+        {media.data === "" ? (
           <label className={classes.upload__label} htmlFor="upload-file">
             browse file
           </label>
         ) : (
           <div className={classes.upload__preview}>
-            {mediaType === "image" ? (
-              <img src={media} alt="uploaded-file" />
+            {media.type === "image" ? (
+              <img src={media.data} alt="uploaded-file" />
             ) : (
-              <ReactPlayer url={media} controls={true} />
+              <ReactPlayer url={media.data} controls={true} />
             )}
-            <HighlightOffIcon onClick={() => setMedia("")} />
+            <HighlightOffIcon onClick={() => setMedia({ type: "", data: "" })} />
           </div>
         )}
       </div>
@@ -123,14 +132,14 @@ const Form = () => {
           type="file"
           hidden
           accept="video/*,image/*"
-          onChange={(e) => uploadMediaFile(e, setMedia, setMediaType)}
+          onChange={(e) => UploadMediaFile(e, setMedia)}
         />
 
         <textarea
           rows="5"
           placeholder={`write something...`}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
 
         <button

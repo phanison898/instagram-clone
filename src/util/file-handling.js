@@ -54,6 +54,57 @@ export const uploadMediaFile = async (e, setMedia, setMediaType) => {
   e.target.value = "";
 };
 
+export const UploadMediaFile = async (e, setMedia) => {
+  const inputFile = e.target.files[0];
+  const inputFileType = inputFile.type.split("/")[0];
+  const fileSize = inputFile.size / (1024 * 1024);
+
+  // file size validation ...
+  switch (inputFileType) {
+    case "video":
+      if (fileSize > 25) {
+        e.target.value = "";
+        return alert("Select a video less than 25MB size");
+      }
+      break;
+    case "image":
+      if (fileSize > 3) {
+        e.target.value = "";
+        return alert("select an image less than 3MB size");
+      }
+      break;
+    default:
+      break;
+  }
+
+  // image compression ...
+  let compressedInputFile = inputFile;
+  if (inputFileType === "image") {
+    try {
+      compressedInputFile = await imageCompression(inputFile, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      });
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  let inputFileDataBase64;
+  const file = new FileReader();
+  if (compressedInputFile) {
+    file.onloadend = (fileLoadedEvent) => {
+      inputFileDataBase64 = fileLoadedEvent.target.result;
+      setMedia({ type: inputFileType, data: inputFileDataBase64 });
+    };
+    file.readAsDataURL(compressedInputFile);
+  }
+
+  // clear the file input event value
+  e.target.value = "";
+};
+
 // let _users = users;
 // let indexes = [];
 // for (let i = 0; i < users.length; i++) {

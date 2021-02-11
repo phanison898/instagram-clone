@@ -1,5 +1,7 @@
-const users = (state = [], action) => {
+const users = (state = {}, action) => {
   switch (action.type) {
+    case "GET_USER_DATA":
+      return action.payload;
     case "GET_ALL_USERS":
       return action.payload;
     case "GET_SET_OF_USERS":

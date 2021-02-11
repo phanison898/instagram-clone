@@ -1,5 +1,17 @@
 import db from "../../firebase";
 
+export const GetUserData = (uid) => async (dispatch, getState) => {
+  let data = {};
+
+  const response = await db.collection("users").doc(uid).get();
+  data = response.data();
+
+  dispatch({
+    type: "GET_USER_DATA",
+    payload: data,
+  });
+};
+
 export const GetAllUsers = (uid) => async (dispatch) => {
   const res = await db.collection("users").where("uid", "!=", uid).get();
   const data = res.docs.map((doc) => doc.data());

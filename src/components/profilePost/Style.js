@@ -18,9 +18,13 @@ export default makeStyles((theme) => ({
       alignItems: "center",
       justifyContent: "center",
     },
+
+    "&:hover > p": {
+      display: "flex",
+    },
   },
   img: {
-    objectFit: "contain",
+    objectFit: "cover",
     width: "100%",
     height: "100%",
     zIndex: 1,
@@ -54,5 +58,26 @@ export default makeStyles((theme) => ({
       fontWeight: 600,
       margin: 2,
     },
+  },
+  description_overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: 40,
+    backgroundColor: "black",
+    opacity: 0,
+    zIndex: 4,
+    transition: "opacity 0.5s ease",
+  },
+  description: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    fontSize: 14,
+    padding: 5,
+    color: "white",
+    zIndex: 5,
+    display: "none",
   },
 }));

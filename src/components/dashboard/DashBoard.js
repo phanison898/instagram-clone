@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Avatar, Hidden } from "@material-ui/core";
 import { ReactComponent as Grid } from "../../assets/icons/grid.svg";
 import { GetFollowing } from "../../store/actions/following";
+import { GetPosts } from "../../store/actions/posts";
 import ProfilePost from "../../components/profilePost/ProfilePost";
 import Style from "./Style";
 
@@ -29,6 +30,7 @@ const DashBoard = (props) => {
 
   useEffect(() => {
     dispatch(GetFollowing(queryUID));
+    dispatch(GetPosts(queryUID));
 
     if (queryUID === currentUser.uid) {
       setData({
@@ -57,14 +59,9 @@ const DashBoard = (props) => {
         </div>
         <div className={classes.usermedia__body}>
           <div>
-            <ProfilePost />
-            <ProfilePost />
-            <ProfilePost />
-          </div>
-          <div>
-            <ProfilePost />
-            <ProfilePost />
-            <ProfilePost />
+            {posts.map((post) => (
+              <ProfilePost post={post} />
+            ))}
           </div>
         </div>
       </div>
