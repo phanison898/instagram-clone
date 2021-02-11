@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Avatar, Hidden } from "@material-ui/core";
-import ProtectedRoute from "../../components/protectedRoute/ProtectedRoute";
 import { ReactComponent as Grid } from "../../assets/icons/grid.svg";
-import { ReactComponent as IGTV } from "../../assets/icons/igtv.svg";
-import db from "../../firebase";
 import { GetFollowing } from "../../store/actions/following";
+import ProfilePost from "../../components/profilePost/ProfilePost";
 import Style from "./Style";
 
 const DashBoard = (props) => {
@@ -52,22 +50,24 @@ const DashBoard = (props) => {
 
   const UserMedia = () => {
     return (
-      <>
-        <nav>
-          <Link to={`${path}`}>
-            <Grid /> POSTS
-          </Link>
-          <Link to={`${path}/tagged`}>
-            <IGTV /> TAGGED
-          </Link>
-        </nav>
-        <div className={classes.usermedia__body}>
-          <Switch>
-            <ProtectedRoute exact path={`${url}`} component={Posts} />
-            <ProtectedRoute path={`${url}/tagged`} component={Create} />
-          </Switch>
+      <div className={classes.usermedia}>
+        <div className={classes.usermedia__header}>
+          <Grid />
+          <p>Posts</p>
         </div>
-      </>
+        <div className={classes.usermedia__body}>
+          <div>
+            <ProfilePost />
+            <ProfilePost />
+            <ProfilePost />
+          </div>
+          <div>
+            <ProfilePost />
+            <ProfilePost />
+            <ProfilePost />
+          </div>
+        </div>
+      </div>
     );
   };
 
@@ -129,7 +129,9 @@ const DashBoard = (props) => {
           )}
         </div>
       </div>
-      <div className={classes.usermedia}></div>
+      <div className={classes.usermedia}>
+        <UserMedia />
+      </div>
     </div>
   );
 };

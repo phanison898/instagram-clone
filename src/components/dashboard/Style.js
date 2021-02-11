@@ -190,29 +190,31 @@ export default makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    "& > nav": {
-      width: "100%",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+    alignItems: "center",
+    padding: 10,
+  },
 
-      "& > a": {
-        color: "grey",
-        display: "flex",
-        alignItems: "center",
-        padding: 10,
-        fontSize: 14,
-        textDecoration: "none",
-        "& > svg": {
-          marginRight: 4,
-        },
-      },
+  usermedia__header: {
+    display: "flex",
+    alignItems: "center",
+    "& > *": {
+      margin: 2,
     },
   },
 
   usermedia__body: {
     display: "flex",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+
+    "& > div": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      "& > *": {
+        margin: 15,
+      },
+    },
   },
 }));
