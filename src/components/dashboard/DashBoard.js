@@ -1,46 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Avatar, Hidden } from "@material-ui/core";
 import { ReactComponent as Grid } from "../../assets/icons/grid.svg";
-import { GetUserData } from "../../store/actions/users";
+import { GetQueryUserData, CleanQueryUserData } from "../../store/actions/queryUser";
 import ProfilePost from "../../components/profilePost/ProfilePost";
 import Style from "./Style";
 
 const DashBoard = (props) => {
   const classes = Style();
   const dispatch = useDispatch();
-  const { url, path } = props.match;
-  const params = new URLSearchParams(props.location.search);
-  const queryUID = params.get("id");
+  const queryUID = new URLSearchParams(props.location.search).get("id");
 
-  const posts = useSelector((state) => state.posts);
-  const following = useSelector((state) => state.following);
-  const followers = useSelector((state) => state.followers);
-  const currentUser = useSelector((state) => state.currentUser);
-  const users = useSelector((state) => state.users);
+  const { currentUser, queryUser, users, posts, following, followers } = useSelector(
+    (state) => state
+  );
 
   useEffect(() => {
-    dispatch(GetUserData(queryUID));
+    dispatch(GetQueryUserData(queryUID));
   }, [queryUID]);
-
-  const UserMedia = () => {
-    return (
-      <div className={classes.usermedia}>
-        <div className={classes.usermedia__header}>
-          <Grid />
-          <p>Posts</p>
-        </div>
-        <div className={classes.usermedia__body}>
-          <div>
-            {posts.map((post) => (
-              <ProfilePost post={post} />
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div className={classes.dashboard}>
@@ -48,12 +26,12 @@ const DashBoard = (props) => {
         <div className={classes.header__userinfo}>
           {/* col-1 */}
           <div className={classes.userinfo__profilePic}>
-            <Avatar src={users.profilePic} />
+            <Avatar src={queryUser.profilePic} />
           </div>
 
           {/* col-2 */}
           <div className={classes.userinfo__details}>
-            <h4>{users.fullName}</h4>
+            <h4>{queryUser.fullName}</h4>
 
             <div className={classes.details__stats}>
               <a>
@@ -61,12 +39,12 @@ const DashBoard = (props) => {
                 <p>posts</p>
               </a>
 
-              <Link to={`/${users.fullName}/followers`}>
+              <Link to={`/${currentUser.fullName}/followers`}>
                 <p>{followers.length}</p>
                 <p>followers</p>
               </Link>
 
-              <Link to={`/${users.fullName}/following`}>
+              <Link to={`/${currentUser.fullName}/following`}>
                 <p>{following.length}</p>
                 <p>following</p>
               </Link>
@@ -74,8 +52,8 @@ const DashBoard = (props) => {
 
             <Hidden xsDown>
               <div className={classes.details__bio}>
-                <p key={"username"}>{users.username}</p>
-                {String(users.bio)
+                <p key={"username"}>{queryUser.username}</p>
+                {String(queryUser.bio)
                   .split(",")
                   .map((b, i) => (
                     <p key={`bio-data-${i}`}>{b}</p>
@@ -89,8 +67,8 @@ const DashBoard = (props) => {
           </Hidden>
         </div>
         <div className={classes.details__bio__xs}>
-          <p key={"username"}>{users.username}</p>
-          {String(users.bio)
+          <p key={"username"}>{queryUser.username}</p>
+          {String(queryUser.bio)
             .split(",")
             .map((b, i) => (
               <p key={`bio-data-${i}`}>{b.trim()}</p>
@@ -105,13 +83,32 @@ const DashBoard = (props) => {
         </div>
       </div>
       <div className={classes.usermedia}>
-        <UserMedia />
+        <UserPosts posts={posts} />
       </div>
     </div>
   );
 };
 
-const Posts = () => <h1>Posts</h1>;
-const Create = () => <h1>Photos of you</h1>;
-
 export default DashBoard;
+
+// mini components
+
+const UserPosts = ({ posts }) => {
+  const classes = Style();
+  return (
+    <div className={classes.usermedia}>
+      <div className={classes.usermedia__header}>
+        <Grid />
+        <p>Posts</p>
+      </div>
+
+      <div className={classes.usermedia__body}>
+        <div>
+          {Array.from(posts).map((post, i) => (
+            <ProfilePost key={`user-post-${i}`} post={post} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};

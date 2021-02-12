@@ -12,6 +12,8 @@ const users = (state = {}, action) => {
       return action.payload;
     case "GET_USER_BY_UID":
       return action.payload;
+    case "LOGOUT":
+      return action.payload;
     default:
       return state;
   }

@@ -20,6 +20,13 @@ export const GetFollowingUsers = (uid) => async (dispatch) => {
   });
 };
 
+export const CleanFollowingUsers = () => async (dispatch) => {
+  dispatch({
+    type: "CLEAN_FOLLOWING_USERS",
+    payload: [],
+  });
+};
+
 export const Follow = (userId) => async (dispatch) => {
   db.collection("users")
     .doc(auth.currentUser.uid)

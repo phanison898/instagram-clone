@@ -13,10 +13,15 @@ export const GetPosts = (uid) => async (dispatch, getState) => {
     return { id, ...data };
   });
 
-  console.log(getState());
-
   dispatch({
     type: "GET_POSTS",
     payload: posts,
+  });
+};
+
+export const CleanPosts = () => async (dispatch) => {
+  dispatch({
+    type: "CLEAN_POSTS",
+    payload: [],
   });
 };

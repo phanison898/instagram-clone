@@ -1,21 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Avatar } from "@material-ui/core";
 import User from "../../components/users/user/User";
-import { GetUsersData } from "../../store/actions/users";
 import Style from "./Style";
 
 const Sidebar = () => {
   const classes = Style();
-  const dispatch = useDispatch();
 
   const { profilePic, fullName, username, uid } = useSelector((state) => state.currentUser);
   const users = useSelector((state) => state.users);
-
-  useEffect(() => {
-    dispatch(GetUsersData(5));
-  }, [dispatch]);
 
   return (
     <div className={classes.root}>

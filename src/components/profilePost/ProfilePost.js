@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Style from "./Style";
-import Google from "../../assets/images/google.png";
+import ImageIcon from "@material-ui/icons/Image";
+import VideocamIcon from "@material-ui/icons/Videocam";
 import { ReactComponent as Heart } from "../../assets/icons/heart.svg";
 
 const ProfilePost = ({ post }) => {
@@ -10,7 +11,19 @@ const ProfilePost = ({ post }) => {
   const { fullName } = useSelector((state) => state.currentUser);
   return (
     <Link to={`/${fullName}/post?id=${post.id}`} className={classes.post} key={post.id}>
-      <img className={classes.img} src={post.media.url} alt="post" />
+      {post.media.type === "image" ? (
+        <>
+          <img className={classes.img} src={post.media.url} alt="post" />
+          <ImageIcon className={classes.icon} />
+        </>
+      ) : (
+        <>
+          <video className={classes.img} width="300" height="150">
+            <source src={`${post.media.url}#t=0.1`} />
+          </video>
+          <VideocamIcon className={classes.icon} />
+        </>
+      )}
       <span className={classes.overlay}></span>
       <div className={classes.stats}>
         <Heart style={{ fill: "white" }} />

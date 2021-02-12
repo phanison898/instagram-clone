@@ -11,6 +11,7 @@ export default makeStyles((theme) => ({
       alignItems: "flex-start",
     },
   },
+
   post: {
     width: "100%",
     height: 500,
@@ -24,20 +25,24 @@ export default makeStyles((theme) => ({
     },
     boxShadow: "0px 0px 2px 2px rgba(0,0,0,0.1)",
   },
+
   post__media: {
     flex: 2,
+    display: "flex",
+    alignItems: "center",
     height: "100%",
     [theme.breakpoints.down("sm")]: {
       width: "80%",
-      height: 400,
+      //height: 400,
     },
     [theme.breakpoints.down("xs")]: {
       width: "100%",
     },
-    backgroundColor: "#fafafa",
+    backgroundColor: "black",
   },
+
   media__image: {
-    objectFit: "contain",
+    objectFit: "cover",
     height: "100%",
     width: "100%",
     [theme.breakpoints.down("sm")]: {
@@ -67,16 +72,53 @@ export default makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     alignItems: "center",
-    padding: 10,
+    padding: "15px 10px",
     borderBottom: `1px solid ${secondary}`,
+
+    "& > .MuiAvatar-root": {
+      width: 30,
+      height: 30,
+    },
 
     "& > h4": {
       flex: 1,
-      padding: "0 20px",
+      padding: "0 10px",
     },
 
     [theme.breakpoints.down("sm")]: {
       display: "none",
+    },
+  },
+
+  details__description: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+
+    "& > p": {
+      fontSize: 13,
+      padding: "0 50px",
+    },
+  },
+
+  description__header: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    padding: "5px 10px",
+
+    "& > .MuiAvatar-root": {
+      width: 30,
+      height: 30,
+    },
+
+    "& > h4": {
+      padding: "0 10px",
+    },
+
+    "& > p": {
+      fontSize: 12,
+      color: "grey",
     },
   },
 

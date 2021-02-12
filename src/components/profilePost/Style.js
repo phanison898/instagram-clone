@@ -30,6 +30,14 @@ export default makeStyles((theme) => ({
     zIndex: 1,
   },
 
+  icon: {
+    position: "absolute",
+    top: 4,
+    right: 4,
+    zIndex: 6,
+    color: "white",
+  },
+
   overlay: {
     position: "absolute",
     top: 0,

@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import { secondary } from "../../assets/Colors";
 import User from "./user/User";
-import { GetUsersData } from "../../store/actions/users";
 
 const Users = (props) => {
   const classes = Style();
-  const dispatch = useDispatch();
 
   const { url } = props.match;
 
   const users = useSelector((state) => state.users);
   const following = useSelector((state) => state.following);
   const followers = useSelector((state) => state.followers);
-
-  const [data, setData] = useState([]);
 
   const heading = () => {
     const path = url.split("/")[2];
@@ -50,12 +46,10 @@ const Users = (props) => {
     const path = url.split("/")[2];
     switch (path) {
       case "users":
-        dispatch(GetUsersData());
         break;
       case "followers":
         break;
       case "following":
-        setData(following);
         break;
       default:
         return;

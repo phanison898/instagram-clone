@@ -16,7 +16,7 @@ const DetailedPost = (props) => {
   const params = new URLSearchParams(props.location.search);
   const postID = params.get("id");
 
-  const posts = useSelector((state) => state.posts);
+  const { queryUser, posts } = useSelector((state) => state);
   const [post, setPost] = useState({});
   const [comment, setComment] = useState("");
 
@@ -41,16 +41,34 @@ const DetailedPost = (props) => {
         </div>
         <div className={classes.post__details}>
           <div className={classes.details__header}>
-            <Avatar src={""} />
-            <h4>{"phanison"}</h4>
+            <Avatar src={queryUser.profilePic} />
+            <h4>{queryUser.fullName}</h4>
             <MoreHorizOutlinedIcon />
+          </div>
+          <div className={classes.details__description}>
+            <div className={classes.description__header}>
+              <Avatar src={queryUser.profilePic} />
+              <h4>{queryUser.fullName}</h4>
+              <p>
+                <ReactTimeago
+                  date={new Date(post?.timestamp?.toDate()).toUTCString()}
+                  units="minute"
+                />
+              </p>
+            </div>
+            <p>{post.description}</p>
           </div>
           <div className={classes.details__reactions_2}>
             <div>
               <Heart />
               <p>55 Likes</p>
             </div>
-            <p>December 19, 2020</p>
+            <p>
+              <ReactTimeago
+                date={new Date(post?.timestamp?.toDate()).toUTCString()}
+                units="minute"
+              />
+            </p>
           </div>
           <div className={classes.details__comments}></div>
           <div className={classes.details__reactions}>

@@ -34,7 +34,7 @@ const User = ({ user }) => {
         <h4>{user.fullName}</h4>
         <p>{user.username}</p>
       </Link>
-      <section onClick={toggleFollow}>
+      <section>
         {isFollowing ? (
           <button
             style={{
@@ -42,11 +42,12 @@ const User = ({ user }) => {
               color: "grey",
               border: "1px solid lightgrey",
             }}
+            onClick={toggleFollow}
           >
             Following
           </button>
         ) : (
-          <button>Follow</button>
+          <button onClick={toggleFollow}>Follow</button>
         )}
       </section>
     </div>

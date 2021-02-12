@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Switch } from "react-router-dom";
 import { Paper } from "@material-ui/core";
 import ProtectedRoute from "../../components/protectedRoute/ProtectedRoute";
@@ -9,11 +10,18 @@ import Form from "../../components/form/Form";
 import Edit from "../../components/edit/Edit";
 import Users from "../../components/users/Users";
 import DetailedPost from "../../components/detailedPost/DetailedPost";
+import { GetAllUsers } from "../../store/actions/users";
+import { auth } from "../../firebase";
 import Style from "./Style";
 
 const HomePage = (props) => {
   const classes = Style();
+  const dispatch = useDispatch();
   const { url } = props.match;
+
+  useEffect(() => {
+    dispatch(GetAllUsers(auth.currentUser.uid));
+  }, []);
 
   return (
     <Paper className={classes.home}>
