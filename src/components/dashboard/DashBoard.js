@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Avatar, Hidden } from "@material-ui/core";
 import { ReactComponent as Grid } from "../../assets/icons/grid.svg";
-import { GetFollowing } from "../../store/actions/following";
-import { GetPosts } from "../../store/actions/posts";
+import { GetUserData } from "../../store/actions/users";
 import ProfilePost from "../../components/profilePost/ProfilePost";
 import Style from "./Style";
 
@@ -15,13 +14,6 @@ const DashBoard = (props) => {
   const params = new URLSearchParams(props.location.search);
   const queryUID = params.get("id");
 
-  const [data, setData] = useState({
-    fullName: "",
-    username: "",
-    profilePic: "",
-    bio: "",
-  });
-
   const posts = useSelector((state) => state.posts);
   const following = useSelector((state) => state.following);
   const followers = useSelector((state) => state.followers);
@@ -29,25 +21,7 @@ const DashBoard = (props) => {
   const users = useSelector((state) => state.users);
 
   useEffect(() => {
-    dispatch(GetFollowing(queryUID));
-    dispatch(GetPosts(queryUID));
-
-    if (queryUID === currentUser.uid) {
-      setData({
-        fullName: currentUser.fullName,
-        username: currentUser.username,
-        profilePic: currentUser.profilePic,
-        bio: currentUser.bio,
-      });
-    } else {
-      const [queryUser] = users.filter((user) => user.uid === queryUID);
-      setData({
-        fullName: queryUser.fullName,
-        username: queryUser.username,
-        profilePic: queryUser.profilePic,
-        bio: queryUser.bio,
-      });
-    }
+    dispatch(GetUserData(queryUID));
   }, [queryUID]);
 
   const UserMedia = () => {
@@ -74,12 +48,12 @@ const DashBoard = (props) => {
         <div className={classes.header__userinfo}>
           {/* col-1 */}
           <div className={classes.userinfo__profilePic}>
-            <Avatar src={data.profilePic} />
+            <Avatar src={users.profilePic} />
           </div>
 
           {/* col-2 */}
           <div className={classes.userinfo__details}>
-            <h4>{data.fullName}</h4>
+            <h4>{users.fullName}</h4>
 
             <div className={classes.details__stats}>
               <a>
@@ -87,12 +61,12 @@ const DashBoard = (props) => {
                 <p>posts</p>
               </a>
 
-              <Link to={`/${data.fullName}/followers`}>
+              <Link to={`/${users.fullName}/followers`}>
                 <p>{followers.length}</p>
                 <p>followers</p>
               </Link>
 
-              <Link to={`/${data.fullName}/following`}>
+              <Link to={`/${users.fullName}/following`}>
                 <p>{following.length}</p>
                 <p>following</p>
               </Link>
@@ -100,10 +74,12 @@ const DashBoard = (props) => {
 
             <Hidden xsDown>
               <div className={classes.details__bio}>
-                <p key={"username"}>{data.username}</p>
-                {data.bio.split(",").map((b, i) => (
-                  <p key={`bio-data-${i}`}>{b}</p>
-                ))}
+                <p key={"username"}>{users.username}</p>
+                {String(users.bio)
+                  .split(",")
+                  .map((b, i) => (
+                    <p key={`bio-data-${i}`}>{b}</p>
+                  ))}
               </div>
             </Hidden>
           </div>
@@ -113,14 +89,16 @@ const DashBoard = (props) => {
           </Hidden>
         </div>
         <div className={classes.details__bio__xs}>
-          <p key={"username"}>{data.username}</p>
-          {data.bio.split(",").map((b, i) => (
-            <p key={`bio-data-${i}`}>{b.trim()}</p>
-          ))}
+          <p key={"username"}>{users.username}</p>
+          {String(users.bio)
+            .split(",")
+            .map((b, i) => (
+              <p key={`bio-data-${i}`}>{b.trim()}</p>
+            ))}
         </div>
         <div className={classes.header__button}>
           {currentUser.uid === queryUID ? (
-            <Link to={`/${data.fullName}/edit`}>Edit</Link>
+            <Link to={`/${currentUser.fullName}/edit`}>Edit</Link>
           ) : (
             <button>follow</button>
           )}

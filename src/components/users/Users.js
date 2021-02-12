@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import { secondary } from "../../assets/Colors";
 import User from "./user/User";
+import { GetUsersData } from "../../store/actions/users";
 
 const Users = (props) => {
   const classes = Style();
+  const dispatch = useDispatch();
 
   const { url } = props.match;
 
@@ -48,19 +50,7 @@ const Users = (props) => {
     const path = url.split("/")[2];
     switch (path) {
       case "users":
-        // let _users = users;
-        // let indexes = [];
-        // for (let i = 0; i < Array.from(following).length; i++) {
-        //   Array.from(users).forEach((user) => {
-        //     if (user.uid === following[i]) {
-        //       indexes.push(user);
-        //     }
-        //   });
-        // }
-
-        // for (let i = indexes.length - 1; i >= 0; i--) _users.splice(indexes[i], 1);
-
-        setData(users.map((user) => user.uid));
+        dispatch(GetUsersData());
         break;
       case "followers":
         break;
@@ -70,16 +60,16 @@ const Users = (props) => {
       default:
         return;
     }
-  }, [url]);
+  }, []);
 
   return (
     <div className={classes.root}>
       <p>{heading()}</p>
       <Paper className={classes.users}>
-        {data.length === 0 ? (
+        {users.length === 0 ? (
           <p>{noContent()}</p>
         ) : (
-          data.map((uid, i) => <User key={`insta-user-${i}`} uid={uid} />)
+          Array.from(users).map((user, i) => <User key={`insta-user-${i}`} user={user} />)
         )}
       </Paper>
     </div>

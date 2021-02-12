@@ -2,6 +2,8 @@
 
 const currentUser = (state = {}, action) => {
   switch (action.type) {
+    case "GET_CURRENT_USER_DATA":
+      return action.payload;
     case "SIGN_UP":
       return action.payload;
     case "LOGIN":

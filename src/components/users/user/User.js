@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Avatar } from "@material-ui/core";
@@ -6,43 +6,33 @@ import { makeStyles } from "@material-ui/core/styles";
 import { primary } from "../../../assets/Colors";
 import { Follow, UnFollow } from "../../../store/actions/following";
 
-const User = ({ uid }) => {
+const User = ({ user }) => {
   const classes = Style();
   const dispatch = useDispatch();
 
-  const currentUser = useSelector((state) => state.currentUser);
-  const users = useSelector((state) => state.users);
+  const { fullName } = useSelector((state) => state.currentUser);
   const following = useSelector((state) => state.following);
 
-  const [isFollowing, setIsFollowing] = useState(false);
-  const [data, setData] = useState(users.find((user) => user.uid === uid));
+  const [isFollowing, setIsFollowing] = useState(() =>
+    Array.from(following).some((follow) => follow.uid === user.uid)
+  );
 
   const toggleFollow = () => {
     if (isFollowing) {
-      dispatch(UnFollow(currentUser.uid, data.uid));
+      dispatch(UnFollow(user.uid));
       setIsFollowing(false);
     } else {
-      dispatch(Follow(currentUser.uid, data.uid));
+      dispatch(Follow(user.uid));
       setIsFollowing(true);
     }
   };
 
-  useEffect(() => {
-    console.log(data.fullName);
-
-    Array.from(following).forEach((follow) => {
-      if (follow === data.uid) {
-        setIsFollowing(true);
-      }
-    });
-  }, [following]);
-
   return (
     <div className={classes.root}>
-      <Avatar src={data.profilePic} />
-      <Link to={`/${currentUser.fullName}/profile?id=${data.uid}`}>
-        <h4>{data.fullName}</h4>
-        <p>{data.username}</p>
+      <Avatar src={user.profilePic} />
+      <Link to={`/${fullName}/profile?id=${user.uid}`}>
+        <h4>{user.fullName}</h4>
+        <p>{user.username}</p>
       </Link>
       <section onClick={toggleFollow}>
         {isFollowing ? (

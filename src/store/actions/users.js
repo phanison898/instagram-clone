@@ -1,13 +1,30 @@
-import db from "../../firebase";
+import db, { auth } from "../../firebase";
+import { GetPosts } from "./../actions/posts";
+import { GetFollowingUsers } from "./../actions/following";
 
 export const GetUserData = (uid) => async (dispatch, getState) => {
   let data = {};
 
   const response = await db.collection("users").doc(uid).get();
   data = response.data();
-
   dispatch({
     type: "GET_USER_DATA",
+    payload: data,
+  });
+  dispatch(GetPosts(uid));
+  dispatch(GetFollowingUsers(uid));
+};
+
+export const GetUsersData = (limit) => async (dispatch) => {
+  let res;
+  if (limit) {
+    res = await db.collection("users").limit(limit).get();
+  } else {
+    res = await db.collection("users").get();
+  }
+  const data = res.docs.map((doc) => doc.data());
+  dispatch({
+    type: "GET_USERS_DATA",
     payload: data,
   });
 };

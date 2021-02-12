@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Avatar } from "@material-ui/core";
 import User from "../../components/users/user/User";
+import { GetUsersData } from "../../store/actions/users";
 import Style from "./Style";
 
 const Sidebar = () => {
   const classes = Style();
+  const dispatch = useDispatch();
 
   const { profilePic, fullName, username, uid } = useSelector((state) => state.currentUser);
   const users = useSelector((state) => state.users);
+
+  useEffect(() => {
+    dispatch(GetUsersData(5));
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>
@@ -27,7 +33,9 @@ const Sidebar = () => {
           <Link to={`/${fullName}/users`}>See all</Link>
         </div>
         <div className={classes.followUsers__users}>
-          {users.map((user, i) => i < 5 && <User key={`sidebar-user-${i}`} uid={user.uid} />)}
+          {Array.from(users).map(
+            (user, i) => i < 5 && <User key={`sidebar-user-${i}`} user={user} />
+          )}
         </div>
       </div>
 
