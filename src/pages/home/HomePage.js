@@ -21,7 +21,7 @@ const HomePage = (props) => {
 
   useEffect(() => {
     dispatch(GetAllUsers(auth.currentUser.uid));
-  }, []);
+  }, [dispatch]);
 
   return (
     <Paper className={classes.home}>

@@ -11,7 +11,7 @@ export const GetFollowingUsers = (uid) => async (dispatch) => {
 
   for (let i = 0; i < userIds.length; i++) {
     const _response = await db.collection("users").doc(userIds[i]).get();
-    data = _response.data();
+    data = [...data, _response.data()];
   }
 
   dispatch({
@@ -21,23 +21,28 @@ export const GetFollowingUsers = (uid) => async (dispatch) => {
 };
 
 export const GetCurrentUserFollowingUsers = (uid) => async (dispatch) => {
-  let data = [];
+  // let data = [];
 
-  const response = await db.collection("users").doc(uid).collection("following").get();
+  // const response = await db.collection("users").doc(uid).collection("following").get();
 
-  const userIds = response.docs.map((doc) => {
-    return doc.id;
-  });
+  // const userIds = response.docs.map((doc) => {
+  //   return doc.id;
+  // });
 
-  for (let i = 0; i < userIds.length; i++) {
-    const _response = await db.collection("users").doc(userIds[i]).get();
-    data = _response.data();
-  }
+  // for (let i = 0; i < userIds.length; i++) {
+  //   const _response = await db.collection("users").doc(userIds[i]).get();
+  //   data = [...data, _response.data()];
+  // }
 
-  dispatch({
-    type: "GET_CURRENT_USER_FOLLOWING",
-    payload: data,
-  });
+  db.collection("users")
+    .doc(uid)
+    .collection("following")
+    .onSnapshot((snapshot) =>
+      dispatch({
+        type: "GET_CURRENT_USER_FOLLOWING",
+        payload: snapshot.docs.map((doc) => doc.id),
+      })
+    );
 };
 
 export const Follow = (userId) => async (dispatch) => {

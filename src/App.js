@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import { useEffect } from "react";
 import { auth } from "./firebase";
 import { GetLoggedUserData, LogoutAction } from "./store/actions/auth";
+import { GetAllUsers } from "./store/actions/users";
 
 const App = () => {
   const dispatch = useDispatch();

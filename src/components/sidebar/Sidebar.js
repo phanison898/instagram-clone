@@ -28,7 +28,8 @@ const Sidebar = () => {
         </div>
         <div className={classes.followUsers__users}>
           {Array.from(users).map(
-            (user, i) => i < 5 && <User key={`sidebar-user-${i}`} user={user} />
+            (user, i) =>
+              i < 5 && !user.isFollowing && <User key={`sidebar-user-${i}`} user={user} />
           )}
         </div>
       </div>

@@ -11,19 +11,12 @@ const User = ({ user }) => {
   const dispatch = useDispatch();
 
   const { fullName } = useSelector((state) => state.currentUser);
-  const following = useSelector((state) => state.following);
-
-  const [isFollowing, setIsFollowing] = useState(() =>
-    Array.from(following).some((follow) => follow.uid === user.uid)
-  );
 
   const toggleFollow = () => {
-    if (isFollowing) {
+    if (user.isFollowing) {
       dispatch(UnFollow(user.uid));
-      setIsFollowing(false);
     } else {
       dispatch(Follow(user.uid));
-      setIsFollowing(true);
     }
   };
 
@@ -35,7 +28,7 @@ const User = ({ user }) => {
         <p>{user.username}</p>
       </Link>
       <section>
-        {isFollowing ? (
+        {user.isFollowing ? (
           <button
             style={{
               backgroundColor: "transparent",
@@ -47,7 +40,9 @@ const User = ({ user }) => {
             Following
           </button>
         ) : (
-          <button onClick={toggleFollow}>Follow</button>
+          <button onClick={toggleFollow}>
+            {user.isFollower && !user.isFollowing ? "Follow Back" : "Follow"}
+          </button>
         )}
       </section>
     </div>
