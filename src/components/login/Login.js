@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase";
-import { LoginAction, LoginWithFacebook, LoginWithGoogle } from "../../store/actions/auth";
+import { GetLoggedUserData, LoginWithFacebook, LoginWithGoogle } from "../../store/actions/auth";
 import * as images from "../../assets/images";
 import Style from "./Style";
 
@@ -32,7 +32,7 @@ const Login = () => {
 
     auth
       .signInWithEmailAndPassword(email, password)
-      .then((authUser) => dispatch(LoginAction(authUser.user)))
+      .then(() => dispatch(GetLoggedUserData()))
       .catch((error) => alert(error));
   };
 

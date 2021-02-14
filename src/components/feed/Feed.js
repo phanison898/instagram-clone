@@ -12,8 +12,10 @@ const Feed = () => {
         <div className={classes.main__stories}>
           <Stories />
         </div>
+
         <div className={classes.main__posts}>{/* <Posts /> */}</div>
       </div>
+
       <div className={classes.feed__sidebar}>
         <Sidebar />
       </div>

@@ -1,6 +1,7 @@
 import db from "../../firebase";
-import { GetPosts, CleanPosts } from "./../actions/posts";
-import { GetFollowingUsers, CleanFollowingUsers } from "./../actions/following";
+import { GetPosts } from "./../actions/posts";
+import { GetFollowingUsers } from "./../actions/following";
+import { GetFollowerUsers } from "./../actions/followers";
 
 export const GetQueryUserData = (uid) => async (dispatch, getState) => {
   let data = {};
@@ -18,13 +19,11 @@ export const GetQueryUserData = (uid) => async (dispatch, getState) => {
   });
   dispatch(GetPosts(uid));
   dispatch(GetFollowingUsers(uid));
+  dispatch(GetFollowerUsers(uid));
 };
 
 export const CleanQueryUserData = () => async (dispatch) => {
   dispatch({
     type: "CLEAN_QUERY_USER_DATA",
-    payload: {},
   });
-  dispatch(CleanPosts());
-  dispatch(CleanFollowingUsers());
 };

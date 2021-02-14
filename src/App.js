@@ -10,7 +10,7 @@ import PageNotFound from "./pages/pageNotFount/PageNotFound";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import { useEffect } from "react";
 import { auth } from "./firebase";
-import { LoginAction, LogoutAction } from "./store/actions/auth";
+import { GetLoggedUserData, LogoutAction } from "./store/actions/auth";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const App = () => {
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        dispatch(LoginAction(authUser.uid));
+        dispatch(GetLoggedUserData());
       } else {
         dispatch(LogoutAction());
       }

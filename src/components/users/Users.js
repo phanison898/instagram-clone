@@ -11,8 +11,7 @@ const Users = (props) => {
   const { url } = props.match;
 
   const users = useSelector((state) => state.users);
-  const following = useSelector((state) => state.following);
-  const followers = useSelector((state) => state.followers);
+  const { following, followers } = useSelector((state) => state.currentUser);
 
   const heading = () => {
     const path = url.split("/")[2];

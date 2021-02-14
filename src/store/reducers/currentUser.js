@@ -1,19 +1,40 @@
-// holds all data belongs to logged in user
+const initialState = {
+  posts: [],
+  following: [],
+  followers: [],
+};
 
-const currentUser = (state = {}, action) => {
+const currentUser = (state = initialState, action) => {
+  let data;
   switch (action.type) {
-    case "GET_CURRENT_USER_DATA":
-      return action.payload;
     case "SIGN_UP":
-      return action.payload;
-    case "LOGIN":
-      return action.payload;
+      data = action.payload;
+      return { ...state, ...data };
+
+    case "GET_LOGGED_USER_DATA":
+      data = action.payload;
+      return { ...state, ...data };
+
     case "LOGIN_WITH_FACEBOOK":
-      return action.payload;
+      data = action.payload;
+      return { ...state, ...data };
+
     case "LOGIN_WITH_GOOGLE":
-      return action.payload;
+      data = action.payload;
+      return { ...state, ...data };
+
+    case "GET_CURRENT_USER_POSTS":
+      return { ...state, posts: action.payload };
+
+    case "GET_CURRENT_USER_FOLLOWERS":
+      return { ...state, followers: action.payload };
+
+    case "GET_CURRENT_USER_FOLLOWING":
+      return { ...state, following: action.payload };
+
     case "LOGOUT":
       return action.payload;
+
     default:
       return state;
   }

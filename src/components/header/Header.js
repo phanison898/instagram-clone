@@ -1,62 +1,29 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Avatar, Paper } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
+import { ToggleTheme } from "../../store/actions/util";
 import { InstaTextLogo } from "../../assets/images";
+import { Avatar, Paper } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { ReactComponent as Home } from "../../assets/icons/home.svg";
 import { ReactComponent as Explor } from "../../assets/icons/explor.svg";
-import { ReactComponent as Profile } from "../../assets/icons/profile.svg";
-import { ReactComponent as Saved } from "../../assets/icons/saved.svg";
-import { ReactComponent as Settings } from "../../assets/icons/settings.svg";
-import { ReactComponent as Switch } from "../../assets/icons/switch.svg";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
 import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
-import { ToggleTheme } from "../../store/actions/util";
-import { auth } from "../../firebase";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import SearchIcon from "@material-ui/icons/Search";
+import Dropdown from "./Dropdown";
 import Style from "./Style";
 
 const Header = ({ path }) => {
   const classes = Style();
-
   const dispatch = useDispatch();
 
   const { profilePic, uid } = useSelector((state) => state.currentUser);
-
   const { theme } = useSelector((state) => state.util);
 
   const [isDrapdownOpen, setIsDrapdownOpen] = useState(false);
 
   const toggleDropDown = () => {
     setIsDrapdownOpen(!isDrapdownOpen);
-  };
-
-  const Dropdown = () => {
-    return (
-      <Paper className={classes.dropdown}>
-        <div className={classes.arrow} />
-        <Link to={`${path}/profile?id=${uid}`} className={classes.option} onClick={toggleDropDown}>
-          <Profile />
-          <p>Profile</p>
-        </Link>
-        <div className={classes.option} onClick={toggleDropDown}>
-          <Saved />
-          <p>Saved</p>
-        </div>
-        <div className={classes.option} onClick={toggleDropDown}>
-          <Settings />
-          <p>Settings</p>
-        </div>
-        <div className={classes.option} onClick={toggleDropDown}>
-          <Switch />
-          <p>Switch Account</p>
-        </div>
-        <div className={classes.option} onClick={() => auth.signOut()}>
-          <p>Logout</p>
-        </div>
-      </Paper>
-    );
   };
 
   return (
@@ -94,7 +61,7 @@ const Header = ({ path }) => {
             <Avatar src={profilePic} onClick={toggleDropDown} />
           </div>
 
-          {isDrapdownOpen && <Dropdown />}
+          {isDrapdownOpen && <Dropdown path={path} uid={uid} onClick={toggleDropDown} />}
         </div>
       </nav>
     </Paper>

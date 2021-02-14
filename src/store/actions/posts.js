@@ -1,6 +1,7 @@
 import db from "../../firebase";
+import { auth } from "../../firebase";
 
-export const GetPosts = (uid) => async (dispatch, getState) => {
+export const GetPosts = (uid) => async (dispatch) => {
   const responce = await db
     .collection("users")
     .doc(uid)
@@ -14,14 +15,26 @@ export const GetPosts = (uid) => async (dispatch, getState) => {
   });
 
   dispatch({
-    type: "GET_POSTS",
+    type: "GET_QUERY_USER_POSTS",
     payload: posts,
   });
 };
 
-export const CleanPosts = () => async (dispatch) => {
+export const GetCurrentUserPosts = (uid) => async (dispatch) => {
+  const responce = await db
+    .collection("users")
+    .doc(uid)
+    .collection("posts")
+    .orderBy("timestamp", "desc")
+    .get();
+  const posts = responce.docs.map((doc) => {
+    const id = doc.id;
+    const data = doc.data();
+    return { id, ...data };
+  });
+
   dispatch({
-    type: "CLEAN_POSTS",
-    payload: [],
+    type: "GET_CURRENT_USER_POSTS",
+    payload: posts,
   });
 };

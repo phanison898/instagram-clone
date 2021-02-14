@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Avatar, Hidden } from "@material-ui/core";
 import { ReactComponent as Grid } from "../../assets/icons/grid.svg";
-import { GetQueryUserData, CleanQueryUserData } from "../../store/actions/queryUser";
+import { GetQueryUserData } from "../../store/actions/queryUser";
 import ProfilePost from "../../components/profilePost/ProfilePost";
 import Style from "./Style";
 
@@ -12,9 +12,7 @@ const DashBoard = (props) => {
   const dispatch = useDispatch();
   const queryUID = new URLSearchParams(props.location.search).get("id");
 
-  const { currentUser, queryUser, users, posts, following, followers } = useSelector(
-    (state) => state
-  );
+  const { queryUser, currentUser } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(GetQueryUserData(queryUID));
@@ -35,17 +33,17 @@ const DashBoard = (props) => {
 
             <div className={classes.details__stats}>
               <a>
-                <p>{posts.length}</p>
+                <p>{queryUser?.posts?.length}</p>
                 <p>posts</p>
               </a>
 
               <Link to={`/${currentUser.fullName}/followers`}>
-                <p>{followers.length}</p>
+                <p>{queryUser?.followers?.length}</p>
                 <p>followers</p>
               </Link>
 
               <Link to={`/${currentUser.fullName}/following`}>
-                <p>{following.length}</p>
+                <p>{queryUser?.following?.length}</p>
                 <p>following</p>
               </Link>
             </div>
@@ -83,7 +81,7 @@ const DashBoard = (props) => {
         </div>
       </div>
       <div className={classes.usermedia}>
-        <UserPosts posts={posts} />
+        <UserPosts posts={queryUser.posts} />
       </div>
     </div>
   );
@@ -104,7 +102,7 @@ const UserPosts = ({ posts }) => {
 
       <div className={classes.usermedia__body}>
         <div>
-          {Array.from(posts).map((post, i) => (
+          {posts?.map((post, i) => (
             <ProfilePost key={`user-post-${i}`} post={post} />
           ))}
         </div>

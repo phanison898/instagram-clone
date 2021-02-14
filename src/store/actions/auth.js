@@ -1,4 +1,6 @@
 import db, { auth, facebookProvider, googleProvider } from "../../firebase";
+import { GetCurrentUserFollowingUsers } from "./../actions/following";
+import { GetCurrentUserFollowerUsers } from "./../actions/followers";
 import firebase from "firebase";
 
 export const SignupAction = ({ email, password, name, username }) => async (dispatch) => {
@@ -33,15 +35,17 @@ export const SignupAction = ({ email, password, name, username }) => async (disp
     .catch((error) => alert(error));
 };
 
-export const LoginAction = (uid) => async (dispatch) => {
+export const GetLoggedUserData = () => async (dispatch) => {
   db.collection("users")
-    .doc(uid)
+    .doc(auth.currentUser.uid)
     .get()
     .then((doc) => {
       dispatch({
-        type: "LOGIN",
+        type: "GET_LOGGED_USER_DATA",
         payload: doc.data(),
       });
+      dispatch(GetCurrentUserFollowingUsers(auth.currentUser.uid));
+      dispatch(GetCurrentUserFollowerUsers(auth.currentUser.uid));
     })
     .catch((error) => alert(error));
 };

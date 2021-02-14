@@ -5,7 +5,7 @@ import { uploadMediaFile } from "../../util/file-handling";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import db, { auth } from "../../firebase";
 import { UploadProfilePic } from "../../util/firestore";
-import { LoginAction } from "../../store/actions/auth";
+import { GetLoggedUserData } from "../../store/actions/auth";
 import Style from "./Style";
 
 const Edit = () => {
@@ -31,7 +31,7 @@ const Edit = () => {
         bio: _bio,
       })
       .then(() => {
-        dispatch(LoginAction(uid));
+        dispatch(GetLoggedUserData());
       })
       .catch((error) => alert(error.message));
   };

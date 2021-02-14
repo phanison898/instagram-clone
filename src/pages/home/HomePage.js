@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Switch } from "react-router-dom";
 import { Paper } from "@material-ui/core";
+import { auth } from "../../firebase";
+import { GetAllUsers } from "../../store/actions/users";
 import ProtectedRoute from "../../components/protectedRoute/ProtectedRoute";
-import Header from "../../components/header/Header";
-import Feed from "../../components/feed/Feed";
+import DetailedPost from "../../components/detailedPost/DetailedPost";
 import DashBoard from "../../components/dashboard/DashBoard";
+import Header from "../../components/header/Header";
+import Users from "../../components/users/Users";
+import Feed from "../../components/feed/Feed";
 import Form from "../../components/form/Form";
 import Edit from "../../components/edit/Edit";
-import Users from "../../components/users/Users";
-import DetailedPost from "../../components/detailedPost/DetailedPost";
-import { GetAllUsers } from "../../store/actions/users";
-import { auth } from "../../firebase";
 import Style from "./Style";
 
 const HomePage = (props) => {
