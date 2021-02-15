@@ -16,7 +16,7 @@ const DetailedPost = (props) => {
   const params = new URLSearchParams(props.location.search);
   const postID = params.get("id");
 
-  const { queryUser, posts } = useSelector((state) => state);
+  const { queryUser } = useSelector((state) => state);
   const [post, setPost] = useState({});
   const [comment, setComment] = useState("");
 
@@ -26,7 +26,7 @@ const DetailedPost = (props) => {
   };
 
   useEffect(() => {
-    posts.map((post) => post.id === postID && setPost(post));
+    queryUser.posts.map((post) => post.id === postID && setPost(post));
   }, [postID]);
 
   return (

@@ -10,26 +10,34 @@ export const GetAllUsers = (uid) => async (dispatch, getState) => {
   const following = getState().currentUser.following;
 
   data = data.map((user) => {
-    for (let i = 0; i < following.length; i++) {
-      if (following[i] === user.uid) {
-        return { ...user, isFollowing: true };
-      } else {
-        return { ...user, isFollowing: false };
+    let condition = false;
+    for (let i = 0; i < following?.length; i++) {
+      if (following[i] === user?.uid) {
+        condition = true;
+        break;
       }
+    }
+    if (condition) {
+      return { ...user, isFollowing: true };
+    } else {
+      return { ...user, isFollowing: false };
     }
   });
 
   data = data.map((user) => {
-    for (let i = 0; i < followers.length; i++) {
-      if (followers[i] === user.uid) {
-        return { ...user, isFollower: true };
-      } else {
-        return { ...user, isFollower: false };
+    let condition = false;
+    for (let i = 0; i < followers?.length; i++) {
+      if (followers[i] === user?.uid) {
+        condition = true;
+        break;
       }
     }
+    if (condition) {
+      return { ...user, isFollower: true };
+    } else {
+      return { ...user, isFollower: false };
+    }
   });
-
-  console.log(data);
 
   dispatch({
     type: "GET_ALL_USERS",

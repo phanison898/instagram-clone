@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
@@ -10,8 +10,10 @@ const Users = (props) => {
 
   const { url } = props.match;
 
-  const users = useSelector((state) => state.users);
-  const { following, followers } = useSelector((state) => state.currentUser);
+  let _users = useSelector((state) => state.users);
+  const { following, followers } = useSelector((state) => state.queryUser);
+
+  const [users, setUsers] = useState(_users);
 
   const heading = () => {
     const path = url.split("/")[2];

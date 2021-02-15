@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Switch } from "react-router-dom";
 import { Paper } from "@material-ui/core";
 import { auth } from "../../firebase";
@@ -19,9 +19,11 @@ const HomePage = (props) => {
   const dispatch = useDispatch();
   const { url } = props.match;
 
+  const { following } = useSelector((state) => state.currentUser);
+
   useEffect(() => {
     dispatch(GetAllUsers(auth.currentUser.uid));
-  }, [dispatch]);
+  }, [following]);
 
   return (
     <Paper className={classes.home}>
