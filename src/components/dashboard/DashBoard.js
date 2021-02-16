@@ -5,6 +5,7 @@ import { Avatar, Hidden } from "@material-ui/core";
 import { ReactComponent as Grid } from "../../assets/icons/grid.svg";
 import { GetQueryUserData } from "../../store/actions/queryUser";
 import ProfilePost from "../../components/profilePost/ProfilePost";
+import { Follow, UnFollow } from "../../store/actions/following";
 import Style from "./Style";
 
 const DashBoard = (props) => {
@@ -13,6 +14,14 @@ const DashBoard = (props) => {
   const queryUID = new URLSearchParams(props.location.search).get("id");
 
   const { queryUser, currentUser } = useSelector((state) => state);
+
+  const toggleFollow = () => {
+    if (queryUser.isFollowing) {
+      dispatch(UnFollow(queryUser.uid));
+    } else {
+      dispatch(Follow(queryUser.uid));
+    }
+  };
 
   useEffect(() => {
     dispatch(GetQueryUserData(queryUID));
@@ -75,8 +84,22 @@ const DashBoard = (props) => {
         <div className={classes.header__button}>
           {currentUser.uid === queryUID ? (
             <Link to={`/${currentUser.fullName}/edit`}>Edit</Link>
+          ) : // <button>follow</button>
+          queryUser.isFollowing ? (
+            <button
+              style={{
+                backgroundColor: "transparent",
+                color: "grey",
+                border: "1px solid lightgrey",
+              }}
+              onClick={toggleFollow}
+            >
+              Following
+            </button>
           ) : (
-            <button>follow</button>
+            <button onClick={toggleFollow}>
+              {queryUser.isFollower && !queryUser.isFollowing ? "Follow Back" : "Follow"}
+            </button>
           )}
         </div>
       </div>

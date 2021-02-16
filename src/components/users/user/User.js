@@ -5,6 +5,7 @@ import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { primary } from "../../../assets/Colors";
 import { Follow, UnFollow } from "../../../store/actions/following";
+import { auth } from "../../../firebase";
 
 const User = forwardRef(({ user }, ref) => {
   const classes = Style();
@@ -27,24 +28,26 @@ const User = forwardRef(({ user }, ref) => {
         <h4>{user.fullName}</h4>
         <p>{user.username}</p>
       </Link>
-      <section>
-        {user.isFollowing ? (
-          <button
-            style={{
-              backgroundColor: "transparent",
-              color: "grey",
-              border: "1px solid lightgrey",
-            }}
-            onClick={toggleFollow}
-          >
-            Following
-          </button>
-        ) : (
-          <button onClick={toggleFollow}>
-            {user.isFollower && !user.isFollowing ? "Follow Back" : "Follow"}
-          </button>
-        )}
-      </section>
+      {user.uid !== auth.currentUser.uid && (
+        <section>
+          {user.isFollowing ? (
+            <button
+              style={{
+                backgroundColor: "transparent",
+                color: "grey",
+                border: "1px solid lightgrey",
+              }}
+              onClick={toggleFollow}
+            >
+              Following
+            </button>
+          ) : (
+            <button onClick={toggleFollow}>
+              {user.isFollower && !user.isFollowing ? "Follow Back" : "Follow"}
+            </button>
+          )}
+        </section>
+      )}
     </div>
   );
 });

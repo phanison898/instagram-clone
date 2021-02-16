@@ -11,7 +11,7 @@ const queryUser = (state = initialState, action) => {
       return { ...state, ...data };
 
     case "CLEAN_QUERY_USER_DATA":
-      return {};
+      return initialState;
 
     case "GET_QUERY_USER_POSTS":
       return { ...state, posts: action.payload };

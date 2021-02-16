@@ -5,16 +5,29 @@ import { Paper } from "@material-ui/core";
 import { secondary } from "../../assets/Colors";
 import FlipMove from "react-flip-move";
 import User from "./user/User";
+import { auth } from "../../firebase";
 
 const Users = (props) => {
   const classes = Style();
 
   const { url } = props.match;
 
-  let _users = useSelector((state) => state.users);
+  let _users = useSelector((state) => state.users.filteredUsers);
   const { following, followers } = useSelector((state) => state.queryUser);
 
-  const [users, setUsers] = useState(_users);
+  const [users, setUsers] = useState(() => {
+    const path = url.split("/")[2];
+    switch (path) {
+      case "users":
+        return _users;
+      case "followers":
+        return followers;
+      case "following":
+        return following;
+      default:
+        return [];
+    }
+  });
 
   const heading = () => {
     const path = url.split("/")[2];
@@ -48,6 +61,11 @@ const Users = (props) => {
     const path = url.split("/")[2];
     switch (path) {
       case "users":
+        setUsers((users) =>
+          users.filter(
+            (user) => user.uid !== auth.currentUser.uid && !user.isFollowing && !user.isFollower
+          )
+        );
         break;
       case "followers":
         break;
