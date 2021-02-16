@@ -51,7 +51,7 @@ const Header = ({ path }) => {
           </NavLink>
 
           <NavLink
-            to={`${path}/users`}
+            to={`${path}/suggested-users`}
             className={classes.nav__link}
             activeClassName={classes.nav__link_active}
           >
