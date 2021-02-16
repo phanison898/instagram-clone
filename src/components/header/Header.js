@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ToggleTheme } from "../../store/actions/util";
 import { InstaTextLogo } from "../../assets/images";
 import { Avatar, Paper } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { ReactComponent as Home } from "../../assets/icons/home.svg";
 import { ReactComponent as Explor } from "../../assets/icons/explor.svg";
 import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
@@ -41,17 +41,30 @@ const Header = ({ path }) => {
         </div>
 
         <div className={classes.header__nav}>
-          <Link to={`${path}`} className={classes.nav__link}>
+          <NavLink
+            exact
+            to={`${path}`}
+            className={classes.nav__link}
+            activeClassName={classes.nav__link_active}
+          >
             <Home />
-          </Link>
+          </NavLink>
 
-          <Link to={`${path}/users`} className={classes.nav__link}>
+          <NavLink
+            to={`${path}/users`}
+            className={classes.nav__link}
+            activeClassName={classes.nav__link_active}
+          >
             <Explor />
-          </Link>
+          </NavLink>
 
-          <Link to={`${path}/create`} className={classes.nav__link}>
+          <NavLink
+            to={`${path}/create`}
+            className={classes.nav__link}
+            activeClassName={classes.nav__link_active}
+          >
             <AddCircleIcon />
-          </Link>
+          </NavLink>
 
           <div className={classes.nav__link} onClick={() => dispatch(ToggleTheme())}>
             {theme ? <Brightness4Icon /> : <BrightnessHighIcon />}

@@ -9,6 +9,28 @@ const users = (state = initialState, action) => {
       return { ...state, users: action.payload };
     case "GET_FILTERED_USERS":
       return { ...state, filteredUsers: action.payload };
+    case "FOLLOW":
+      return {
+        ...state,
+        filteredUsers: state.filteredUsers.map((user) => {
+          if (user.uid === action.payload.uid) {
+            return { ...user, isFollowing: true };
+          } else {
+            return user;
+          }
+        }),
+      };
+    case "UN_FOLLOW":
+      return {
+        ...state,
+        filteredUsers: state.filteredUsers.map((user) => {
+          if (user.uid === action.payload.uid) {
+            return { ...user, isFollowing: false };
+          } else {
+            return user;
+          }
+        }),
+      };
     case "LOGOUT":
       return action.payload;
     default:

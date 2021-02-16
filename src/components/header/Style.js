@@ -105,7 +105,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     margin: "0 12px",
     cursor: "pointer",
-    color: "#262626",
+    // color: "#262626",
 
     "& > svg": {},
 
@@ -118,6 +118,10 @@ export default makeStyles((theme) => ({
       fontSize: 26,
       color: "#262626",
     },
+  },
+
+  nav__link_active: {
+    "& > svg": { fill: "red !important" },
   },
 
   dropdown: {

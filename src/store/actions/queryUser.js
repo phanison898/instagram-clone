@@ -1,7 +1,5 @@
 import db, { auth } from "../../firebase";
 import { GetPosts } from "./../actions/posts";
-import { GetFollowingUsers } from "./../actions/following";
-import { GetFollowerUsers } from "./../actions/followers";
 
 export const GetQueryUserData = (uid) => async (dispatch, getState) => {
   let data = {};
@@ -40,7 +38,6 @@ export const GetQueryUserFollowing = (uid) => async (dispatch, getState) => {
   } else {
     const response = await db.collection("users").doc(uid).collection("following").get();
     followingUIDs = response.docs.map((doc) => doc.id);
-    console.log(followingUIDs);
   }
 
   const users = getState().users.filteredUsers;
@@ -61,15 +58,12 @@ export const GetQueryUserFollowers = (uid) => async (dispatch, getState) => {
   } else {
     const response = await db.collection("users").doc(uid).collection("followers").get();
     followerUIDs = response.docs.map((doc) => doc.id);
-    console.log(followerUIDs);
   }
 
   const users = getState().users.filteredUsers;
 
   for (let i = 0; i < followerUIDs.length; i++) {
     users.forEach((user) => {
-      console.log("user.uid = " + user.uid);
-      console.log("follower.uid = " + followerUIDs[i]);
       if (user.uid === followerUIDs[i]) {
         followerUsers = [...followerUsers, user];
       }
