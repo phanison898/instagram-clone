@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Avatar } from "@material-ui/core";
@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { primary } from "../../../assets/Colors";
 import { Follow, UnFollow } from "../../../store/actions/following";
 
-const User = ({ user }) => {
+const User = forwardRef(({ user }, ref) => {
   const classes = Style();
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const User = ({ user }) => {
   };
 
   return (
-    <div className={classes.root}>
+    <div ref={ref} className={classes.root}>
       <Avatar src={user.profilePic} />
       <Link to={`/${fullName}/profile?id=${user.uid}`}>
         <h4>{user.fullName}</h4>
@@ -47,7 +47,7 @@ const User = ({ user }) => {
       </section>
     </div>
   );
-};
+});
 
 export default User;
 

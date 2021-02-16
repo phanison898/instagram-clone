@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import { secondary } from "../../assets/Colors";
+import FlipMove from "react-flip-move";
 import User from "./user/User";
 
 const Users = (props) => {
@@ -64,7 +65,11 @@ const Users = (props) => {
         {users.length === 0 ? (
           <p>{noContent()}</p>
         ) : (
-          Array.from(users).map((user, i) => <User key={`insta-user-${i}`} user={user} />)
+          <FlipMove style={{ width: "100%" }}>
+            {Array.from(users).map((user, i) => (
+              <User key={`insta-user-${i}`} user={user} />
+            ))}
+          </FlipMove>
         )}
       </Paper>
     </div>

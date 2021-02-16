@@ -23,7 +23,7 @@ const HomePage = (props) => {
 
   useEffect(() => {
     dispatch(GetAllUsers(auth.currentUser.uid));
-  }, [following]);
+  }, []);
 
   return (
     <Paper className={classes.home}>

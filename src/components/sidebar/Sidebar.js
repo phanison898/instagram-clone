@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Avatar } from "@material-ui/core";
@@ -8,8 +8,13 @@ import Style from "./Style";
 const Sidebar = () => {
   const classes = Style();
 
-  const { profilePic, fullName, username, uid } = useSelector((state) => state.currentUser);
+  const { profilePic, fullName, username, uid, following } = useSelector(
+    (state) => state.currentUser
+  );
+
   const users = useSelector((state) => state.users);
+
+  useEffect(() => {}, []);
 
   return (
     <div className={classes.root}>
@@ -29,7 +34,10 @@ const Sidebar = () => {
         <div className={classes.followUsers__users}>
           {Array.from(users).map(
             (user, i) =>
-              i < 5 && !user.isFollowing && <User key={`sidebar-user-${i}`} user={user} />
+              i < 5 &&
+              following.some((follow) => follow !== user.uid) && (
+                <User key={`sidebar-user-${i}`} user={user} />
+              )
           )}
         </div>
       </div>
