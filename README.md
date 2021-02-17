@@ -15,7 +15,7 @@ Instagram web app clone using **`React`** , **`Redux`** , **`React Router`** , *
 
 ### Status
 
-In-Progress (Done with landing page)
+🚧 Work in progress (Done with landing page)
 
 ### Preview
 
