@@ -19,7 +19,9 @@ const Following = () => {
 
   return (
     <div className={classes.root}>
-      <p>{uid === currentUserUID ? "People followed by you" : `People followed by ${fullName}`}</p>
+      <p>
+        {uid === currentUserUID ? "People you are following" : `People followed by ${fullName}`}
+      </p>
       <Paper className={classes.users}>
         {users?.length === 0 ? (
           <p>Not following anyone</p>

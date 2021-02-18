@@ -14,7 +14,7 @@ const Sidebar = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    setUsers(_users.filter((user) => user.uid !== uid && !user.isFollowing && !user.isFollower));
+    setUsers(_users?.filter((user) => user.uid !== uid && !user.isFollowing && !user.isFollower));
   }, [_users]);
 
   const LoggedInUserInfo = () => {

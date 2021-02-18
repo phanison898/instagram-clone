@@ -50,6 +50,23 @@ export const GetLoggedUserData = () => async (dispatch) => {
     .catch((error) => alert(error));
 };
 
+export const GetLoggedUser = () => async (dispatch) => {
+  db.collection("users")
+    .doc(auth.currentUser.uid)
+    .get()
+    .then((doc) => {
+      dispatch({
+        type: "GET_LOGGED_USER_DATA",
+        payload: doc.data(),
+      });
+      dispatch({
+        type: "GET_QUERY_USER_DATA",
+        payload: doc.data(),
+      });
+    })
+    .catch((error) => alert(error));
+};
+
 export const LoginWithFacebook = () => async (dispatch) => {
   let userData = {};
 
