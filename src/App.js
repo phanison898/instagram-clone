@@ -9,13 +9,12 @@ import HomePage from "./pages/home/HomePage";
 import PageNotFound from "./pages/pageNotFount/PageNotFound";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import { useEffect } from "react";
-import { auth } from "./firebase";
-import { GetLoggedUserData, LogoutAction } from "./store/actions/auth";
-import { GetAllUsers } from "./store/actions/users";
+import { auth } from "./firebase/config";
+import { SignInAction, LogoutAction } from "./store/actions/auth";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { theme } = useSelector((state) => state.util);
+  const theme = useSelector((state) => state.theme);
 
   const muiTheme = createMuiTheme({
     palette: {
@@ -26,7 +25,7 @@ const App = () => {
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        dispatch(GetLoggedUserData());
+        dispatch(SignInAction());
       } else {
         dispatch(LogoutAction());
       }

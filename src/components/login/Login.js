@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import { Link } from "react-router-dom";
-import { auth } from "../../firebase";
-import { GetLoggedUserData, LoginWithFacebook, LoginWithGoogle } from "../../store/actions/auth";
+import { auth } from "../../firebase/config";
+import { SignInAction, SignInWith } from "../../store/actions/auth";
 import * as images from "../../assets/images";
 import Style from "./Style";
 
@@ -32,7 +32,7 @@ const Login = () => {
 
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => dispatch(GetLoggedUserData()))
+      .then(() => dispatch(SignInAction()))
       .catch((error) => alert(error));
   };
 
@@ -74,10 +74,10 @@ const Login = () => {
             <div></div>
           </section>
           <div className={classes.signup__buttons}>
-            <FacebookIcon onClick={() => dispatch(LoginWithFacebook())} />
+            <FacebookIcon onClick={() => dispatch(SignInWith("facebook"))} />
             <img
               src={images.GoogleLogo}
-              onClick={() => dispatch(LoginWithGoogle())}
+              onClick={() => dispatch(SignInWith("google"))}
               alt="google-sign-in"
             />
           </div>

@@ -6,7 +6,7 @@ import { Avatar, LinearProgress } from "@material-ui/core";
 import { primary as main, primaryLight as light } from "../../assets/Colors";
 import firebase from "firebase";
 import { v4 as uuid } from "uuid";
-import db, { storage } from "../../firebase";
+import db, { storage } from "../../firebase/config";
 import { useHistory, Redirect } from "react-router-dom";
 import { UploadMediaFile } from "../../util/file-handling";
 import Style from "./Style";

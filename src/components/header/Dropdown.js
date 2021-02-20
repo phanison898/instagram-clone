@@ -1,7 +1,7 @@
 import React from "react";
 import { Paper } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { auth } from "../../firebase";
+import { auth } from "../../firebase/config";
 import { ReactComponent as Profile } from "../../assets/icons/profile.svg";
 import { ReactComponent as Saved } from "../../assets/icons/saved.svg";
 import { ReactComponent as Settings } from "../../assets/icons/settings.svg";

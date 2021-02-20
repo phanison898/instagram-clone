@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import * as images from "../../assets/images";
 import Style from "./Style";
-import { auth } from "../../firebase";
+import { auth } from "../../firebase/config";
 
 const ForgotPassword = () => {
   const classes = Style();

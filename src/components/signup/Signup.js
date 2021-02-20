@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import { Link } from "react-router-dom";
-import { SignupAction, LoginWithGoogle, LoginWithFacebook } from "../../store/actions/auth";
+import { SignupAction, SignInWith } from "../../store/actions/auth";
 import * as images from "../../assets/images";
 import Style from "./Style";
 
@@ -42,10 +42,10 @@ const Signup = () => {
         <h4>Sign up to see photos and videos</h4>
         <h4>from your friends.</h4>
         <div className={classes.login__buttons}>
-          <FacebookIcon onClick={() => dispatch(LoginWithFacebook())} />
+          <FacebookIcon onClick={() => dispatch(SignInWith("facebook"))} />
           <img
             src={images.GoogleLogo}
-            onClick={() => dispatch(LoginWithGoogle())}
+            onClick={() => dispatch(SignInWith("google"))}
             alt="google-sign-in"
           />
         </div>

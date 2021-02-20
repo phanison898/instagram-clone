@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Switch } from "react-router-dom";
 import { Paper } from "@material-ui/core";
-import { auth } from "../../firebase";
+import { auth } from "../../firebase/config";
 import { GetAllUsers } from "../../store/actions/users";
 import ProtectedRoute from "../../components/protectedRoute/ProtectedRoute";
 import DetailedPost from "../../components/detailedPost/DetailedPost";

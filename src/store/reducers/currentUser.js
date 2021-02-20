@@ -11,15 +11,11 @@ const currentUser = (state = initialState, action) => {
       data = action.payload;
       return { ...state, ...data };
 
+    case "SIGN_IN":
+      data = action.payload;
+      return { ...state, ...data };
+
     case "GET_LOGGED_USER_DATA":
-      data = action.payload;
-      return { ...state, ...data };
-
-    case "LOGIN_WITH_FACEBOOK":
-      data = action.payload;
-      return { ...state, ...data };
-
-    case "LOGIN_WITH_GOOGLE":
       data = action.payload;
       return { ...state, ...data };
 

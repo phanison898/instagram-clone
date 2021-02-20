@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Avatar } from "@material-ui/core";
 import { uploadMediaFile } from "../../util/file-handling";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import db, { auth } from "../../firebase";
+import db, { auth } from "../../firebase/config";
 import { UploadProfilePic } from "../../util/firestore";
 import { GetLoggedUser } from "../../store/actions/auth";
 import Style from "./Style";

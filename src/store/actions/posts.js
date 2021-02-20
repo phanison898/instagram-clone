@@ -1,5 +1,4 @@
-import db from "../../firebase";
-import { auth } from "../../firebase";
+import db from "../../firebase/config";
 
 export const GetPosts = (uid) => async (dispatch) => {
   const responce = await db

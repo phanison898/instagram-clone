@@ -1,4 +1,4 @@
-import db, { auth } from "../../firebase";
+import db, { auth } from "../../firebase/config";
 import { GetPosts } from "./../actions/posts";
 
 export const GetQueryUserData = (uid) => async (dispatch, getState) => {

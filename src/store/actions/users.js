@@ -1,4 +1,4 @@
-import db from "../../firebase";
+import db from "../../firebase/config";
 
 export const GetAllUsers = (uid) => async (dispatch, getState) => {
   const res = await db.collection("users").get();

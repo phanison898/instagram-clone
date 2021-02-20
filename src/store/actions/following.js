@@ -1,5 +1,4 @@
-import db, { auth } from "../../firebase";
-import { GetFilteredUsers } from "../actions/users";
+import db, { auth } from "../../firebase/config";
 
 export const GetFollowingUsers = (uid) => async (dispatch) => {
   let data = [];

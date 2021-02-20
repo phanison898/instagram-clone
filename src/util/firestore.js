@@ -1,4 +1,4 @@
-import { storage } from "../firebase";
+import { storage } from "../firebase/config";
 
 const UploadProfilePic = async (uid, profilePic) => {
   const uploadTask = storage.ref(`user_profile_pictures/${uid}`).putString(profilePic, "data_url");

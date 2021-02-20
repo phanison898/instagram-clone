@@ -18,7 +18,7 @@ const Header = ({ path }) => {
   const dispatch = useDispatch();
 
   const { profilePic, uid } = useSelector((state) => state.currentUser);
-  const { theme } = useSelector((state) => state.util);
+  const theme = useSelector((state) => state.theme);
 
   const [isDrapdownOpen, setIsDrapdownOpen] = useState(false);
 
