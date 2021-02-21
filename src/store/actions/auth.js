@@ -15,16 +15,17 @@ export const SignupAction = ({ email, password, name, username }) => async (disp
 };
 
 export const SignInAction = () => async (dispatch) => {
+  const uid = auth.currentUser.uid;
   db.collection("users")
-    .doc(auth.currentUser.uid)
+    .doc(uid)
     .get()
     .then((doc) => {
       dispatch({
         type: "SIGN_IN",
         payload: doc.data(),
       });
-      dispatch(GetCurrentUserFollowingUsers(auth.currentUser.uid));
-      dispatch(GetCurrentUserFollowerUsers(auth.currentUser.uid));
+      dispatch(GetCurrentUserFollowingUsers(uid));
+      dispatch(GetCurrentUserFollowerUsers(uid));
     })
     .catch((error) => alert(error));
 };
@@ -37,13 +38,13 @@ export const SignInWith = (_with) => async (dispatch) => {
     .catch((error) => alert(error));
 };
 
-export const GetLoggedUser = () => async (dispatch) => {
+export const GetCurrentUserData = () => async (dispatch) => {
   db.collection("users")
     .doc(auth.currentUser.uid)
     .get()
     .then((doc) => {
       dispatch({
-        type: "GET_LOGGED_USER_DATA",
+        type: "GET_CURRENT_USER_DATA",
         payload: doc.data(),
       });
     })

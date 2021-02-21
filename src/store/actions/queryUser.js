@@ -23,12 +23,6 @@ export const GetQueryUserData = (uid) => async (dispatch, getState) => {
   dispatch(GetQueryUserFollowers(uid));
 };
 
-export const CleanQueryUserData = () => async (dispatch) => {
-  dispatch({
-    type: "CLEAN_QUERY_USER_DATA",
-  });
-};
-
 export const GetQueryUserFollowing = (uid) => async (dispatch, getState) => {
   let followingUsers = [];
   let followingUIDs = [];
@@ -73,5 +67,11 @@ export const GetQueryUserFollowers = (uid) => async (dispatch, getState) => {
   dispatch({
     type: "GET_QUERY_USER_FOLLOWERS",
     payload: followerUsers,
+  });
+};
+
+export const CleanQueryUserData = () => async (dispatch) => {
+  dispatch({
+    type: "CLEAN_QUERY_USER_DATA",
   });
 };

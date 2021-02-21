@@ -6,6 +6,7 @@ const initialState = {
 
 const currentUser = (state = initialState, action) => {
   let data;
+
   switch (action.type) {
     case "SIGN_UP":
       data = action.payload;
@@ -15,7 +16,7 @@ const currentUser = (state = initialState, action) => {
       data = action.payload;
       return { ...state, ...data };
 
-    case "GET_LOGGED_USER_DATA":
+    case "GET_CURRENT_USER_DATA":
       data = action.payload;
       return { ...state, ...data };
 

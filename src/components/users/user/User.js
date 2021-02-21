@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Avatar } from "@material-ui/core";
@@ -13,13 +13,23 @@ const User = forwardRef(({ user }, ref) => {
 
   const { fullName } = useSelector((state) => state.currentUser);
 
+  const [following, setFollowing] = useState(user.isFollowing);
+  const [follower, setFollower] = useState(user.isFollower);
+
   const toggleFollow = () => {
-    if (user.isFollowing) {
+    if (following) {
       dispatch(UnFollow(user.uid));
+      setFollowing(false);
     } else {
       dispatch(Follow(user.uid));
+      setFollowing(true);
     }
   };
+
+  useEffect(() => {
+    setFollowing(user.isFollowing);
+    setFollower(user.isFollower);
+  }, [user.isFollowing, user.isFollower]);
 
   return (
     <div ref={ref} className={classes.root}>
@@ -30,7 +40,7 @@ const User = forwardRef(({ user }, ref) => {
       </Link>
       {user.uid !== auth.currentUser.uid && (
         <section>
-          {user.isFollowing ? (
+          {following ? (
             <button
               style={{
                 backgroundColor: "transparent",
@@ -43,7 +53,7 @@ const User = forwardRef(({ user }, ref) => {
             </button>
           ) : (
             <button onClick={toggleFollow}>
-              {user.isFollower && !user.isFollowing ? "Follow Back" : "Follow"}
+              {follower && !following ? "Follow Back" : "Follow"}
             </button>
           )}
         </section>

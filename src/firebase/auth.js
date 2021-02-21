@@ -1,6 +1,7 @@
 import db, { auth, facebookProvider, googleProvider } from "./config";
 import firebase from "firebase";
 
+// Stores user data in DB, while sign-in with facebook/google
 export const SingIn = (_with) =>
   new Promise((resolve, reject) => {
     let userData = {};
@@ -39,6 +40,7 @@ export const SingIn = (_with) =>
       .catch((error) => reject(error));
   });
 
+// Stores user data in DB, while sign-up with email
 export const SignUp = ({ email, password, name, username }) =>
   new Promise((resolve, reject) => {
     let userData;

@@ -1,4 +1,4 @@
-import db from "../../firebase/config";
+import db, { auth } from "../../firebase/config";
 
 export const GetAllUsers = (uid) => async (dispatch, getState) => {
   const res = await db.collection("users").get();
@@ -43,4 +43,17 @@ export const GetFilteredUsers = () => async (dispatch, getState) => {
     type: "GET_FILTERED_USERS",
     payload: data,
   });
+};
+
+export const UpdateCurrentUserData = () => async (dispatch) => {
+  db.collection("users")
+    .doc(auth.currentUser.uid)
+    .get()
+    .then((doc) => {
+      dispatch({
+        type: "UPDATE_CURRENT_USER_DATA",
+        payload: doc.data(),
+      });
+    })
+    .catch((error) => alert(error));
 };
