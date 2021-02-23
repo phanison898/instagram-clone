@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
+import { GridList, GridListTile } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Avatar, Hidden } from "@material-ui/core";
 import { ReactComponent as Grid } from "../../assets/icons/grid.svg";
 import { GetQueryUserData } from "../../store/actions/queryUser";
-import ProfilePost from "../../components/profilePost/ProfilePost";
 import { Follow, UnFollow } from "../../store/actions/following";
+import ImageIcon from "@material-ui/icons/Image";
+import VideocamIcon from "@material-ui/icons/Videocam";
+import { ReactComponent as Heart } from "../../assets/icons/heart.svg";
 import Style from "./Style";
 
 const DashBoard = (props) => {
@@ -116,6 +119,8 @@ export default DashBoard;
 
 const UserPosts = ({ posts }) => {
   const classes = Style();
+  const history = useHistory();
+  const { fullName } = useSelector((state) => state.currentUser);
   return (
     <div className={classes.usermedia}>
       <div className={classes.usermedia__header}>
@@ -124,11 +129,18 @@ const UserPosts = ({ posts }) => {
       </div>
 
       <div className={classes.usermedia__body}>
-        <div>
+        <GridList cellHeight="300" cols="3" spacing={1} className={classes.media__grid}>
           {posts?.map((post, i) => (
-            <ProfilePost key={`user-post-${i}`} post={post} />
+            <GridListTile key={`post-${i}`}>
+              <img
+                // src={post.media.type === "image" ? post.media.url : `${post.media.url}#t=0.1`}
+                src={post.media.url}
+                key={post.id}
+                onClick={() => history.push(`/${fullName}/post?id=${post.id}`)}
+              />
+            </GridListTile>
           ))}
-        </div>
+        </GridList>
       </div>
     </div>
   );

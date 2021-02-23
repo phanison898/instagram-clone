@@ -217,4 +217,12 @@ export default makeStyles((theme) => ({
       },
     },
   },
+
+  media__grid: {
+    height: "100%",
+  },
+  media__link: {
+    width: "auto",
+    height: "100%",
+  },
 }));
