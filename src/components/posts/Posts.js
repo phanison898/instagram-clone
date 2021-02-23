@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import FlipMove from "react-flip-move";
 import Post from "./post/Post";
+import db from "../../firebase/config";
 
 const Posts = () => {
   const classes = Style();
-  const { posts } = useSelector((state) => state.queryUser);
+  const { following } = useSelector((state) => state.currentUser);
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    following?.forEach((follow) => {
+      db.collection("users")
+        .doc(follow)
+        .collection("posts")
+        .onSnapshot((snapshot) =>
+          setPosts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
+        );
+    });
+  }, [following]);
 
   return (
     <div className={classes.posts}>

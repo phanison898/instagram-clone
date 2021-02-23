@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { GridList, GridListTile } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -6,9 +6,6 @@ import { Avatar, Hidden } from "@material-ui/core";
 import { ReactComponent as Grid } from "../../assets/icons/grid.svg";
 import { GetQueryUserData } from "../../store/actions/queryUser";
 import { Follow, UnFollow } from "../../store/actions/following";
-import ImageIcon from "@material-ui/icons/Image";
-import VideocamIcon from "@material-ui/icons/Videocam";
-import { ReactComponent as Heart } from "../../assets/icons/heart.svg";
 import Style from "./Style";
 
 const DashBoard = (props) => {
@@ -18,13 +15,23 @@ const DashBoard = (props) => {
 
   const { queryUser, currentUser } = useSelector((state) => state);
 
+  const [following, setFollowing] = useState(queryUser.isFollowing);
+  const [follower, setFollower] = useState(queryUser.isFollower);
+
   const toggleFollow = () => {
-    if (queryUser.isFollowing) {
+    if (following) {
       dispatch(UnFollow(queryUser.uid));
+      setFollowing(false);
     } else {
       dispatch(Follow(queryUser.uid));
+      setFollowing(true);
     }
   };
+
+  useEffect(() => {
+    setFollowing(queryUser.isFollowing);
+    setFollower(queryUser.isFollower);
+  }, [queryUser.isFollowing, queryUser.isFollower]);
 
   useEffect(() => {
     dispatch(GetQueryUserData(queryUID));
@@ -87,8 +94,7 @@ const DashBoard = (props) => {
         <div className={classes.header__button}>
           {currentUser.uid === queryUID ? (
             <Link to={`/${currentUser.fullName}/edit`}>Edit</Link>
-          ) : // <button>follow</button>
-          queryUser.isFollowing ? (
+          ) : following ? (
             <button
               style={{
                 backgroundColor: "transparent",
@@ -101,7 +107,7 @@ const DashBoard = (props) => {
             </button>
           ) : (
             <button onClick={toggleFollow}>
-              {queryUser.isFollower && !queryUser.isFollowing ? "Follow Back" : "Follow"}
+              {follower && !following ? "Follow Back" : "Follow"}
             </button>
           )}
         </div>
@@ -129,15 +135,24 @@ const UserPosts = ({ posts }) => {
       </div>
 
       <div className={classes.usermedia__body}>
-        <GridList cellHeight="300" cols="3" spacing={1} className={classes.media__grid}>
+        <GridList cellHeight="auto" cols="3" spacing={1} className={classes.media__row}>
           {posts?.map((post, i) => (
-            <GridListTile key={`post-${i}`}>
-              <img
-                // src={post.media.type === "image" ? post.media.url : `${post.media.url}#t=0.1`}
-                src={post.media.url}
-                key={post.id}
-                onClick={() => history.push(`/${fullName}/post?id=${post.id}`)}
-              />
+            <GridListTile key={`post-${i}`} className={classes.media__col}>
+              {post.media.type === "image" ? (
+                <img
+                  src={post.media.url}
+                  key={post.id}
+                  className={classes.media__post}
+                  onClick={() => history.push(`/${fullName}/post?id=${post.id}`)}
+                />
+              ) : (
+                <video
+                  className={classes.media__post}
+                  onClick={() => history.push(`/${fullName}/post?id=${post.id}`)}
+                >
+                  <source src={`${post.media.url}#t=0.1`} />
+                </video>
+              )}
             </GridListTile>
           ))}
         </GridList>

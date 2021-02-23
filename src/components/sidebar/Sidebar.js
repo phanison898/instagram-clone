@@ -34,7 +34,7 @@ const Sidebar = () => {
       <div className={classes.followUsers}>
         <div className={classes.followUsers__heading}>
           <p>Suggestions for you</p>
-          <Link to={`/${fullName}/users`}>See all</Link>
+          <Link to={`/${fullName}/suggested-users`}>See all</Link>
         </div>
         <div className={classes.followUsers__users}>
           {users?.map((user, i) => i < 5 && <User key={`sidebar-user-${i}`} user={user} />)}

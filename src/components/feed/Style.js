@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   feed: {
     width: "100%",
+    minHeight: "calc(100vh - 56px)",
     display: "flex",
     justifyContent: "center",
     paddingTop: 30,

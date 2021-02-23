@@ -25,21 +25,21 @@ const Post = forwardRef(({ post }, ref) => {
     <Paper ref={ref} className={classes.post}>
       {/* Post header */}
       <div className={classes.post__header}>
-        <Avatar src={post.profilePic} />
+        <Avatar src={post?.profilePic} />
         <div className={classes.header__info}>
-          <h4>{post.username}</h4>
+          <h4>{post?.username}</h4>
         </div>
         <MoreHorizOutlinedIcon />
       </div>
 
       {/* Post media */}
       <div className={classes.post__media}>
-        {post.media.url && (
+        {post?.media?.url && (
           <div className={classes.media__container} onClick={() => setPlay(!play)}>
-            {post.media.type === "image" ? (
-              <img src={post.media.url} alt="post" />
+            {post?.media?.type === "image" ? (
+              <img src={post?.media?.url} alt="post" />
             ) : (
-              <ReactPlayer url={post.media.url} playing={play} />
+              <ReactPlayer url={post?.media?.url} playing={play} />
             )}
           </div>
         )}
@@ -61,7 +61,7 @@ const Post = forwardRef(({ post }, ref) => {
       {/* Post description */}
       <div className={classes.post__description}>
         <p>
-          <span>{post.username}</span> {post.description}
+          <span>{post?.username}</span> {post?.description}
         </p>
       </div>
 
@@ -82,7 +82,7 @@ const Post = forwardRef(({ post }, ref) => {
 
       {/* Post uploaded timeago */}
       <div className={classes.post__time}>
-        <ReactTimeago date={new Date(post.timestamp?.toDate()).toUTCString()} units="minute" />
+        <ReactTimeago date={new Date(post?.timestamp?.toDate()).toUTCString()} units="minute" />
       </div>
 
       {/* comment form */}

@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
 
@@ -203,6 +203,7 @@ export default makeStyles((theme) => ({
   },
 
   usermedia__body: {
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -218,11 +219,14 @@ export default makeStyles((theme) => ({
     },
   },
 
-  media__grid: {
-    height: "100%",
+  media__row: {
+    width: "100%",
+    height: "auto",
   },
-  media__link: {
-    width: "auto",
+
+  media__post: {
+    objectFit: "cover",
+    width: "100%",
     height: "100%",
   },
 }));

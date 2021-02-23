@@ -4,10 +4,11 @@ import { primary as main, primaryLight as light } from "../../assets/Colors";
 export default makeStyles((theme) => ({
   upload: {
     width: 250,
+    minHeight: "calc(100vh - 56px)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: 20,
+    paddingTop: 20,
   },
 
   upload__header: {

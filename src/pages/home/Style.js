@@ -12,6 +12,7 @@ export default makeStyles((theme) => ({
 
   body: {
     width: 960,
+    minHeight: "calc(100vh - 56px)",
     display: "flex",
     justifyContent: "center",
 

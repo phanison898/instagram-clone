@@ -1,6 +1,7 @@
 import React from "react";
 import Stories from "../../components/stories/Stories";
 import Sidebar from "../../components/sidebar/Sidebar";
+import Posts from "../../components/posts/Posts";
 import Style from "./Style";
 
 const Feed = () => {
@@ -13,7 +14,9 @@ const Feed = () => {
           <Stories />
         </div>
 
-        <div className={classes.main__posts}>{/* <Posts /> */}</div>
+        <div className={classes.main__posts}>
+          <Posts />
+        </div>
       </div>
 
       <div className={classes.feed__sidebar}>

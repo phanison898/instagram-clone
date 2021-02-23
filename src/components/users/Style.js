@@ -4,12 +4,13 @@ import { secondary } from "../../assets/Colors";
 export default makeStyles((theme) => ({
   root: {
     width: 600,
+    minHeight: "calc(100vh - 56px)",
     display: "flex",
     flexDirection: "column",
-    marginTop: 40,
+    paddingTop: 40,
 
     [theme.breakpoints.down("xs")]: {
-      marginTop: 0,
+      paddingTop: 0,
       width: "100%",
     },
 
