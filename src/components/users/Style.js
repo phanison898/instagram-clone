@@ -39,6 +39,10 @@ export default makeStyles((theme) => ({
     borderRadius: 0,
     border: `1px solid ${secondary}`,
 
+    [theme.breakpoints.down("xs")]: {
+      border: 0,
+    },
+
     "& > p": {
       width: "100%",
       height: 100,

@@ -15,6 +15,7 @@ import Style from "./Style";
 
 const DetailedPost = (props) => {
   const classes = Style();
+  const history = useHistory();
   const params = new URLSearchParams(props.location.search);
   const postID = params.get("id");
 
@@ -33,6 +34,9 @@ const DetailedPost = (props) => {
 
   return (
     <div className={classes.root}>
+      <div className={classes.goBack__button}>
+        <KeyboardBackspaceIcon onClick={() => history.goBack()} />
+      </div>
       <div className={classes.post}>
         <div className={classes.post__media}>
           {post?.media?.type === "image" ? (

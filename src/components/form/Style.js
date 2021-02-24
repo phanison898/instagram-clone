@@ -2,6 +2,21 @@ import { makeStyles } from "@material-ui/core/styles";
 import { primary as main, primaryLight as light } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    height: "auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+
+  goBack__button: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    padding: 10,
+  },
+
   upload: {
     width: 250,
     minHeight: "calc(100vh - 56px)",

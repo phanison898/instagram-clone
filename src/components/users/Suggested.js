@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { Paper } from "@material-ui/core";
 import FlipMove from "react-flip-move";
+import { auth } from "../../firebase/config";
 import User from "./user/User";
 import Style from "./Style";
 
@@ -15,7 +16,11 @@ const Suggested = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    setUsers(_users);
+    setUsers(
+      _users
+        .sort((a, b) => b.isFollowing - a.isFollowing)
+        .filter((user) => user.uid !== auth.currentUser.uid)
+    );
   }, [_users]);
 
   return (

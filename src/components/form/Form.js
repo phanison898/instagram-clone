@@ -89,71 +89,73 @@ const Form = () => {
   };
 
   return (
-    <div className={classes.upload}>
+    <div className={classes.root}>
       <div className={classes.goBack__button}>
         <KeyboardBackspaceIcon onClick={() => history.goBack()} />
       </div>
-      <div className={classes.upload__header}>
-        <Avatar src={profilePic} />
+      <div className={classes.upload}>
+        <div className={classes.upload__header}>
+          <Avatar src={profilePic} />
 
-        <h4>{progress ? "Creating ... " : "Create a post"}</h4>
+          <h4>{progress ? "Creating ... " : "Create a post"}</h4>
 
-        {progress ? (
-          <div className={classes.upload__progress}>
-            <LinearProgress
-              variant="determinate"
-              value={progress}
-              className={classes.progress__bar}
-            />
+          {progress ? (
+            <div className={classes.upload__progress}>
+              <LinearProgress
+                variant="determinate"
+                value={progress}
+                className={classes.progress__bar}
+              />
 
-            <p>{progress} %</p>
-          </div>
-        ) : (
-          ""
-        )}
+              <p>{progress} %</p>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+
+        <div className={classes.upload__box}>
+          {media.data === "" ? (
+            <label className={classes.upload__label} htmlFor="upload-file">
+              browse file
+            </label>
+          ) : (
+            <div className={classes.upload__preview}>
+              {media.type === "image" ? (
+                <img src={media.data} alt="uploaded-file" />
+              ) : (
+                <ReactPlayer url={media.data} controls={true} />
+              )}
+              <HighlightOffIcon onClick={() => setMedia({ type: "", data: "" })} />
+            </div>
+          )}
+        </div>
+
+        <form className={classes.upload__form} onSubmit={handleSubmit}>
+          <input
+            id="upload-file"
+            type="file"
+            hidden
+            accept="video/*,image/*"
+            onChange={(e) => UploadMediaFile(e, setMedia)}
+          />
+
+          <textarea
+            rows="5"
+            placeholder={`write something...`}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+
+          <button
+            type="submit"
+            disabled={!isEntered()}
+            style={{ backgroundColor: isEntered() ? main : light }}
+          >
+            Upload
+          </button>
+        </form>
       </div>
-
-      <div className={classes.upload__box}>
-        {media.data === "" ? (
-          <label className={classes.upload__label} htmlFor="upload-file">
-            browse file
-          </label>
-        ) : (
-          <div className={classes.upload__preview}>
-            {media.type === "image" ? (
-              <img src={media.data} alt="uploaded-file" />
-            ) : (
-              <ReactPlayer url={media.data} controls={true} />
-            )}
-            <HighlightOffIcon onClick={() => setMedia({ type: "", data: "" })} />
-          </div>
-        )}
-      </div>
-
-      <form className={classes.upload__form} onSubmit={handleSubmit}>
-        <input
-          id="upload-file"
-          type="file"
-          hidden
-          accept="video/*,image/*"
-          onChange={(e) => UploadMediaFile(e, setMedia)}
-        />
-
-        <textarea
-          rows="5"
-          placeholder={`write something...`}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-
-        <button
-          type="submit"
-          disabled={!isEntered()}
-          style={{ backgroundColor: isEntered() ? main : light }}
-        >
-          Upload
-        </button>
-      </form>
     </div>
   );
 };

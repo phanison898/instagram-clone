@@ -3,6 +3,7 @@ import { secondary, primaryLight } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
   root: {
+    position: "relative",
     width: "100%",
     height: "calc(100vh - 54px)",
     display: "flex",
@@ -10,6 +11,16 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       alignItems: "flex-start",
     },
+  },
+
+  goBack__button: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    padding: 10,
   },
 
   post: {

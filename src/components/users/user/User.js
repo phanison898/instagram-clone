@@ -83,12 +83,12 @@ const Style = makeStyles((theme) => ({
       flexDirection: "column",
       marginLeft: 10,
       textDecoration: "none",
-      color: "black",
+      color: theme.palette.type === "dark" ? "white" : "black",
 
       "& > h4": {},
       "& > p": {
         fontSize: 14,
-        color: "grey",
+        color: theme.palette.type === "dark" ? "lightgrey" : "grey",
       },
     },
 
@@ -99,6 +99,7 @@ const Style = makeStyles((theme) => ({
       justifyContent: "flex-end",
 
       "& > button": {
+        width: 85,
         border: 0,
         borderRadius: 4,
         outlineWidth: 0,
