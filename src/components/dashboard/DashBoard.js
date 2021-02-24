@@ -3,6 +3,7 @@ import { GridList, GridListTile } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { Avatar, Hidden } from "@material-ui/core";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ReactComponent as Grid } from "../../assets/icons/grid.svg";
 import { GetQueryUserData } from "../../store/actions/queryUser";
 import { Follow, UnFollow } from "../../store/actions/following";
@@ -11,6 +12,7 @@ import Style from "./Style";
 const DashBoard = (props) => {
   const classes = Style();
   const dispatch = useDispatch();
+  const history = useHistory();
   const queryUID = new URLSearchParams(props.location.search).get("id");
 
   const { queryUser, currentUser } = useSelector((state) => state);
@@ -40,6 +42,9 @@ const DashBoard = (props) => {
   return (
     <div className={classes.dashboard}>
       <div className={classes.dashboard__header}>
+        <div className={classes.goBack__button}>
+          <KeyboardBackspaceIcon onClick={() => history.goBack()} />
+        </div>
         <div className={classes.header__userinfo}>
           {/* col-1 */}
           <div className={classes.userinfo__profilePic}>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import ReactPlayer from "react-player";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { Avatar, LinearProgress } from "@material-ui/core";
 import { primary as main, primaryLight as light } from "../../assets/Colors";
 import firebase from "firebase";
@@ -89,6 +90,9 @@ const Form = () => {
 
   return (
     <div className={classes.upload}>
+      <div className={classes.goBack__button}>
+        <KeyboardBackspaceIcon onClick={() => history.goBack()} />
+      </div>
       <div className={classes.upload__header}>
         <Avatar src={profilePic} />
 

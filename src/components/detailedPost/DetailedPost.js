@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import Avatar from "@material-ui/core/Avatar";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 import { ReactComponent as Inbox } from "../../assets/icons/inbox.svg";

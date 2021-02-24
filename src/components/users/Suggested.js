@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { Paper } from "@material-ui/core";
 import FlipMove from "react-flip-move";
 import User from "./user/User";
@@ -7,6 +9,7 @@ import Style from "./Style";
 
 const Suggested = () => {
   const classes = Style();
+  const history = useHistory();
 
   const _users = useSelector((state) => state.users.filteredUsers);
   const [users, setUsers] = useState([]);
@@ -17,7 +20,10 @@ const Suggested = () => {
 
   return (
     <div className={classes.root}>
-      <p>Suggested Users</p>
+      <div className={classes.header}>
+        <KeyboardBackspaceIcon onClick={() => history.goBack()} />
+        <p>Suggested Users</p>
+      </div>
       <Paper className={classes.users}>
         {users?.length === 0 ? (
           <p>No users available</p>

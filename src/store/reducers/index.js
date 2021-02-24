@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import currentUser from "./currentUser";
-import theme from "./theme";
+import util from "./util";
 import users from "./users";
 import posts from "./posts";
 import queryUser from "./queryUser";
@@ -8,7 +8,7 @@ import queryUser from "./queryUser";
 export default combineReducers({
   currentUser,
   queryUser,
-  theme,
+  util,
   users,
   posts,
 });

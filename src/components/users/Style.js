@@ -19,6 +19,16 @@ export default makeStyles((theme) => ({
     },
   },
 
+  header: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    padding: 5,
+    "& > P": {
+      marginLeft: 10,
+    },
+  },
+
   users: {
     width: "100%",
     display: "flex",

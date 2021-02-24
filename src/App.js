@@ -14,11 +14,16 @@ import { SignInAction, LogoutAction } from "./store/actions/auth";
 
 const App = () => {
   const dispatch = useDispatch();
-  const theme = useSelector((state) => state.theme);
+  const { theme } = useSelector((state) => state.util);
 
   const muiTheme = createMuiTheme({
     palette: {
       type: theme ? "dark" : "light",
+      primary: {
+        light: "rgb(0 149 246 / 30%)",
+        main: theme ? "#0095f6" : "rgb(0 149 246 / 30%)",
+        dark: "#0000ff",
+      },
     },
   });
 

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Avatar } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { uploadMediaFile } from "../../util/file-handling";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import db, { auth } from "../../firebase/config";
@@ -12,6 +14,7 @@ import Style from "./Style";
 const Edit = () => {
   const classes = Style();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { fullName, profilePic, username, uid, bio } = useSelector((state) => state.currentUser);
 
@@ -53,6 +56,9 @@ const Edit = () => {
 
   return (
     <div className={classes.root}>
+      <div className={classes.goBack__button}>
+        <KeyboardBackspaceIcon onClick={() => history.goBack()} />
+      </div>
       <form className={classes.form} onSubmit={handleSubmit}>
         <div className={classes.form__header}>
           <Avatar src={_profilePic} />

@@ -1,7 +1,7 @@
-const theme = (state = false, action) => {
+const util = (state = { theme: false }, action) => {
   switch (action.type) {
     case "TOGGLE":
-      return !state;
+      return { ...state, theme: !state.theme };
     case "LOGOUT":
       return action.payload;
     default:
@@ -9,4 +9,4 @@ const theme = (state = false, action) => {
   }
 };
 
-export default theme;
+export default util;
