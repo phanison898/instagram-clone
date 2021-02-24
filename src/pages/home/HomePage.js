@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Switch } from "react-router-dom";
 import { Paper } from "@material-ui/core";
 import { auth } from "../../firebase/config";
 import { GetAllUsers } from "../../store/actions/users";
+import { GetFeedPosts } from "../../store/actions/posts";
 import ProtectedRoute from "../../components/protectedRoute/ProtectedRoute";
 import DetailedPost from "../../components/detailedPost/DetailedPost";
 import DashBoard from "../../components/dashboard/DashBoard";
@@ -19,6 +20,7 @@ import Style from "./Style";
 const HomePage = (props) => {
   const classes = Style();
   const dispatch = useDispatch();
+  const { following } = useSelector((state) => state.currentUser);
   const { url } = props.match;
 
   useEffect(() => {
@@ -26,7 +28,12 @@ const HomePage = (props) => {
      * When user successfully logged-in
      */
     dispatch(GetAllUsers(auth.currentUser.uid));
+    dispatch(GetFeedPosts());
   }, []);
+
+  useEffect(() => {
+    dispatch(GetFeedPosts());
+  }, [following]);
 
   return (
     <Paper className={classes.home}>

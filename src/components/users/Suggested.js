@@ -13,6 +13,7 @@ const Suggested = () => {
   const history = useHistory();
 
   const _users = useSelector((state) => state.users.filteredUsers);
+
   const [users, setUsers] = useState([]);
 
   useEffect(() => {

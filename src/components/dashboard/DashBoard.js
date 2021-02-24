@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { GridList, GridListTile } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { Avatar, Hidden } from "@material-ui/core";
@@ -7,6 +6,7 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ReactComponent as Grid } from "../../assets/icons/grid.svg";
 import { GetQueryUserData } from "../../store/actions/queryUser";
 import { Follow, UnFollow } from "../../store/actions/following";
+import ProfilePosts from "../profilePosts/ProfilePosts";
 import Style from "./Style";
 
 const DashBoard = (props) => {
@@ -45,6 +45,7 @@ const DashBoard = (props) => {
         <div className={classes.goBack__button}>
           <KeyboardBackspaceIcon onClick={() => history.goBack()} />
         </div>
+
         <div className={classes.header__userinfo}>
           {/* col-1 */}
           <div className={classes.userinfo__profilePic}>
@@ -96,6 +97,7 @@ const DashBoard = (props) => {
               <p key={`bio-data-${i}`}>{b.trim()}</p>
             ))}
         </div>
+
         <div className={classes.header__button}>
           {currentUser.uid === queryUID ? (
             <Link to={`/${currentUser.fullName}/edit`}>Edit</Link>
@@ -117,51 +119,14 @@ const DashBoard = (props) => {
           )}
         </div>
       </div>
-      <div className={classes.usermedia}>
-        <UserPosts posts={queryUser.posts} />
+      <div className={classes.posts__header}>
+        <Grid />
+      </div>
+      <div className={classes.posts__grid}>
+        <ProfilePosts posts={queryUser.posts} />
       </div>
     </div>
   );
 };
 
 export default DashBoard;
-
-// mini components
-
-const UserPosts = ({ posts }) => {
-  const classes = Style();
-  const history = useHistory();
-  const { fullName } = useSelector((state) => state.currentUser);
-  return (
-    <div className={classes.usermedia}>
-      <div className={classes.usermedia__header}>
-        <Grid />
-        <p>Posts</p>
-      </div>
-
-      <div className={classes.usermedia__body}>
-        <GridList cellHeight="auto" cols="3" spacing={1} className={classes.media__row}>
-          {posts?.map((post, i) => (
-            <GridListTile key={`post-${i}`} className={classes.media__col}>
-              {post.media.type === "image" ? (
-                <img
-                  src={post.media.url}
-                  key={post.id}
-                  className={classes.media__post}
-                  onClick={() => history.push(`/${fullName}/post?id=${post.id}`)}
-                />
-              ) : (
-                <video
-                  className={classes.media__post}
-                  onClick={() => history.push(`/${fullName}/post?id=${post.id}`)}
-                >
-                  <source src={`${post.media.url}#t=0.1`} />
-                </video>
-              )}
-            </GridListTile>
-          ))}
-        </GridList>
-      </div>
-    </div>
-  );
-};

@@ -1,32 +1,29 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import ReactPlayer from "react-player";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import { Avatar, LinearProgress, Backdrop } from "@material-ui/core";
+import { Avatar, LinearProgress } from "@material-ui/core";
 import { primary as main, primaryLight as light } from "../../assets/Colors";
 import firebase from "firebase";
 import { v4 as uuid } from "uuid";
 import db, { storage } from "../../firebase/config";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { UploadMediaFile } from "../../util/file-handling";
 import Style from "./Style";
-import Animation from "../../util/animations/Animation";
-import Loading from "../../assets/lottie/wave-loading.json";
+import { LoadingAction } from "../../store/actions/util";
+import Loading from "../util/animations/Loading";
 
 const Form = () => {
   const classes = Style();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const { uid, profilePic, fullName } = useSelector((state) => state.currentUser);
 
   const [description, setDescription] = useState("");
-  const [media, setMedia] = useState({
-    type: "",
-    data: "",
-  });
+  const [media, setMedia] = useState({ type: "", data: "" });
   const [progress, setProgress] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const uploadToFirestore = (mediaURL) => {
     db.collection("users")
@@ -43,7 +40,7 @@ const Form = () => {
       })
       .then(() => {
         resetState();
-        setIsLoading(false);
+        dispatch(LoadingAction(false));
         history.push(`/${fullName}/profile?id=${uid}`);
       });
   };
@@ -52,7 +49,7 @@ const Form = () => {
     e.preventDefault();
     const id = uuid();
 
-    setIsLoading(true);
+    dispatch(LoadingAction(true));
 
     const uploadTask = storage.ref(`users/${uid}/posts/${id}`).putString(media.data, "data_url");
 
@@ -96,9 +93,6 @@ const Form = () => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.goBack__button}>
-        <KeyboardBackspaceIcon onClick={() => history.goBack()} />
-      </div>
       <div className={classes.upload}>
         <div className={classes.upload__header}>
           <Avatar src={profilePic} />
@@ -162,17 +156,9 @@ const Form = () => {
           </button>
         </form>
       </div>
-      <LoadingAnimation isLoading={isLoading} />
+      <Loading />
     </div>
   );
 };
 
 export default Form;
-
-const LoadingAnimation = ({ isLoading }) => (
-  <Backdrop open={isLoading} style={{ zIndex: 10000 }}>
-    <div style={{ width: "500px", height: "250px" }}>
-      <Animation src={Loading} />
-    </div>
-  </Backdrop>
-);

@@ -1,4 +1,6 @@
 import React, { forwardRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
@@ -13,6 +15,9 @@ import Style from "./Style";
 
 const Post = forwardRef(({ post }, ref) => {
   const classes = Style();
+  const history = useHistory();
+
+  const { fullName } = useSelector((state) => state.currentUser);
 
   const [play, setPlay] = useState(false);
   const [comment, setComment] = useState("");
@@ -25,7 +30,10 @@ const Post = forwardRef(({ post }, ref) => {
     <Paper ref={ref} className={classes.post}>
       {/* Post header */}
       <div className={classes.post__header}>
-        <Avatar src={post?.profilePic} />
+        <Avatar
+          src={post?.profilePic}
+          onClick={() => history.push(`/${fullName}/profile?id=${post.uid}`)}
+        />
         <div className={classes.header__info}>
           <h4>{post?.username}</h4>
         </div>

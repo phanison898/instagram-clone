@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Avatar, Backdrop } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { uploadMediaFile } from "../../util/file-handling";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import db, { auth } from "../../firebase/config";
-import { UploadProfilePic } from "../../util/firestore";
+import db from "../../firebase/config";
 import { GetCurrentUserData } from "../../store/actions/auth";
 import { UpdateCurrentUserData } from "../../store/actions/users";
-import Animation from "../../util/animations/Animation";
-import Loading from "../../assets/lottie/wave-loading.json";
+import { LoadingAction } from "../../store/actions/util";
 import Style from "./Style";
+import Loading from "../util/animations/Loading";
 
 const Edit = () => {
   const classes = Style();
@@ -29,7 +28,7 @@ const Edit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
+    dispatch(LoadingAction(true));
     db.collection("users")
       .doc(uid)
       .update({
@@ -41,7 +40,7 @@ const Edit = () => {
       .then(() => {
         dispatch(GetCurrentUserData());
         dispatch(UpdateCurrentUserData());
-        setIsLoading(false);
+        dispatch(LoadingAction(false));
       })
       .catch((error) => alert(error.message));
   };
@@ -115,17 +114,9 @@ const Edit = () => {
           Update
         </button>
       </form>
-      <LoadingAnimation isLoading={isLoading} />
+      <Loading />
     </div>
   );
 };
 
 export default Edit;
-
-const LoadingAnimation = ({ isLoading }) => (
-  <Backdrop open={isLoading} style={{ zIndex: 10000 }}>
-    <div style={{ width: "500px", height: "250px" }}>
-      <Animation src={Loading} />
-    </div>
-  </Backdrop>
-);

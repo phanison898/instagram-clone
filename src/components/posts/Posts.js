@@ -8,19 +8,7 @@ import db from "../../firebase/config";
 const Posts = () => {
   const classes = Style();
   const { following } = useSelector((state) => state.currentUser);
-
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    following?.forEach((follow) => {
-      db.collection("users")
-        .doc(follow)
-        .collection("posts")
-        .onSnapshot((snapshot) =>
-          setPosts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
-        );
-    });
-  }, [following]);
+  const posts = useSelector((state) => state.posts);
 
   return (
     <div className={classes.posts}>

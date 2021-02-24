@@ -10,13 +10,6 @@ export default makeStyles((theme) => ({
     alignItems: "center",
   },
 
-  goBack__button: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    padding: 10,
-  },
-
   upload: {
     width: 250,
     minHeight: "calc(100vh - 56px)",

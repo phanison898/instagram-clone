@@ -1,6 +1,6 @@
 const posts = (state = [], action) => {
   switch (action.type) {
-    case "GET_POSTS":
+    case "GET_FEED_POSTS":
       return action.payload;
     case "CLEAN_POSTS":
       return action.payload;

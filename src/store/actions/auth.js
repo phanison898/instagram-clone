@@ -24,8 +24,8 @@ export const SignInAction = () => async (dispatch) => {
         type: "SIGN_IN",
         payload: doc.data(),
       });
-      dispatch(GetCurrentUserFollowingUsers(uid));
       dispatch(GetCurrentUserFollowerUsers(uid));
+      dispatch(GetCurrentUserFollowingUsers(uid));
     })
     .catch((error) => alert(error));
 };

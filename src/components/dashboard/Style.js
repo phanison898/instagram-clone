@@ -3,6 +3,7 @@ import { primary } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
   dashboard: {
+    position: "relative",
     width: "100%",
     display: "flex",
     flexDirection: "column",
@@ -186,46 +187,23 @@ export default makeStyles((theme) => ({
     },
   },
 
-  usermedia: {
+  posts__header: {
+    position: "sticky",
+    top: 54,
     width: "100%",
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 10,
-  },
-
-  usermedia__header: {
-    display: "flex",
-    alignItems: "center",
-    "& > *": {
-      margin: 2,
-    },
-  },
-
-  usermedia__body: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    padding: "10px 0",
+    backgroundColor: "white",
+    zIndex: 10,
 
-    "& > div": {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      "& > *": {
-        margin: 15,
-      },
+    "& > svg": {
+      width: 20,
+      height: 20,
     },
   },
-
-  media__row: {
-    width: "100%",
-  },
-
-  media__post: {
-    objectFit: "cover",
-    width: "100%",
-    maxHeight: 300,
+  posts__grid: {
+    minHeight: "calc(100vh - 54px)",
   },
 }));
