@@ -99,7 +99,7 @@ const Style = makeStyles((theme) => ({
       justifyContent: "flex-end",
 
       "& > button": {
-        width: 85,
+        width: 100,
         border: 0,
         borderRadius: 4,
         outlineWidth: 0,

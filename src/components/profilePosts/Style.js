@@ -1,46 +1,26 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gridGap: 10,
+  },
+
   usermedia: {
     width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 10,
-  },
+    backgroundColor: "lightgrey",
 
-  usermedia__header: {
-    display: "flex",
-    alignItems: "center",
-    "& > *": {
-      margin: 2,
+    "& > img": {
+      objectFit: "cover",
+      height: "100%",
+      width: "100%",
     },
-  },
 
-  usermedia__body: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-
-    "& > div": {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      "& > *": {
-        margin: 15,
-      },
+    "& > video": {
+      width: "100%",
+      height: "100%",
     },
-  },
-
-  media__row: {
-    width: "100%",
-  },
-
-  media__post: {
-    objectFit: "cover",
-    width: "100%",
-    maxHeight: 300,
   },
 }));
