@@ -9,8 +9,10 @@ export default makeStyles((theme) => ({
   },
 
   usermedia: {
+    position: "relative",
     width: "100%",
-    backgroundColor: "lightgrey",
+    maxHeight: 300,
+    border: "1px solid lightgrey",
 
     "& > img": {
       objectFit: "cover",

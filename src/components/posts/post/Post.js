@@ -1,5 +1,5 @@
-import React, { forwardRef, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { forwardRef, useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
@@ -12,19 +12,39 @@ import { ReactComponent as Smile } from "../../../assets/icons/smile.svg";
 import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
 import Style from "./Style";
+import { Like, UnLike } from "../../../store/actions/likes";
 
 const Post = forwardRef(({ post }, ref) => {
   const classes = Style();
+  const dispatch = useDispatch();
   const history = useHistory();
 
-  const { fullName } = useSelector((state) => state.currentUser);
+  const { fullName, uid } = useSelector((state) => state.currentUser);
 
   const [play, setPlay] = useState(false);
   const [comment, setComment] = useState("");
+  const [like, setLike] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  const toggleLikeButton = () => {
+    if (like) {
+      dispatch(UnLike(post.id, post.uid));
+      setLike(false);
+      console.log("unlike");
+    } else {
+      console.log(post.id + " | " + post.uid);
+      dispatch(Like(post.id, post.uid));
+      setLike(true);
+    }
+  };
+
+  useEffect(() => {
+    const isLikedByCurrentUser = post?.likes?.some((_like) => _like === uid);
+    setLike(isLikedByCurrentUser);
+  }, [post?.likes]);
 
   return (
     <Paper ref={ref} className={classes.post}>
@@ -45,7 +65,7 @@ const Post = forwardRef(({ post }, ref) => {
         {post?.media?.url && (
           <div className={classes.media__container} onClick={() => setPlay(!play)}>
             {post?.media?.type === "image" ? (
-              <img src={post?.media?.url} alt="post" />
+              <img src={post?.media?.url} alt="post" loading="lazy" />
             ) : (
               <ReactPlayer url={post?.media?.url} playing={play} />
             )}
@@ -55,7 +75,7 @@ const Post = forwardRef(({ post }, ref) => {
 
       {/* Post reactions (icons) */}
       <div className={classes.post__reactions}>
-        <Heart />
+        <Heart fill={like ? "red" : ""} onClick={toggleLikeButton} />
         <Chat />
         <Inbox />
         <Saved />
@@ -63,7 +83,7 @@ const Post = forwardRef(({ post }, ref) => {
 
       {/* Post likes count */}
       <div className={classes.post__likes}>
-        <p>{334555} likes</p>
+        <p>{post?.likes?.length} likes</p>
       </div>
 
       {/* Post description */}

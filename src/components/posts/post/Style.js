@@ -159,9 +159,11 @@ export default makeStyles((theme) => ({
 
     "& > input": {
       flex: 1,
+      height: "60%",
       border: 0,
       outlineWidth: 0,
       margin: "0 10px",
+      backgroundColor: "transparent",
       "&::placeholder": {
         color: "grey",
       },

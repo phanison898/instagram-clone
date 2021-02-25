@@ -17,6 +17,7 @@ const ProfilePosts = ({ posts }) => {
             <img
               src={post.media.url}
               key={post.id}
+              loading="lazy"
               onClick={() => history.push(`/${fullName}/post?id=${post.id}`)}
             />
           ) : (

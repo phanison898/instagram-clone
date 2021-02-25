@@ -1,4 +1,5 @@
 import db, { auth } from "../../firebase/config";
+import { GetLikes } from "../actions/likes";
 
 export const GetPosts = (uid) => async (dispatch) => {
   const responce = await db
@@ -44,16 +45,26 @@ export const GetFeedPosts = () => async (dispatch, getState) => {
   const following = getState().currentUser.following;
   const users = getState().users.users;
 
-  console.log(following);
-  console.log(users);
-
-  for (let i = 0; i < following.length; i++) {
+  for (let i = 0; i < following?.length; i++) {
     const userDetails = users.find((user) => user.uid === following[i]);
-    console.log(userDetails);
 
     const response = await db.collection("users").doc(following[i]).collection("posts").get();
-    posts = [...posts, ...response.docs.map((doc) => ({ ...doc.data(), ...userDetails }))];
+    response.docs.map(async (doc) => {
+      const _response = await db
+        .collection("users")
+        .doc(following[i])
+        .collection("posts")
+        .doc(doc.id)
+        .collection("likes")
+        .get();
+
+      const likes = _response.docs.map((doc) => doc.id);
+      // console.log({ ...doc.data(), ...userDetails, likes: likes });
+      posts.push({ id: doc.id, ...doc.data(), ...userDetails, likes: likes });
+    });
   }
+
+  console.log("posts = " + posts);
 
   dispatch({
     type: "GET_FEED_POSTS",
