@@ -24,11 +24,7 @@ const HomePage = (props) => {
   const { url } = props.match;
 
   useEffect(() => {
-    /* Gets ALl users from firebase firestore...,
-     * When user successfully logged-in
-     */
     dispatch(GetAllUsers(auth.currentUser.uid));
-    dispatch(GetFeedPosts());
   }, []);
 
   useEffect(() => {

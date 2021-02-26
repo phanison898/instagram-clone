@@ -45,7 +45,9 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     marginLeft: 10,
-    "& > h4": {
+    "& > a": {
+      textDecoration: "none",
+      color: "black",
       fontSize: 15,
       fontWeight: 600,
       marginBottom: 3,
@@ -57,9 +59,20 @@ export default makeStyles((theme) => ({
   },
 
   post__media: {
+    position: "relative",
     width: "100%",
     display: "flex",
     flexDirection: "column",
+
+    "& > svg": {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      width: 100,
+      height: 100,
+      fill: "red",
+      transform: "translate(-50%,-50%)",
+    },
   },
 
   media__container: {
@@ -108,7 +121,9 @@ export default makeStyles((theme) => ({
     padding: "5px 10px",
     "& > p": {
       fontSize: 15,
-      "& > span": {
+      "& > a": {
+        textDecoration: "none",
+        color: "black",
         fontWeight: 600,
       },
     },
@@ -126,19 +141,28 @@ export default makeStyles((theme) => ({
       color: "grey",
       padding: "5px 0",
     },
-    "& > div": {
-      position: "relative",
-      display: "flex",
-      alignItems: "center",
-      "& > p": {
-        marginLeft: 5,
-      },
-      "& > svg": {
-        position: "absolute",
-        right: 0,
-        width: 15,
-        height: 15,
-      },
+  },
+
+  post__comment: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+
+    "& > a": {
+      textDecoration: "none",
+      color: "black",
+      fontWeight: 600,
+    },
+
+    "& > p": {
+      flex: 1,
+      padding: "0 10px",
+      fontSize: 14,
+    },
+
+    "& > span": {
+      fontSize: 12,
+      color: "grey",
     },
   },
 

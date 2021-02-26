@@ -1,5 +1,6 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
@@ -13,6 +14,8 @@ import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
 import Style from "./Style";
 import { Like, UnLike } from "../../../store/actions/likes";
+import db from "../../../firebase/config";
+import firebase from "firebase";
 
 const Post = forwardRef(({ post }, ref) => {
   const classes = Style();
@@ -23,28 +26,66 @@ const Post = forwardRef(({ post }, ref) => {
 
   const [play, setPlay] = useState(false);
   const [comment, setComment] = useState("");
-  const [like, setLike] = useState(false);
+  const [likes, setLikes] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    db.collection("users")
+      .doc(post.uid)
+      .collection("posts")
+      .doc(post.id)
+      .collection("comments")
+      .doc()
+      .set({
+        uid: uid,
+        fullName: fullName,
+        comment: comment,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        //clean input box
+        setComment("");
+      });
   };
 
   const toggleLikeButton = () => {
-    if (like) {
+    if (isLiked) {
       dispatch(UnLike(post.id, post.uid));
-      setLike(false);
+      setIsLiked(false);
       console.log("unlike");
     } else {
       console.log(post.id + " | " + post.uid);
       dispatch(Like(post.id, post.uid));
-      setLike(true);
+      setIsLiked(true);
     }
   };
 
   useEffect(() => {
-    const isLikedByCurrentUser = post?.likes?.some((_like) => _like === uid);
-    setLike(isLikedByCurrentUser);
-  }, [post?.likes]);
+    const isLikedByCurrentUser = likes?.some((_like) => _like === uid);
+    setIsLiked(isLikedByCurrentUser);
+  }, [likes]);
+
+  useEffect(() => {
+    db.collection("users")
+      .doc(post.uid)
+      .collection("posts")
+      .doc(post.id)
+      .collection("likes")
+      .onSnapshot((snapshot) => setLikes(snapshot.docs.map((doc) => doc.id)));
+  }, [post]);
+
+  useEffect(() => {
+    db.collection("users")
+      .doc(post.uid)
+      .collection("posts")
+      .doc(post.id)
+      .collection("comments")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => setComments(snapshot.docs.map((doc) => doc.data())));
+  }, [post]);
 
   return (
     <Paper ref={ref} className={classes.post}>
@@ -55,17 +96,23 @@ const Post = forwardRef(({ post }, ref) => {
           onClick={() => history.push(`/${fullName}/profile?id=${post.uid}`)}
         />
         <div className={classes.header__info}>
-          <h4>{post?.username}</h4>
+          <Link to={`/${fullName}/profile?id=${uid}`}>{post?.username}</Link>
         </div>
         <MoreHorizOutlinedIcon />
       </div>
 
       {/* Post media */}
       <div className={classes.post__media}>
+        <Heart style={{ display: isLiked ? "block" : "none" }} />
         {post?.media?.url && (
           <div className={classes.media__container} onClick={() => setPlay(!play)}>
             {post?.media?.type === "image" ? (
-              <img src={post?.media?.url} alt="post" loading="lazy" />
+              <img
+                src={post?.media?.url}
+                alt="post"
+                loading="lazy"
+                onDoubleClick={toggleLikeButton}
+              />
             ) : (
               <ReactPlayer url={post?.media?.url} playing={play} />
             )}
@@ -75,7 +122,7 @@ const Post = forwardRef(({ post }, ref) => {
 
       {/* Post reactions (icons) */}
       <div className={classes.post__reactions}>
-        <Heart fill={like ? "red" : ""} onClick={toggleLikeButton} />
+        <Heart fill={isLiked ? "red" : ""} onClick={toggleLikeButton} />
         <Chat />
         <Inbox />
         <Saved />
@@ -83,29 +130,35 @@ const Post = forwardRef(({ post }, ref) => {
 
       {/* Post likes count */}
       <div className={classes.post__likes}>
-        <p>{post?.likes?.length} likes</p>
+        <p>{likes?.length} likes</p>
       </div>
 
       {/* Post description */}
       <div className={classes.post__description}>
         <p>
-          <span>{post?.username}</span> {post?.description}
+          <Link to={`/${fullName}/profile?id=${post.uid}`}>{post?.username}</Link>{" "}
+          {post?.description}
         </p>
       </div>
 
       {/* Post comments */}
       <div className={classes.post__comments}>
-        <p>View all {555} comments</p>
-        <div>
-          <h4>honeylaw</h4>
-          <p>nice post phani...keep it up</p>
-          <Heart />
-        </div>
-        <div>
-          <h4>honeylaw</h4>
-          <p>nice post phani...keep it up</p>
-          <Heart />
-        </div>
+        {comments?.length !== 0 && <p>View all {comments?.length} comments</p>}
+        {comments?.map(
+          (_comment, i) =>
+            i < 2 && (
+              <div key={_comment.uid} className={classes.post__comment}>
+                <Link to={`/${fullName}/profile?id=${uid}`}>{_comment.fullName}</Link>
+                <p>{_comment.comment}</p>
+                <span>
+                  <ReactTimeago
+                    date={new Date(_comment?.timestamp?.toDate()).toUTCString()}
+                    units="minute"
+                  />
+                </span>
+              </div>
+            )
+        )}
       </div>
 
       {/* Post uploaded timeago */}

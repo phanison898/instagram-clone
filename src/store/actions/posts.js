@@ -50,17 +50,7 @@ export const GetFeedPosts = () => async (dispatch, getState) => {
 
     const response = await db.collection("users").doc(following[i]).collection("posts").get();
     response.docs.map(async (doc) => {
-      const _response = await db
-        .collection("users")
-        .doc(following[i])
-        .collection("posts")
-        .doc(doc.id)
-        .collection("likes")
-        .get();
-
-      const likes = _response.docs.map((doc) => doc.id);
-      // console.log({ ...doc.data(), ...userDetails, likes: likes });
-      posts.push({ id: doc.id, ...doc.data(), ...userDetails, likes: likes });
+      posts.push({ id: doc.id, ...doc.data(), ...userDetails });
     });
   }
 
