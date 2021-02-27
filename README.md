@@ -1,4 +1,4 @@
-## **`Linked-In-Clone`**
+## **`Instagram-Clone`**
 
 ![](https://img.shields.io/github/languages/code-size/phanison898/instagram-clone?style=flat-square)
 ![](https://img.shields.io/github/last-commit/phanison898/instagram-clone?style=flat-square)
