@@ -14,8 +14,7 @@ import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
 import Style from "./Style";
 import { Like, UnLike } from "../../../store/actions/likes";
-import db from "../../../firebase/config";
-import firebase from "firebase";
+import { FetchPostComments, FetchPostLikes, AddCommentToPost } from "../../../firebase/funtions";
 
 const Post = forwardRef(({ post }, ref) => {
   const classes = Style();
@@ -26,38 +25,26 @@ const Post = forwardRef(({ post }, ref) => {
 
   const [play, setPlay] = useState(false);
   const [comment, setComment] = useState("");
-  const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    db.collection("users")
-      .doc(post.uid)
-      .collection("posts")
-      .doc(post.id)
-      .collection("comments")
-      .doc()
-      .set({
-        uid: uid,
-        fullName: fullName,
-        comment: comment,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      })
-      .then(() => {
-        //clean input box
-        setComment("");
-      });
+    AddCommentToPost({
+      postOwnerUID: post.uid,
+      postId: post.id,
+      commentedBy: fullName,
+      comment: comment,
+    });
+    setComment("");
   };
 
   const toggleLikeButton = () => {
     if (isLiked) {
       dispatch(UnLike(post.id, post.uid));
       setIsLiked(false);
-      console.log("unlike");
     } else {
-      console.log(post.id + " | " + post.uid);
       dispatch(Like(post.id, post.uid));
       setIsLiked(true);
     }
@@ -69,22 +56,8 @@ const Post = forwardRef(({ post }, ref) => {
   }, [likes]);
 
   useEffect(() => {
-    db.collection("users")
-      .doc(post.uid)
-      .collection("posts")
-      .doc(post.id)
-      .collection("likes")
-      .onSnapshot((snapshot) => setLikes(snapshot.docs.map((doc) => doc.id)));
-  }, [post]);
-
-  useEffect(() => {
-    db.collection("users")
-      .doc(post.uid)
-      .collection("posts")
-      .doc(post.id)
-      .collection("comments")
-      .orderBy("timestamp", "desc")
-      .onSnapshot((snapshot) => setComments(snapshot.docs.map((doc) => doc.data())));
+    FetchPostLikes(post.uid, post.id, setLikes);
+    FetchPostComments(post.uid, post.id, setComments);
   }, [post]);
 
   return (

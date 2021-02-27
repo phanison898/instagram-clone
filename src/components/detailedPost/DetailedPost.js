@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import Avatar from "@material-ui/core/Avatar";
@@ -12,25 +12,46 @@ import { ReactComponent as Smile } from "../../assets/icons/smile.svg";
 import ReactTimeago from "react-timeago";
 import ReactPlayer from "react-player";
 import Style from "./Style";
+import { Like, UnLike } from "../../store/actions/likes";
+import { FetchPostComments, FetchPostLikes } from "../../firebase/funtions";
 
 const DetailedPost = (props) => {
   const classes = Style();
   const history = useHistory();
+  const dispatch = useDispatch();
   const params = new URLSearchParams(props.location.search);
   const postID = params.get("id");
 
   const { queryUser } = useSelector((state) => state);
   const [post, setPost] = useState({});
   const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // upload to firestore
   };
 
+  const toggleLikeButton = () => {
+    if (isLiked) {
+      dispatch(UnLike(post.id, post.uid));
+      setIsLiked(false);
+    } else {
+      dispatch(Like(post.id, post.uid));
+      setIsLiked(true);
+    }
+  };
+
   useEffect(() => {
     queryUser.posts.map((post) => post.id === postID && setPost(post));
   }, [postID]);
+
+  useEffect(() => {
+    FetchPostLikes(post.uid, post.id, setLikes);
+    FetchPostComments(post.uid, post.id, setComments);
+  }, [post]);
 
   return (
     <div className={classes.root}>
@@ -67,7 +88,7 @@ const DetailedPost = (props) => {
           <div className={classes.details__reactions_2}>
             <div>
               <Heart />
-              <p>55 Likes</p>
+              <p>{likes?.length} Likes</p>
             </div>
             <p>
               <ReactTimeago
@@ -79,7 +100,7 @@ const DetailedPost = (props) => {
           <div className={classes.details__comments}></div>
           <div className={classes.details__reactions}>
             <div>
-              <Heart />
+              <Heart fill={isLiked ? "red" : ""} onClick={toggleLikeButton} />
             </div>
             <div>
               <Chat />
@@ -92,7 +113,7 @@ const DetailedPost = (props) => {
             </div>
           </div>
           <div className={classes.details__stats}>
-            <p>55 Likes</p>
+            <p>{likes?.length} Likes</p>
             <p>
               <ReactTimeago
                 date={new Date(post?.timestamp?.toDate()).toUTCString()}
