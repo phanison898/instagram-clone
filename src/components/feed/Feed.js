@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import Stories from "../../components/stories/Stories";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Posts from "../../components/posts/Posts";
 import Style from "./Style";
+import LoadingDots from "../util/animations/LoadingDots";
 
 const Feed = () => {
   const classes = Style();
+  const { loading } = useSelector((state) => state.uitl);
 
   return (
     <div className={classes.feed}>
@@ -15,7 +18,7 @@ const Feed = () => {
         </div>
 
         <div className={classes.main__posts}>
-          <Posts />
+          {loading ? <LoadingDots open={loading} /> : <Posts />}
         </div>
       </div>
 

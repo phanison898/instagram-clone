@@ -1,5 +1,5 @@
 import db, { auth } from "../../firebase/config";
-import { GetLikes } from "../actions/likes";
+import { LoadingAction } from "../actions/util";
 
 export const GetPosts = (uid) => async (dispatch) => {
   const responce = await db
@@ -40,6 +40,7 @@ export const GetCurrentUserPosts = (uid) => async (dispatch) => {
 };
 
 export const GetFeedPosts = () => async (dispatch, getState) => {
+  dispatch(LoadingAction(true));
   let posts = [];
 
   const following = getState().currentUser.following;
@@ -54,8 +55,7 @@ export const GetFeedPosts = () => async (dispatch, getState) => {
     });
   }
 
-  console.log("posts = " + posts);
-
+  dispatch(LoadingAction(false));
   dispatch({
     type: "GET_FEED_POSTS",
     payload: posts,
