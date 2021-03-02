@@ -19,6 +19,26 @@ export default makeStyles((theme) => ({
     borderBottom: "1px solid rgba(219,219,219,1)",
   },
 
+  goBack__button: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    padding: 10,
+
+    "& > h4": {
+      display: "none",
+      flex: 1,
+      fontSize: 20,
+      marginLeft: 5,
+
+      [theme.breakpoints.down("xs")]: {
+        display: "block",
+      },
+    },
+
+    "& > .MuiSvgIcon-root": {},
+  },
+
   header__userinfo: {
     width: "100%",
     height: "auto",
@@ -55,8 +75,8 @@ export default makeStyles((theme) => ({
       height: 150,
 
       [theme.breakpoints.down("xs")]: {
-        width: 75,
-        height: 75,
+        width: 60,
+        height: 60,
       },
     },
   },
@@ -69,6 +89,9 @@ export default makeStyles((theme) => ({
 
     "& > h4": {
       fontSize: 24,
+      [theme.breakpoints.down("xs")]: {
+        display: "none",
+      },
     },
   },
 
@@ -198,6 +221,10 @@ export default makeStyles((theme) => ({
     backgroundColor: "white",
     zIndex: 10,
 
+    [theme.breakpoints.up("xs")]: {
+      top: 0,
+    },
+
     "& > svg": {
       width: 20,
       height: 20,
@@ -205,5 +232,8 @@ export default makeStyles((theme) => ({
   },
   posts__grid: {
     minHeight: "calc(100vh - 54px)",
+    [theme.breakpoints.up("xs")]: {
+      minHeight: "100vh",
+    },
   },
 }));

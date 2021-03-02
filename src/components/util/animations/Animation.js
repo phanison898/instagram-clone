@@ -19,7 +19,7 @@ const Animation = ({ src }, ...rest) => {
     lottie.loadAnimation({
       container: container.current,
       renderer: "svg",
-      loop: 1,
+      loop: true,
       autoplay: true,
       animationData: src,
       ...rest,

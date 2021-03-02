@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ToggleTheme } from "../../store/actions/util";
 import { InstaTextLogo } from "../../assets/images";
 import { Avatar, Paper } from "@material-ui/core";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useHistory } from "react-router-dom";
 import { ReactComponent as Home } from "../../assets/icons/home.svg";
 import { ReactComponent as Explor } from "../../assets/icons/explor.svg";
 import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
@@ -12,18 +12,26 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import SearchIcon from "@material-ui/icons/Search";
 import Dropdown from "./Dropdown";
 import Style from "./Style";
+import { useMediaQuery } from "@material-ui/core";
 
 const Header = ({ path }) => {
   const classes = Style();
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const { profilePic, uid } = useSelector((state) => state.currentUser);
+  const { profilePic, uid, fullName } = useSelector((state) => state.currentUser);
   const theme = useSelector((state) => state.theme);
 
   const [isDrapdownOpen, setIsDrapdownOpen] = useState(false);
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 
   const toggleDropDown = () => {
-    setIsDrapdownOpen(!isDrapdownOpen);
+    if (isSmallScreen) {
+      setIsDrapdownOpen(false);
+      history.push(`/${fullName}/profile?id=${uid}`);
+    } else {
+      setIsDrapdownOpen(!isDrapdownOpen);
+    }
   };
 
   return (

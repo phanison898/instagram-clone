@@ -9,7 +9,9 @@ import { Follow, UnFollow } from "../../store/actions/following";
 import ProfilePosts from "../profilePosts/ProfilePosts";
 import Style from "./Style";
 import NoPosts from "../posts/NoPosts";
+import { auth } from "../../firebase/config";
 import LoadingDots from "../util/animations/LoadingDots";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const DashBoard = (props) => {
   const classes = Style();
@@ -46,7 +48,11 @@ const DashBoard = (props) => {
     <div className={classes.dashboard}>
       <div className={classes.dashboard__header}>
         <div className={classes.goBack__button}>
-          <KeyboardBackspaceIcon onClick={() => history.goBack()} />
+          {queryUID !== currentUser.uid && (
+            <KeyboardBackspaceIcon onClick={() => history.goBack()} />
+          )}
+          <h4>{queryUser.fullName}</h4>
+          {queryUID === currentUser.uid && <ExitToAppIcon onClick={() => auth.signOut()} />}
         </div>
 
         <div className={classes.header__userinfo}>
@@ -103,7 +109,7 @@ const DashBoard = (props) => {
 
         <div className={classes.header__button}>
           {currentUser.uid === queryUID ? (
-            <Link to={`/${currentUser.fullName}/edit`}>Edit</Link>
+            <Link to={`/${currentUser.fullName}/edit`}>Edit Profile</Link>
           ) : following ? (
             <button
               style={{

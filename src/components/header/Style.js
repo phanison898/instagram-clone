@@ -3,8 +3,12 @@ import { secondary } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
   root: {
-    position: "sticky",
-    top: 0,
+    [theme.breakpoints.up("sm")]: {
+      position: "sticky",
+      top: 0,
+    },
+    position: "fixed",
+    bottom: 0,
     width: "100%",
     height: 54,
     display: "flex",
@@ -15,6 +19,11 @@ export default makeStyles((theme) => ({
     borderRadius: 0,
     borderBottom: `1px solid ${secondary}`,
     zIndex: 10,
+
+    [theme.breakpoints.down("xs")]: {
+      position: "fixed",
+      bottom: 0,
+    },
   },
 
   header: {
