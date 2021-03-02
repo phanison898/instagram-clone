@@ -2,6 +2,7 @@ import db, { auth } from "../../firebase/config";
 import { LoadingAction } from "../actions/util";
 
 export const GetPosts = (uid) => async (dispatch) => {
+  dispatch(LoadingAction(true));
   const responce = await db
     .collection("users")
     .doc(uid)
@@ -18,9 +19,11 @@ export const GetPosts = (uid) => async (dispatch) => {
     type: "GET_QUERY_USER_POSTS",
     payload: posts,
   });
+  dispatch(LoadingAction(false));
 };
 
 export const GetCurrentUserPosts = (uid) => async (dispatch) => {
+  dispatch(LoadingAction(true));
   const responce = await db
     .collection("users")
     .doc(uid)
@@ -37,6 +40,7 @@ export const GetCurrentUserPosts = (uid) => async (dispatch) => {
     type: "GET_CURRENT_USER_POSTS",
     payload: posts,
   });
+  dispatch(LoadingAction(false));
 };
 
 export const GetFeedPosts = () => async (dispatch, getState) => {
@@ -50,7 +54,7 @@ export const GetFeedPosts = () => async (dispatch, getState) => {
     const userDetails = users.find((user) => user.uid === following[i]);
 
     const response = await db.collection("users").doc(following[i]).collection("posts").get();
-    response.docs.map(async (doc) => {
+    response.docs.map((doc) => {
       posts.push({ id: doc.id, ...doc.data(), ...userDetails });
     });
   }

@@ -8,6 +8,8 @@ import { GetQueryUserData } from "../../store/actions/queryUser";
 import { Follow, UnFollow } from "../../store/actions/following";
 import ProfilePosts from "../profilePosts/ProfilePosts";
 import Style from "./Style";
+import NoPosts from "../posts/NoPosts";
+import LoadingDots from "../util/animations/LoadingDots";
 
 const DashBoard = (props) => {
   const classes = Style();
@@ -16,6 +18,7 @@ const DashBoard = (props) => {
   const queryUID = new URLSearchParams(props.location.search).get("id");
 
   const { queryUser, currentUser } = useSelector((state) => state);
+  const { loading } = useSelector((state) => state.util);
 
   const [following, setFollowing] = useState(queryUser.isFollowing);
   const [follower, setFollower] = useState(queryUser.isFollower);
@@ -123,7 +126,13 @@ const DashBoard = (props) => {
         <Grid />
       </div>
       <div className={classes.posts__grid}>
-        <ProfilePosts posts={queryUser.posts} />
+        {loading ? (
+          <LoadingDots open={loading} />
+        ) : queryUser?.posts?.length === 0 ? (
+          <NoPosts user={queryUser} />
+        ) : (
+          <ProfilePosts posts={queryUser.posts} />
+        )}
       </div>
     </div>
   );

@@ -76,7 +76,7 @@ const Post = forwardRef(({ post }, ref) => {
 
       {/* Post media */}
       <div className={classes.post__media}>
-        <Heart style={{ display: isLiked ? "block" : "none" }} />
+        {/* <Heart style={{ display: isLiked ? "block" : "none" }} /> */}
         {post?.media?.url && (
           <div className={classes.media__container} onClick={() => setPlay(!play)}>
             {post?.media?.type === "image" ? (

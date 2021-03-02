@@ -1,6 +1,6 @@
 const initialState = {
   theme: false,
-  loading: false,
+  loading: true,
   error: "",
 };
 

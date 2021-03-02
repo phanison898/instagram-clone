@@ -9,9 +9,6 @@ export const GetQueryUserData = (uid) => async (dispatch, getState) => {
     dispatch(CleanQueryUserData());
   }
 
-  // const response = await db.collection("users").doc(uid).get();
-  // data = response.data();
-
   data = getState().users.filteredUsers.find((user) => user.uid === uid);
 
   dispatch({
