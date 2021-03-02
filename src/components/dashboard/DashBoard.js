@@ -12,12 +12,14 @@ import NoPosts from "../posts/NoPosts";
 import { auth } from "../../firebase/config";
 import LoadingDots from "../util/animations/LoadingDots";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useMediaQuery } from "@material-ui/core";
 
 const DashBoard = (props) => {
   const classes = Style();
   const dispatch = useDispatch();
   const history = useHistory();
   const queryUID = new URLSearchParams(props.location.search).get("id");
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 
   const { queryUser, currentUser } = useSelector((state) => state);
   const { loading } = useSelector((state) => state.util);
@@ -52,7 +54,9 @@ const DashBoard = (props) => {
             <KeyboardBackspaceIcon onClick={() => history.goBack()} />
           )}
           <h4>{queryUser.fullName}</h4>
-          {queryUID === currentUser.uid && <ExitToAppIcon onClick={() => auth.signOut()} />}
+          {queryUID === currentUser.uid && isSmallScreen && (
+            <ExitToAppIcon onClick={() => auth.signOut()} />
+          )}
         </div>
 
         <div className={classes.header__userinfo}>

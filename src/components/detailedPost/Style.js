@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { secondary, primaryLight } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
-  root: {
+  container: {
     position: "relative",
     width: "100%",
     height: "calc(100vh - 54px)",
@@ -13,7 +13,7 @@ export default makeStyles((theme) => ({
     },
   },
 
-  goBack__button: {
+  goBackBtn: {
     position: "absolute",
     top: 10,
     left: 10,
@@ -79,7 +79,7 @@ export default makeStyles((theme) => ({
     backgroundColor: "#fafafa",
   },
 
-  details__header: {
+  post__details__header: {
     width: "100%",
     display: "flex",
     alignItems: "center",
@@ -101,18 +101,7 @@ export default makeStyles((theme) => ({
     },
   },
 
-  details__description: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-
-    "& > p": {
-      fontSize: 13,
-      padding: "0 50px",
-    },
-  },
-
-  description__header: {
+  post__details__description: {
     width: "100%",
     display: "flex",
     alignItems: "center",
@@ -123,17 +112,34 @@ export default makeStyles((theme) => ({
       height: 30,
     },
 
-    "& > h4": {
+    "& > main": {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
       padding: "0 10px",
-    },
 
-    "& > p": {
-      fontSize: 12,
-      color: "grey",
+      "& > header": {
+        display: "flex",
+        alignItems: "center",
+        fontSize: 16,
+        fontWeight: 600,
+        marginTop: 12,
+
+        "& > span": {
+          padding: "0 10px",
+          fontSize: 15,
+          fontWeight: 500,
+        },
+      },
+      "& > footer": {
+        color: "grey",
+        fontSize: 12,
+        padding: "5px 0",
+      },
     },
   },
 
-  details__comments: {
+  post__details__comments: {
     flex: 1,
     overflowY: "scroll",
   },
