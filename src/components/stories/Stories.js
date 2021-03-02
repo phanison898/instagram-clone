@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Paper } from "@material-ui/core";
 import Story from "./Story";
 import Style from "./Style";
 
 const Stories = () => {
   const classes = Style();
+  const { users } = useSelector((state) => state.users);
+
+  const [_users, setUsers] = useState([]);
+
+  useEffect(() => {
+    setUsers(users);
+  }, []);
+
   return (
     <Paper className={classes.stories}>
-      {usernames.map((username, i) => (
-        <Story
-          key={i}
-          profileImage={`https://randomuser.me/api/portraits/men/${i + 1}.jpg`}
-          title={username}
-        />
+      {_users.map(({ uid, profilePic, fullName }, i) => (
+        <Story key={uid} profileImage={profilePic} title={fullName} />
       ))}
     </Paper>
   );

@@ -104,33 +104,33 @@ export default makeStyles((theme) => ({
   post__details__description: {
     width: "100%",
     display: "flex",
-    alignItems: "center",
+    alignItems: "flex-start",
     padding: "5px 10px",
 
     "& > .MuiAvatar-root": {
-      width: 30,
-      height: 30,
+      width: 25,
+      height: 25,
     },
 
     "& > main": {
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center",
+      justifyContent: "flex-start",
       padding: "0 10px",
 
       "& > header": {
-        display: "flex",
-        alignItems: "center",
-        fontSize: 16,
-        fontWeight: 600,
-        marginTop: 12,
+        fontSize: 15,
+        textAlign: "justify",
 
-        "& > span": {
-          padding: "0 10px",
-          fontSize: 15,
-          fontWeight: 500,
+        "& > a": {
+          textDecoration: "none",
+          color: "black",
+          fontSize: 16,
+          fontWeight: 600,
+          marginRight: 5,
         },
       },
+
       "& > footer": {
         color: "grey",
         fontSize: 12,

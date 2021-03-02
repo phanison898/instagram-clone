@@ -136,7 +136,8 @@ export default makeStyles((theme) => ({
     justifyContent: "center",
     padding: "0 10px",
     fontSize: 15,
-    "& > p": {
+    "& > a": {
+      textDecoration: "none",
       fontSize: 13,
       color: "grey",
       padding: "5px 0",
@@ -146,7 +147,8 @@ export default makeStyles((theme) => ({
   post__comment: {
     width: "100%",
     display: "flex",
-    alignItems: "center",
+    alignItems: "flex-start",
+    padding: "2px 0",
 
     "& > a": {
       textDecoration: "none",

@@ -219,9 +219,10 @@ export default makeStyles((theme) => ({
     justifyContent: "center",
     padding: "10px 0",
     backgroundColor: "white",
-    zIndex: 10,
+    zIndex: 1,
 
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.down("xs")]: {
+      position: "sticky",
       top: 0,
     },
 
@@ -231,8 +232,8 @@ export default makeStyles((theme) => ({
     },
   },
   posts__grid: {
-    minHeight: "calc(100vh - 54px)",
-    [theme.breakpoints.up("xs")]: {
+    minHeight: "calc(100vh - 94px)",
+    [theme.breakpoints.down("xs")]: {
       minHeight: "100vh",
     },
   },

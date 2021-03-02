@@ -116,7 +116,9 @@ const Post = forwardRef(({ post }, ref) => {
 
       {/* Post comments */}
       <div className={classes.post__comments}>
-        {comments?.length !== 0 && <p>View all {comments?.length} comments</p>}
+        {comments?.length !== 0 && (
+          <Link to={`/${fullName}/post?id=${post.id}`}>View all {comments?.length} comments</Link>
+        )}
         {comments?.map(
           (_comment, i) =>
             i < 2 && (

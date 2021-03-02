@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import Avatar from "@material-ui/core/Avatar";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
@@ -104,14 +104,11 @@ const DetailedPost = (props) => {
                 <Avatar src={users?.find((user) => user.uid === _comment.uid)?.profilePic} />
                 <main>
                   <header>
-                    {_comment.fullName}
-                    <span>{_comment.comment}</span>
+                    <Link to={`/${fullName}/profile?id=${_comment.uid}`}>{_comment.fullName}</Link>{" "}
+                    {_comment.comment}
                   </header>
                   <footer>
-                    <ReactTimeago
-                      date={new Date(_comment?.timestamp?.toDate()).toUTCString()}
-                      units="minute"
-                    />
+                    <ReactTimeago date={new Date(_comment?.timestamp?.toDate()).toUTCString()} />
                   </footer>
                 </main>
               </div>
