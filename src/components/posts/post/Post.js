@@ -64,7 +64,7 @@ const Post = forwardRef(({ post }, ref) => {
     <Paper ref={ref} className={classes.post}>
       {/* Post header */}
       <div className={classes.post__header}>
-        <Link to={`/${fullName}/profile?id=${uid}`} className={classes.header__info}>
+        <Link to={`/${fullName}/profile?id=${post.uid}`} className={classes.header__info}>
           <Avatar src={post?.profilePic} />
           <p>{post?.username}</p>
         </Link>
