@@ -16,7 +16,7 @@ const Stories = () => {
 
   return (
     <Paper className={classes.stories}>
-      {users.map(({ uid, profilePic, fullName }, i) => (
+      {users?.map(({ uid, profilePic, fullName }, i) => (
         <Story key={uid} profileImage={profilePic} title={fullName} />
       ))}
     </Paper>

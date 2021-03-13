@@ -51,7 +51,7 @@ export const GetFeedPosts = () => async (dispatch, getState) => {
   const users = getState().users.users;
 
   for (let i = 0; i < following?.length; i++) {
-    const userDetails = users.find((user) => user.uid === following[i]);
+    const userDetails = users?.find((user) => user.uid === following[i]);
 
     const response = await db.collection("users").doc(following[i]).collection("posts").get();
     response.docs.map((doc) => {
