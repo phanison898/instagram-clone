@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Stories from "../../components/stories/Stories";
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -12,6 +12,13 @@ const Feed = () => {
   const { loading } = useSelector((state) => state.util);
   const posts = useSelector((state) => state.posts);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(loading);
+    console.log("---------loaded");
+  }, [loading]);
+
   return (
     <div className={classes.feed}>
       <div className={classes.feed__main}>
@@ -20,7 +27,13 @@ const Feed = () => {
         </div>
 
         <div className={classes.main__posts}>
-          {loading ? <LoadingDots open={loading} /> : posts?.length === 0 ? <NoPosts /> : <Posts />}
+          {isLoading ? (
+            <LoadingDots isLoading={true} />
+          ) : posts?.length === 0 ? (
+            <NoPosts />
+          ) : (
+            <Posts />
+          )}
         </div>
       </div>
 

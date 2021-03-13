@@ -38,6 +38,8 @@ export default makeStyles((theme) => ({
   main__posts: {
     width: "100%",
     height: "auto",
+    display: "flex",
+    justifyContent: "center",
   },
 
   feed__sidebar: {

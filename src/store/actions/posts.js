@@ -1,4 +1,4 @@
-import db, { auth } from "../../firebase/config";
+import db from "../../firebase/config";
 import { LoadingAction } from "../actions/util";
 
 export const GetPosts = (uid) => async (dispatch) => {
@@ -59,9 +59,9 @@ export const GetFeedPosts = () => async (dispatch, getState) => {
     });
   }
 
-  dispatch(LoadingAction(false));
   dispatch({
     type: "GET_FEED_POSTS",
     payload: posts,
   });
+  dispatch(LoadingAction(false));
 };
