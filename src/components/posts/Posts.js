@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import FlipMove from "react-flip-move";
 import Post from "./post/Post";
-import db from "../../firebase/config";
 
 const Posts = () => {
   const classes = Style();
-  const { following } = useSelector((state) => state.currentUser);
   const posts = useSelector((state) => state.posts);
 
   return (
@@ -21,7 +19,10 @@ const Posts = () => {
   );
 };
 
-const Style = makeStyles((theme) => ({
+export default Posts;
+
+// styles ...
+const Style = makeStyles(() => ({
   posts: {
     width: "100%",
     height: "100%",
@@ -30,5 +31,3 @@ const Style = makeStyles((theme) => ({
     alignItems: "center",
   },
 }));
-
-export default Posts;

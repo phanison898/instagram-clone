@@ -10,11 +10,11 @@ import { ReactComponent as Heart } from "../../../assets/icons/heart.svg";
 import { ReactComponent as Chat } from "../../../assets/icons/chat.svg";
 import { ReactComponent as Saved } from "../../../assets/icons/saved.svg";
 import { ReactComponent as Smile } from "../../../assets/icons/smile.svg";
+import { FetchPostComments, FetchPostLikes, AddCommentToPost } from "../../../firebase/funtions";
+import { Like, UnLike } from "../../../store/actions/likes";
 import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
 import Style from "./Style";
-import { Like, UnLike } from "../../../store/actions/likes";
-import { FetchPostComments, FetchPostLikes, AddCommentToPost } from "../../../firebase/funtions";
 
 const Post = forwardRef(({ post }, ref) => {
   const classes = Style();
