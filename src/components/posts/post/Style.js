@@ -25,9 +25,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 10,
-    "& > .MuiAvatar-root": {
-      cursor: "pointer",
-    },
+
     "& > .MuiSvgIcon-root": {
       color: theme.palette.type === "dark" && textDark,
       cursor: "pointer",
@@ -40,21 +38,19 @@ export default makeStyles((theme) => ({
   },
 
   header__info: {
-    flex: 1,
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    marginLeft: 10,
-    "& > a": {
-      textDecoration: "none",
-      color: "black",
-      fontSize: 15,
-      fontWeight: 600,
-      marginBottom: 3,
+    alignItems: "center",
+    textDecoration: "none",
+    color: "black",
+
+    "& > .MuiAvatar-root": {
+      cursor: "pointer",
+      marginRight: 10,
     },
+
     "& > p": {
-      color: "grey",
-      fontSize: 12,
+      color: "black",
+      fontWeight: 600,
     },
   },
 

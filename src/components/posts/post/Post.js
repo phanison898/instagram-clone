@@ -64,13 +64,10 @@ const Post = forwardRef(({ post }, ref) => {
     <Paper ref={ref} className={classes.post}>
       {/* Post header */}
       <div className={classes.post__header}>
-        <Avatar
-          src={post?.profilePic}
-          onClick={() => history.push(`/${fullName}/profile?id=${post.uid}`)}
-        />
-        <div className={classes.header__info}>
-          <Link to={`/${fullName}/profile?id=${uid}`}>{post?.username}</Link>
-        </div>
+        <Link to={`/${fullName}/profile?id=${uid}`} className={classes.header__info}>
+          <Avatar src={post?.profilePic} />
+          <p>{post?.username}</p>
+        </Link>
         <MoreHorizOutlinedIcon />
       </div>
 
