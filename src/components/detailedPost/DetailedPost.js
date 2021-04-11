@@ -54,12 +54,12 @@ const DetailedPost = (props) => {
   };
 
   useEffect(() => {
-    queryUser.posts.map((post) => post.id === postID && setPost(post));
+    setPost(queryUser?.posts?.find((post) => post.id === postID));
   }, [postID]);
 
   useEffect(() => {
-    FetchPostLikes(post.uid, post.id, setLikes);
-    FetchPostComments(post.uid, post.id, setComments);
+    FetchPostLikes(post?.uid, post?.id, setLikes);
+    FetchPostComments(post?.uid, post?.id, setComments);
   }, [post]);
 
   return (

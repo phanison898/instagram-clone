@@ -20,7 +20,7 @@ Instagram web app clone using **`React`** , **`Redux`** , **`React Router`** ,**
 ### Preview
 
 <p>
-    <img width="80%" src="https://phanison898.github.io/images/other/instagram-clone.png" />
+    <img width="80%" src="https://instagram-clone-8084a.web.app/preview.png" />
 </p>
 
 ---
