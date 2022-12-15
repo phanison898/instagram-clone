@@ -45,7 +45,7 @@ const Header = ({ path }) => {
           <section>
             <SearchIcon />
           </section>
-          <input placeholder="Search" disabled />
+          <input placeholder="Search" />
         </div>
 
         <div className={classes.header__nav}>

@@ -17,7 +17,7 @@ export default makeStyles((theme) => ({
     border: 0,
     boxShadow: "none",
     borderRadius: 0,
-    borderBottom: `1px solid ${secondary}`,
+    borderBottom: theme.palette.type === "light" && `1px solid ${secondary}`,
     zIndex: 10,
 
     [theme.breakpoints.down("xs")]: {
@@ -67,31 +67,34 @@ export default makeStyles((theme) => ({
     flex: 0.6,
     height: "55%",
     justifyContent: "center",
-    border: `1px solid ${secondary}`,
+    border: theme.palette.type === "light" && `1px solid ${secondary}`,
     borderRadius: 2,
-    backgroundColor: "#fafafa",
+    backgroundColor: theme.palette.type === "dark" && "grey",
 
     [theme.breakpoints.down("xs")]: {
       display: "none",
     },
 
     "& > input": {
-      width: "60%",
+      width: "100%",
       height: "100%",
       border: 0,
       outlineWidth: 0,
-      backgroundColor: "transparent",
+      backgroundColor: theme.palette.type === "dark" && "grey",
+      color: theme.palette.type === "dark" && "white",
       "&::placeholder": {
         fontWeight: 500,
-        color: "lightgrey",
+        color: theme.palette.type === "dark" && "white",
       },
     },
 
     "& > section": {
-      width: "40%",
+      width: "20%",
       display: "flex",
       alignItems: "center",
-      justifyContent: "flex-end",
+      justifyContent: "flex-start",
+      margin: "0 10px",
+      backgroundColor: theme.palette.type === "dark" && "grey",
       "& > .MuiSvgIcon-root": {
         fontSize: 18,
         color: "lightgrey",
@@ -121,11 +124,12 @@ export default makeStyles((theme) => ({
     "& > .MuiAvatar-root": {
       width: 24,
       height: 24,
+      color: theme.palette.type === "dark" && "#363636",
     },
 
     "& > .MuiSvgIcon-root": {
       fontSize: 26,
-      color: "#262626",
+      color: theme.palette.type === "dark" && "#363636",
     },
   },
 
