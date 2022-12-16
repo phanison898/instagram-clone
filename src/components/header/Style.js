@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { secondary } from "../../assets/Colors";
+import { secondary, primary } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
   root: {
@@ -17,7 +17,8 @@ export default makeStyles((theme) => ({
     border: 0,
     boxShadow: "none",
     borderRadius: 0,
-    borderBottom: theme.palette.type === "light" && `1px solid ${secondary}`,
+    // borderBottom: `1px solid ${theme.palette.type === "light" ? "#c4c4c4" : "#a6a4a4"}`,
+    boxShadow: `0px 0px 3px ${theme.palette.type === "dark" ? "pink" : "red"}`,
     zIndex: 10,
 
     [theme.breakpoints.down("xs")]: {
@@ -124,12 +125,12 @@ export default makeStyles((theme) => ({
     "& > .MuiAvatar-root": {
       width: 24,
       height: 24,
-      color: theme.palette.type === "dark" && "#363636",
+      // color: theme.palette.type === "dark" && "#363636",
     },
 
     "& > .MuiSvgIcon-root": {
       fontSize: 26,
-      color: theme.palette.type === "dark" && "#363636",
+      // color: theme.palette.type === "dark" && "#363636",
     },
   },
 
@@ -147,7 +148,19 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     borderRadius: 4,
-    boxShadow: "0px 0px 3px rgba(0,0,0,0.25)",
+    // boxShadow: theme.palette.type === "light" ? "0px 0px 3px green" : "0px 0px 3px yellow",
+    boxShadow: `0px 0px 3px ${theme.palette.type === "dark" ? "pink" : "red"}`,
+  },
+
+  arrow: {
+    position: "absolute",
+    top: -10,
+    right: 10,
+    width: 0,
+    height: 0,
+    borderLeft: "10px solid transparent",
+    borderRight: "10px solid transparent",
+    borderBottom: "10px solid rgba(0,0,0,0.1)",
   },
 
   option: {
@@ -168,16 +181,5 @@ export default makeStyles((theme) => ({
     "&:nth-child(6)": {
       borderTop: "1px solid rgba(0,0,0,0.25)",
     },
-  },
-
-  arrow: {
-    position: "absolute",
-    top: -10,
-    right: 10,
-    width: 0,
-    height: 0,
-    borderLeft: "10px solid transparent",
-    borderRight: "10px solid transparent",
-    borderBottom: "10px solid rgba(0,0,0,0.1)",
   },
 }));
