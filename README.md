@@ -9,7 +9,7 @@
 
 ### About
 
-Instagram web app clone using **`React`** , **`Redux`** , **`React Router`** ,**`Material-UI`** , **`Firebase`** .
+Instagram web app clone using **`React`** , **`Redux`** , **`React Router`** ,**`Material-UI`** , **`Firebase`**
 
 ---
 
